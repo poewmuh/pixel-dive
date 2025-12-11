@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb9c12a8c6c949f7af83a3d238359d0, type: 3}
+  m_Name: vFolders Data
+  m_EditorClassIdentifier: 
+  folderDatas_byGuid:
+    keys:
+    - af4d2e2d9bd86c44091ca64a6ea53379
+    - c80d849a778e0624c97d62ffe945faea
+    - 003eba385176daf45afeeb0225542bd1
+    - ad24efe6f2e090046ae730473f6e5cb6
+    - e18c6c3b883dad7409c2af3a6fe378bf
+    - dc55913ce89741f4ca0a92c51674053b
+    - 9051c746b196fbb49a30847a876aa238
+    - 913733d311332584a9681f37977637e5
+    - 168bd122d4c0b954facc08f18dbd8125
+    - bf8f668139523684584d38d1f696093f
+    - ba566a20855ce624a82c895b14374c2a
+    - 75dfee6da8289e14e9e7c678fc4b109b
+    - 22d2e658f5ed38c48ac16c6ff12048b5
+    - 9c8cbace507558a46b1a4bc2a743a90a
+    - 8bab6cab563e4de989346ad2a1992ebe
+    - 608ec269c98a7854080478ff2e09531b
+    - 4dfe0da34b784a57825ce80cc0e16ce0
+    - bfe9fa2e608d465eb5c3fe922bd8bb09
+    - 8be26b3cda1ae734c99c4b28368756be
+    - 72bb936bb250ad343b8f68b498659082
+    - 057fd0ab19938014d854bcb25284787f
+    - 66683b79e6e710549b04600b37115395
+    - 45d2b688b809c1441b90736bc9829722
+    - e6755513ff5c1934c8139ca1ae7e0872
+    - db5bc5be747f20f49a8be0ae91492cbd
+    - 2d259169e3ce82c458037ece4424f983
+    - 038cad0ce0dde114e83c66550711e69a
+    values:
+    - iconNameOrGuid: 
+      colorIndex: 6
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 10
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ComputeShader Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: RawImage Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 4
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 8
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Shader Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 7
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Material Icon
+      colorIndex: 7
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Material Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 5
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 10
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 7
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: AssemblyDefinitionAsset Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: AssemblyDefinitionAsset Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: AssemblyDefinitionAsset Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ComputeShader Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ScriptableObject Icon
+      colorIndex: 1
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: AudioSource Icon
+      colorIndex: 3
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 4
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 8
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 6
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 2
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 6
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 4
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 3
+      isIconRecursive: 0
+      isColorRecursive: 0
+  bookmarks:
+  - guid: c80d849a778e0624c97d62ffe945faea
+  - guid: af4d2e2d9bd86c44091ca64a6ea53379
+  - guid: 9c8cbace507558a46b1a4bc2a743a90a
+  - guid: 168bd122d4c0b954facc08f18dbd8125
+  - guid: bf8f668139523684584d38d1f696093f
+  - guid: eb1cd6e6c068fd946aa4b4a5906b78b3
