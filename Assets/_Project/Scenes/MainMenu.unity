@@ -165,9 +165,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Project.MainMenu.MainMenuLifetimeScope
   parentReference:
-    TypeName: 
+    TypeName: _Project.Application.Boot.SystemLifetimeScope
   autoRun: 1
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 359412902}
 --- !u!1 &1738636723
 GameObject:
   m_ObjectHideFlags: 0

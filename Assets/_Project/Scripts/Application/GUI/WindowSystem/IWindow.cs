@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-namespace _Project.Application.WindowSystem
+namespace _Project.Application.GUI.WindowsSystem
 {
     public interface IWindow
     {
-        event Action<WindowBase> OnClosed;
+        event Action<IWindow> OnClosed;
         
         void Initialize(IWindowSystem windowSystem);
         void Show();

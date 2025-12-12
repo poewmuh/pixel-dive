@@ -2,11 +2,11 @@ using System;
 using TriInspector;
 using UnityEngine;
 
-namespace _Project.Application.WindowSystem
+namespace _Project.Application.GUI.WindowsSystem
 {
     public abstract class WindowBase : MonoBehaviour, IWindow
     {
-        public event Action<WindowBase> OnClosed;
+        public event Action<IWindow> OnClosed;
         
         [SerializeField, Required] private GameObject _defaultSelectable;
         

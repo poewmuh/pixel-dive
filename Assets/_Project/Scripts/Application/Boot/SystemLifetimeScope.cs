@@ -1,6 +1,8 @@
 using _Project.Application.Asset;
 using _Project.Application.Audio;
+using _Project.Application.GUI;
 using _Project.Application.Scene;
+using _Project.Application.GUI.WindowsSystem;
 using MessagePipe;
 using UnityEngine;
 using VContainer;
@@ -18,8 +20,10 @@ namespace _Project.Application.Boot
             
             builder.RegisterInstance(_audioSystem.GetComponent<IAudioSystem>());
             
-            builder.Register<AddressablesLoader>(Lifetime.Singleton).As<IAssetLoader>();
-            builder.Register<SceneSystem>(Lifetime.Singleton).As<ISceneSystem>();
+            builder.Register<GUISystem>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<AddressablesLoader>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<SceneSystem>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<WindowSystem>(Lifetime.Singleton).AsImplementedInterfaces();
         }
         
         private void RegisterMessageBrokers(IContainerBuilder builder)

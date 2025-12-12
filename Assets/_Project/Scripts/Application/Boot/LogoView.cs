@@ -18,7 +18,7 @@ namespace _Project.Application.Boot
             foreach (var slide in _slides)
             {
                 slide.DOFade(1, _showTime);
-                await UniTask.Delay(TimeSpan.FromSeconds(_showTime + _hideTime));
+                await UniTask.Delay(TimeSpan.FromSeconds(_showTime + _stayTime));
                 slide.DOFade(0, _hideTime);
                 await UniTask.Delay(TimeSpan.FromSeconds(_hideTime));
             }
