@@ -1,8 +1,10 @@
 using _Project.Application.Asset;
 using _Project.Application.Audio;
 using _Project.Application.GUI;
+using _Project.Application.GUI.DialogeSystem;
 using _Project.Application.Scene;
 using _Project.Application.GUI.WindowsSystem;
+using _Project.Application.Input;
 using MessagePipe;
 using UnityEngine;
 using VContainer;
@@ -24,6 +26,8 @@ namespace _Project.Application.Boot
             builder.Register<AddressablesLoader>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneSystem>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<WindowSystem>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GameInputSystem>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<DialogSystem>(Lifetime.Singleton).AsImplementedInterfaces();
         }
         
         private void RegisterMessageBrokers(IContainerBuilder builder)

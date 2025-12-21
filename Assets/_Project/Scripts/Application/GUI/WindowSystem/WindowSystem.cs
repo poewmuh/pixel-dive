@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Application.Asset;
+using _Project.Application.Input;
 using R3;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,6 +14,7 @@ namespace _Project.Application.GUI.WindowsSystem
         [Inject] private IGUISystem _guiSystem;
         [Inject] private IObjectResolver _objectResolver;
         [Inject] private IAssetLoader _assetLoader;
+        [Inject] private IInputSystem _inputSystem;
         
         private readonly List<IWindow> _windowList = new();
         private RectTransform _windowsContainer;
@@ -30,6 +31,7 @@ namespace _Project.Application.GUI.WindowsSystem
 
         T IWindowSystem.Show<T>()
         {
+            _inputSystem.EnablePlayerInput(false);
             var key = typeof(T).Name;
             var instance = _assetLoader.LoadImmediate<GameObject>(key);
             IWindow window = Object.Instantiate(instance, _windowsContainer).GetComponent<IWindow>();
@@ -86,6 +88,11 @@ namespace _Project.Application.GUI.WindowsSystem
             _windowList.Remove(window);
             OnWindowClosed.OnNext(window);
             _assetLoader.Release(nameof(window));
+
+            if (((IWindowSystem)this).WindowsCount == 0)
+            {
+                _inputSystem.EnablePlayerInput(true);
+            }
         }
     }
 }

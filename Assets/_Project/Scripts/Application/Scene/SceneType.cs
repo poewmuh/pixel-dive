@@ -4,6 +4,9 @@ namespace _Project.Application.Scene
     {
         Bootstrap,
         MainMenu,
-        TrainingLocation
+        TrainingLocation,
+        Level0,
+        PuzzleLevel,
+        Level1,
     }
 }
