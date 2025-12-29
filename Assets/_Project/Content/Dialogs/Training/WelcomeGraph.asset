@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6769005784387390794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::cherrydev.SentenceNode
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 1121
+    y: 166
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: mermaid
+    Text: "\u0427\u0435\u043C \u0434\u043E\u043B\u044C\u0448\u0435 \u0442\u044B \u0434\u0435\u0440\u0436\u0438\u0448\u044C
+      \u043F\u0440\u044B\u0436\u043E\u043A \u0442\u0435\u043C \u0434\u0430\u043B\u044C\u0448\u0435
+      \u043F\u0440\u044B\u0433\u043D\u0435\u0448\u044C!"
+    CharacterSprite: {fileID: 21300000, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+  ParentNodes:
+  - {fileID: -3883106924782975992}
+  ChildNode: {fileID: 0}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: mermaid
+  SentenceTextKey: training_welcome_3
+--- !u!114 &-3883106924782975992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::cherrydev.SentenceNode
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 841
+    y: 168
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: mermaid
+    Text: "\u0421\u0435\u0439\u0447\u0430\u0441 \u0442\u0435\u0431\u0435 \u043D\u0430\u0434\u043E
+      \u043F\u0435\u0440\u0435\u043F\u0440\u044B\u0433\u0438\u0432\u0430\u0442\u044C
+      \u0441\u0442\u0435\u043D\u044B"
+    CharacterSprite: {fileID: 21300000, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+  ParentNodes:
+  - {fileID: -3066086390484304674}
+  ChildNode: {fileID: -6769005784387390794}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: mermaid
+  SentenceTextKey: training_welcome_2
+--- !u!114 &-3066086390484304674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::cherrydev.SentenceNode
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 632
+    y: 155
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: mermaid
+    Text: "\u042F \u043F\u043E\u043C\u043E\u0433\u0443 \u0442\u0435\u0431\u0435 \u043E\u0441\u0432\u043E\u0438\u0442\u0441\u044F
+      \u0437\u0434\u0435\u0441\u044C"
+    CharacterSprite: {fileID: 21300000, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+  ParentNodes:
+  - {fileID: -598475148831705223}
+  ChildNode: {fileID: -3883106924782975992}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: mermaid
+  SentenceTextKey: training_welcome_1
+--- !u!114 &-598475148831705223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::cherrydev.SentenceNode
+  NodeGraph: {fileID: 11400000}
+  Rect:
+    serializedVersion: 2
+    x: 368
+    y: 154
+    width: 190
+    height: 135
+  IsDragging: 1
+  IsSelected: 0
+  _sentence:
+    CharacterName: mermaid
+    Text: "\u041F\u0440\u0438\u0432\u0435\u0442\u0441\u0432\u0443\u044E \u0442\u0435\u0431\u044F
+      \u043F\u0443\u0442\u043D\u0438\u043A \u043D\u0430 \u0442\u0432\u043E\u0435\u043C
+      \u043F\u0443\u0442\u0438"
+    CharacterSprite: {fileID: 21300000, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+  ParentNodes: []
+  ChildNode: {fileID: -3066086390484304674}
+  _isExternalFunc: 0
+  _externalFunctionName: 
+  CharacterNameKey: mermaid
+  SentenceTextKey: training_welcome_0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33f741ea10ebcf842a91c9b871dd032a, type: 3}
+  m_Name: WelcomeGraph
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::cherrydev.DialogNodeGraph
+  NodesList:
+  - {fileID: -598475148831705223}
+  - {fileID: -3066086390484304674}
+  - {fileID: -3883106924782975992}
+  - {fileID: -6769005784387390794}
+  VariablesConfig: {fileID: 11400000, guid: bc1d9bb9339c2df41b67fb330dfb43f8, type: 2}
+  _localizationTableName: WelcomeGraph
+  _characterNamesLocalizationName: mermaid
+  NodeToDrawLineFrom: {fileID: 0}
+  LinePosition: {x: 0, y: 0}
+  IsLocalizationSetUp: 1

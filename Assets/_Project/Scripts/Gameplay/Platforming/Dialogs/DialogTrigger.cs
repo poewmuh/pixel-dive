@@ -1,4 +1,3 @@
-using System;
 using _Project.Application.GUI.DialogeSystem;
 using cherrydev;
 using R3;
@@ -14,10 +13,9 @@ namespace _Project.Gameplay.Platforming.Dialogs
     {
         [SerializeField] private DialogNodeGraph _dialogNode;
         [SerializeField] private bool _disableOnExecute = true;
+        [SerializeField] private UnityEvent _onDialogEnded;
 
         [Inject] private IDialogeSystem _dialogeSystem;
-        
-        public UnityEvent OnDialogEnded;
         
         private Collider2D _collider;
 
@@ -32,7 +30,7 @@ namespace _Project.Gameplay.Platforming.Dialogs
         {
             if (other.CompareTag("Player"))
             {
-                _dialogeSystem.DialogeStart(_dialogNode, OnDialogEnded);
+                _dialogeSystem.DialogeStart(_dialogNode, () => _onDialogEnded.Invoke());
                 if (_disableOnExecute)
                 {
                     gameObject.SetActive(false);

@@ -21,7 +21,7 @@ namespace _Project.Pause
             _backToMainMenuButton.OnClickAsObservable().Subscribe(_ =>
             {
                 ((IWindow)this).Close();
-                _sceneSystem.LoadScene(SceneType.MainMenu, LoadSceneMode.Single);
+                _sceneSystem.LoadScene(SceneType.Bootstrap, LoadSceneMode.Single);
             }).AddTo(this);
         }
     }

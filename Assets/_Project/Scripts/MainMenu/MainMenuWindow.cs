@@ -1,3 +1,4 @@
+using System;
 using _Project.Application.Scene;
 using _Project.Application.GUI.WindowsSystem;
 using R3;
@@ -11,6 +12,7 @@ namespace _Project.MainMenu
     public class MainMenuWindow : WindowBase
     {
         [SerializeField] private Button _startGameButton;
+        [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _exitGameButton;
         
         [Inject] private ISceneSystem _sceneSystem;
@@ -18,13 +20,19 @@ namespace _Project.MainMenu
         private void Start()
         {
             _startGameButton.OnClickAsObservable().Subscribe(OnStartGame).AddTo(this);
+            _settingsButton.OnClickAsObservable().Subscribe(OnSettings).AddTo(this);
             _exitGameButton.OnClickAsObservable().Subscribe(OnExitGame).AddTo(this);
         }
 
         private void OnStartGame(Unit _)
         {
-            _sceneSystem.LoadScene(SceneType.TrainingLocation, LoadSceneMode.Single);
             WindowSystem.Close(this);
+        }
+
+        private void OnSettings(Unit _)
+        {
+            WindowSystem.SetHidden<MainMenuWindow>(true);
+            WindowSystem.Show<SettingsWindow>();
         }
 
         private void OnExitGame(Unit _)

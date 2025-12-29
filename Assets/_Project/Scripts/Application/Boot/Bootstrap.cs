@@ -20,7 +20,7 @@ namespace _Project.Application.Boot
         private async UniTaskVoid LoadMainMenu()
         {
             await _logoView.StartShowLogo();
-            await _sceneSystem.LoadScene(SceneType.MainMenu, LoadSceneMode.Single);
+            await _sceneSystem.LoadScene(SceneType.TrainingLocation, LoadSceneMode.Single);
         }
     }
 }

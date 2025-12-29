@@ -46,6 +46,18 @@ namespace _Project.Application.GUI.WindowsSystem
         }
         
         void IWindowSystem.Close(IWindow window) => Close(window);
+
+        void IWindowSystem.SetHidden<T>(bool isHidden)
+        {
+            foreach (var window in _windowList)
+            {
+                if (window is T)
+                {
+                    window.SetHidden(isHidden);
+                    return;
+                }
+            }
+        }
         
         void IWindowSystem.Close<T>()
         {
@@ -82,12 +94,13 @@ namespace _Project.Application.GUI.WindowsSystem
             window.Close();
         }
 
-        private void HandleOnWindowClosed(IWindow window)
+        private void HandleOnWindowClosed(WindowBase window)
         {
             window.OnClosed -= HandleOnWindowClosed;
             _windowList.Remove(window);
             OnWindowClosed.OnNext(window);
             _assetLoader.Release(nameof(window));
+            Object.Destroy(window.gameObject);
 
             if (((IWindowSystem)this).WindowsCount == 0)
             {

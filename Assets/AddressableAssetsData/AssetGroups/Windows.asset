@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Windows
   m_GUID: 216a69cbd1d88184da7206bc5be16c32
   m_SerializeEntries:
+  - m_GUID: 3cb40d164f29b444ba5394d2781e8de0
+    m_Address: SettingsWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 437ebd3a66b96fd4e8587b48ca0a18d4
     m_Address: MainMenuWindow
     m_ReadOnly: 0

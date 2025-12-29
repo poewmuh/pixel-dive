@@ -15,14 +15,34 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: a0d2abcd06e29ee4c9eb6c1acdce9e1f
   m_SerializeEntries:
+  - m_GUID: 097bd99014fc49a4cab0d8a726787124
+    m_Address: Assets/Localization/Level0Welcome/Level0Welcome Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 235e50ccacd16ab46915c1ddd7e552cc
+    m_Address: Assets/Localization/WelcomeGraph/WelcomeGraph Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d426de9bac093941914acad618dacb9
+    m_Address: Assets/Localization/Level0SecretTriggered/Level0SecretTriggered Shared
+      Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7bd47f98d3441b64ab1729490a0694f7
     m_Address: Assets/_Project/Data/Localization/Bootstrap Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f5475e6fe92ef8b4e84387af526257a0
-    m_Address: Assets/Plugins/DialogNodeBasedSystem/Demo/Localization/DemoNodeGraph/DemoNodeGraph
-      Shared Data.asset
+  - m_GUID: 9f335b4ca660cd44a9168baaedf962ab
+    m_Address: Assets/_Project/Configs/Localization/Menu Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9968baaf16da784488c1b4c90e886cd
+    m_Address: Assets/Localization/Level0FishHint/Level0FishHint Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

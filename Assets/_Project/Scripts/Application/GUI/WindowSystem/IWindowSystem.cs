@@ -11,6 +11,7 @@ namespace _Project.Application.GUI.WindowsSystem
         
         T Show<T>() where T : WindowBase;
         void Close(IWindow window);
+        void SetHidden<T>(bool isHidden) where T : IWindow;
         void Close<T>() where T : IWindow;
         void CloseAll();
         void CloseLast();

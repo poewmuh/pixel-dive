@@ -15,14 +15,15 @@ namespace _Project.Gameplay.Platforming.Level
         [SerializeField] private float _timeBetweenInput = 1;
         [SerializeField] private List<Vector2> _needInput;
 
-        public UnityEvent OnPuzzleSolve;
+        [SerializeField] private UnityEvent _onPuzzleSolve;
 
+        private readonly CompositeDisposable _disposable = new ();
         private int _currentIndex;
         private float _lastTapTime;
 
         private void Start()
         {
-            _inputSystem.OnMove.Subscribe(OnMove).AddTo(this);
+            _inputSystem.OnMove.Subscribe(OnMove).AddTo(_disposable);
         }
 
         private void OnMove(InputVectorActionData data)
@@ -43,10 +44,17 @@ namespace _Project.Gameplay.Platforming.Level
 
             if (_currentIndex >= _needInput.Count)
             {
-                OnPuzzleSolve?.Invoke();
+                _disposable.Dispose();
+                _currentIndex = 0;
+                _onPuzzleSolve?.Invoke();
             }
 
             _lastTapTime = Time.time;
+        }
+
+        private void OnDestroy()
+        {
+            _disposable.Dispose();
         }
     }
 }

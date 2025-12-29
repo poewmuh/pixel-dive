@@ -454,7 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Platforming.Dialogs.DialogTrigger
   _dialogNode: {fileID: 11400000, guid: 5384365fdaee63f40b669d48b6f6c609, type: 2}
   _disableOnExecute: 1
-  OnDialogEnded:
+  _onDialogEnded:
     m_PersistentCalls:
       m_Calls: []
 --- !u!61 &271130095
@@ -1914,7 +1914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Platforming.Dialogs.DialogTrigger
   _dialogNode: {fileID: 11400000, guid: f07828423bc58df46b58c3ab1ee9e698, type: 2}
   _disableOnExecute: 1
-  OnDialogEnded:
+  _onDialogEnded:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 74953904}
@@ -2077,7 +2077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Platforming.Dialogs.DialogTrigger
   _dialogNode: {fileID: 11400000, guid: b39af44cc7d1e5541ac1286bd49d680e, type: 2}
   _disableOnExecute: 1
-  OnDialogEnded:
+  _onDialogEnded:
     m_PersistentCalls:
       m_Calls: []
 --- !u!61 &1344850893
@@ -2381,7 +2381,7 @@ MonoBehaviour:
   - {x: -1, y: 0}
   - {x: -1, y: 0}
   - {x: 0, y: 1}
-  OnPuzzleSolve:
+  _onPuzzleSolve:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1205235053}

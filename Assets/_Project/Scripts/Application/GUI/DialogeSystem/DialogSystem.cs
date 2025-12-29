@@ -1,3 +1,4 @@
+using System;
 using _Project.Application.Asset;
 using _Project.Application.Audio;
 using _Project.Application.Input;
@@ -6,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace _Project.Application.GUI.DialogeSystem
 {
@@ -26,7 +28,7 @@ namespace _Project.Application.GUI.DialogeSystem
             DialogBehaviour = Object.Instantiate(instance, dialogParent).GetComponent<DialogBehaviour>();
         }
 
-        void IDialogeSystem.DialogeStart(DialogNodeGraph graph, UnityEvent onDialogEnded)
+        void IDialogeSystem.DialogeStart(DialogNodeGraph graph, Action onDialogEnded)
         {
             _inputSystem.EnablePlayerInput(false);
             DialogBehaviour.StartDialog(graph, (_) => Debug.Log("Dialog intialized"), _ =>
@@ -45,6 +47,6 @@ namespace _Project.Application.GUI.DialogeSystem
 
     public interface IDialogeSystem
     {
-        void DialogeStart(DialogNodeGraph graph, UnityEvent onDialogEnded);
+        void DialogeStart(DialogNodeGraph graph, Action onDialogEnded);
     }
 }

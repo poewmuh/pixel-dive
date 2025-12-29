@@ -15,44 +15,14 @@ MonoBehaviour:
   m_GroupName: Localization-Locales
   m_GUID: 7235100641d82754188fe9f3614243e0
   m_SerializeEntries:
-  - m_GUID: 3bbe38d428843a643900587308b35f43
-    m_Address: Ukrainian (Ukraine) (uk-UA)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 48db47bdca5741248a894e553d189855
-    m_Address: Spanish (Spain) (es-ES)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 680e8b5d3158ad34288a8876456d2155
-    m_Address: French (France) (fr-FR)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7459589328340c747b714d911a63f933
     m_Address: Russian (ru)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9820c4904d72b704ca3e88bd70174e33
-    m_Address: German (Germany) (de-DE)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c15b51019340bdb47a4f2dd52db07b57
     m_Address: English (en)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f2e3b6becfab83d4e89fa2adafba0072
-    m_Address: English (United States) (en-US)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale

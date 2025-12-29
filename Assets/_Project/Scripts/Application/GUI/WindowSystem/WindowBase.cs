@@ -6,7 +6,7 @@ namespace _Project.Application.GUI.WindowsSystem
 {
     public abstract class WindowBase : MonoBehaviour, IWindow
     {
-        public event Action<IWindow> OnClosed;
+        public event Action<WindowBase> OnClosed;
         
         [SerializeField, Required] private GameObject _defaultSelectable;
         
@@ -26,6 +26,18 @@ namespace _Project.Application.GUI.WindowsSystem
         {
             InternalClose();
             OnClosed?.Invoke(this);
+        }
+
+        void IWindow.SetHidden(bool hidden)
+        {
+            if (hidden)
+            {
+                InternalClose();
+            }
+            else
+            {
+                InternalShow();
+            }
         }
         
         protected virtual void InternalShow()
