@@ -15,38 +15,20 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-English (en)
   m_GUID: 9d83b6b566983de4c8ff02f5fbe0fe44
   m_SerializeEntries:
+  - m_GUID: 06301242c7855cc4092129fd3f682e90
+    m_Address: DialogsTable_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2c3b4821879454b468e68a252f8a04eb
     m_Address: Menu_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 32b7e22370981894e8756bb5252726c6
-    m_Address: Level0Welcome_en
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 478bb10060291a245ba1cd4e15290e09
     m_Address: Bootstrap_en
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 56e95961ccb92754b91d5d133571c447
-    m_Address: WelcomeGraph_en
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 922127b8db542c64aa008e347c51a600
-    m_Address: Level0FishHint_en
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9aaf60ca112c36f43968e097e9a68eb4
-    m_Address: Level0SecretTriggered_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: DialogsTable Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: DialogsTable
+  m_TableCollectionNameGuidString: e0bc9724c138edf42b83ef28e5210400
+  m_Entries:
+  - m_Id: 15522062336
+    m_Key: mermaid_actor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 79791382528
+    m_Key: welcome_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 287753363456
+    m_Key: welcome_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463624724480
+    m_Key: welcome_2
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3835963164534505575
+  references:
+    version: 2
+    RefIds:
+    - rid: 3835963164534505575
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1767871133514

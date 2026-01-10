@@ -7,7 +7,10 @@ namespace _Project.Application.Input
         Subject<InputActionData> OnJump { get; }
         Subject<InputVectorActionData> OnMove { get; }
         Subject<InputActionData> OnPause { get; }
+        Subject<InputActionData> OnUIClick { get; }
 
-        void EnablePlayerInput(bool isEnabled);
+        void EnablePlayerInput();
+        void EnableDialogsInput();
+        void EnableUIInput();
     }
 }

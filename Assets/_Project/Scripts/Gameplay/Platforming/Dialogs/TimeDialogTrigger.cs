@@ -1,17 +1,16 @@
 ﻿using System;
 using _Project.Application.GUI.DialogeSystem;
-using cherrydev;
+using _Project.Gameplay.Dialogs.Core;
 using R3;
 using UnityEngine;
 using UnityEngine.Events;
 using VContainer;
-using Random = UnityEngine.Random;
 
 namespace _Project.Gameplay.Platforming.Dialogs
 {
     public class TimeDialogTrigger : MonoBehaviour
     {
-        [SerializeField] private DialogNodeGraph[] _dialogNodes;
+        [SerializeField] private RuntimeDialogGraph _dialogNode;
         [SerializeField] private float _delayTime = 10f;
         [SerializeField] private bool _disableOnExecute = true;
         [SerializeField] private bool _startTimerOnAwake = true;
@@ -34,8 +33,7 @@ namespace _Project.Gameplay.Platforming.Dialogs
 
         private void OnTimeEnded()
         {
-            var dialog = _dialogNodes[Random.Range(0, _dialogNodes.Length)];
-            _dialogeSystem.DialogeStart(dialog, OnDialogEnded);
+            _dialogeSystem.DialogeStart(_dialogNode, OnDialogEnded);
         }
 
         private void OnDialogEnded()

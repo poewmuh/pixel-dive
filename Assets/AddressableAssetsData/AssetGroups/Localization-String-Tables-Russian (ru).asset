@@ -15,32 +15,14 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-Russian (ru)
   m_GUID: 6bed3a55f7f2621468dc244df2af5132
   m_SerializeEntries:
-  - m_GUID: 015e5b86c323f314b9022bd8490ec3d7
-    m_Address: Level0Welcome_ru
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-ru
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 524ee10be2198bf4d89ec81049fbe280
-    m_Address: Level0FishHint_ru
+  - m_GUID: 44fccd27fd5ac714d9d0e01ca1d9a6d3
+    m_Address: DialogsTable_ru
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e2ff02e7d53bad4fb8e686c1f81d51c
     m_Address: Menu_ru
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-ru
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8f172ecd2fce26d4db7b0a069432549f
-    m_Address: Level0SecretTriggered_ru
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-ru
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b1939bca5cda79d4a9b9a2df09ce402b
-    m_Address: WelcomeGraph_ru
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru

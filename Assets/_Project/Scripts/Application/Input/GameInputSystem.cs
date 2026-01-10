@@ -14,6 +14,7 @@ namespace _Project.Application.Input
         public Subject<InputActionData> OnJump { get; } = new();
         public Subject<InputVectorActionData> OnMove { get; }  = new();
         public Subject<InputActionData> OnPause { get; } = new();
+        public Subject<InputActionData> OnUIClick { get; } = new();
 
         private readonly CompositeDisposable _disposables = new ();
         private PlayerInputActions _inputActions;
@@ -22,32 +23,42 @@ namespace _Project.Application.Input
         {
             _inputActions = new PlayerInputActions();
 
-            _inputActions.Player.Move.PerformedAsObservable()
-                .Merge( _inputActions.Player.Move.StartedAsObservable())
-                .Merge(_inputActions.Player.Move.CanceledAsObservable())
+            _inputActions.PlayerPlatforming.Move.PerformedAsObservable()
+                .Merge( _inputActions.PlayerPlatforming.Move.StartedAsObservable())
+                .Merge(_inputActions.PlayerPlatforming.Move.CanceledAsObservable())
                 .Subscribe(OnMovePerformed).AddTo(_disposables);
-            _inputActions.Player.Jump.PerformedAsObservable()
-                .Merge(_inputActions.Player.Jump.StartedAsObservable())
-                .Merge(_inputActions.Player.Jump.CanceledAsObservable())
+            _inputActions.PlayerPlatforming.Jump.PerformedAsObservable()
+                .Merge(_inputActions.PlayerPlatforming.Jump.StartedAsObservable())
+                .Merge(_inputActions.PlayerPlatforming.Jump.CanceledAsObservable())
                 .Subscribe(OnJumpPerformed).AddTo(_disposables);
-            _inputActions.Player.Pause.PerformedAsObservable()
+            _inputActions.PlayerPlatforming.Pause.PerformedAsObservable()
                 .Subscribe(OnPausePerformed).AddTo(_disposables);
-
-            ((IInputSystem)this).EnablePlayerInput(true);
+            _inputActions.Dialogs.Pause.PerformedAsObservable()
+                .Subscribe(OnPausePerformed).AddTo(_disposables);
+            
+            _inputActions.Dialogs.Skip.PerformedAsObservable()
+                .Subscribe(OnUIClicked).AddTo(_disposables);
         }
 
-        void IInputSystem.EnablePlayerInput(bool isEnabled)
+        void IInputSystem.EnablePlayerInput()
         {
-            if (isEnabled)
-            {
-                _inputActions.Player.Enable();
-                _inputActions.UI.Disable();
-            }
-            else
-            {
-                _inputActions.Player.Disable();
-                _inputActions.UI.Enable();
-            }
+            _inputActions.PlayerPlatforming.Enable();
+            _inputActions.UI.Disable();
+            _inputActions.Dialogs.Disable();
+        }
+        
+        void IInputSystem.EnableUIInput()
+        {
+            _inputActions.PlayerPlatforming.Disable();
+            _inputActions.UI.Enable();
+            _inputActions.Dialogs.Disable();
+        }
+        
+        void IInputSystem.EnableDialogsInput()
+        {
+            _inputActions.PlayerPlatforming.Disable();
+            _inputActions.UI.Disable();
+            _inputActions.Dialogs.Enable();
         }
 
         private void OnMovePerformed(InputAction.CallbackContext context)
@@ -62,6 +73,15 @@ namespace _Project.Application.Input
         private void OnJumpPerformed(InputAction.CallbackContext context)
         {
             OnJump?.OnNext(new InputActionData
+            {
+                Phase = context.phase
+            });
+        }
+
+        private void OnUIClicked(InputAction.CallbackContext context)
+        {
+            Debug.Log("ON UI CLICKED");
+            OnUIClick?.OnNext(new InputActionData()
             {
                 Phase = context.phase
             });

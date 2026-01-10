@@ -1,5 +1,5 @@
 using _Project.Application.GUI.DialogeSystem;
-using cherrydev;
+using _Project.Gameplay.Dialogs.Core;
 using R3;
 using R3.Triggers;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace _Project.Gameplay.Platforming.Dialogs
     [RequireComponent(typeof(Collider2D))]
     public class DialogTrigger : MonoBehaviour
     {
-        [SerializeField] private DialogNodeGraph _dialogNode;
+        [SerializeField] private RuntimeDialogGraph _dialogNode;
         [SerializeField] private bool _disableOnExecute = true;
         [SerializeField] private UnityEvent _onDialogEnded;
 

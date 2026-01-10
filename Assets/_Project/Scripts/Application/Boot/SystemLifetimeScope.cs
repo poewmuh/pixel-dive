@@ -28,6 +28,7 @@ namespace _Project.Application.Boot
             builder.Register<WindowSystem>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GameInputSystem>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<DialogSystem>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<InputSwitcher>(Lifetime.Singleton).AsImplementedInterfaces();
         }
         
         private void RegisterMessageBrokers(IContainerBuilder builder)

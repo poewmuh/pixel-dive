@@ -14,7 +14,7 @@ namespace _Project.Application.GUI.WindowsSystem
         [Inject] private IGUISystem _guiSystem;
         [Inject] private IObjectResolver _objectResolver;
         [Inject] private IAssetLoader _assetLoader;
-        [Inject] private IInputSystem _inputSystem;
+        [Inject] private IInputSwitcher _inputSwitcher;
         
         private readonly List<IWindow> _windowList = new();
         private RectTransform _windowsContainer;
@@ -31,7 +31,7 @@ namespace _Project.Application.GUI.WindowsSystem
 
         T IWindowSystem.Show<T>()
         {
-            _inputSystem.EnablePlayerInput(false);
+            _inputSwitcher.EnableInput(InputBlockMask.Windows, true);
             var key = typeof(T).Name;
             var instance = _assetLoader.LoadImmediate<GameObject>(key);
             IWindow window = Object.Instantiate(instance, _windowsContainer).GetComponent<IWindow>();
@@ -104,7 +104,7 @@ namespace _Project.Application.GUI.WindowsSystem
 
             if (((IWindowSystem)this).WindowsCount == 0)
             {
-                _inputSystem.EnablePlayerInput(true);
+                _inputSwitcher.EnableInput(InputBlockMask.Windows, false);
             }
         }
     }

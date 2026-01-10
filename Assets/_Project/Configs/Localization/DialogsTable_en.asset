@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: DialogsTable_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: e0bc9724c138edf42b83ef28e5210400, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 15522062336
+    m_Localized: Mermaid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 79791382528
+    m_Localized: Hello there
+    m_Metadata:
+      m_Items: []
+  - m_Id: 287753363456
+    m_Localized: ill help you
+    m_Metadata:
+      m_Items: []
+  - m_Id: 463624724480
+    m_Localized: Depend on how long u will press Jump button. etc
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

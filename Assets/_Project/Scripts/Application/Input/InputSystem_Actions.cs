@@ -91,7 +91,7 @@ namespace _Project.Application.Input
     ""name"": ""InputSystem_Actions"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""PlayerPlatforming"",
             ""id"": ""df70fa95-8a34-4494-b137-73ab6b9c7d37"",
             ""actions"": [
                 {
@@ -420,7 +420,7 @@ namespace _Project.Application.Input
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""7607c7b6-cd76-4816-beef-bd0341cfe950"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -429,7 +429,7 @@ namespace _Project.Application.Input
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -809,20 +809,9 @@ namespace _Project.Application.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5693e57a-238a-46ed-b5ae-e64e6e574302"",
-                    ""path"": ""<Touchscreen>/touch*/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touch"",
-                    ""action"": ""Point"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""4faf7dc9-b979-4210-aa8c-e808e1ef89f5"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Click"",
@@ -836,28 +825,6 @@ namespace _Project.Application.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""47c2a644-3ebc-4dae-a106-589b7ca75b59"",
-                    ""path"": ""<Touchscreen>/touch*/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touch"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""bb9e6b34-44bf-4381-ac63-5aa15d19f677"",
-                    ""path"": ""<XRController>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -914,6 +881,76 @@ namespace _Project.Application.Input
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""TrackedDeviceOrientation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Dialogs"",
+            ""id"": ""adbab219-c331-4aa4-adc6-9066c712ff7a"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""3fdd8af3-7b98-47b3-a077-107982186855"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""714be3a3-7f0e-4115-8317-1927fac445a4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a1b80413-137d-4e73-8d17-1f44e386ed0f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a354b838-555c-4363-9820-2dc16e38bf42"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3101bfd-ed7b-4ed7-8913-5d7264d95a7a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a265b056-41eb-45c2-aafd-a95cedf259ca"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Skip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -983,15 +1020,15 @@ namespace _Project.Application.Input
         }
     ]
 }");
-            // Player
-            m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-            m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-            m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-            m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
-            m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
-            m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-            m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+            // PlayerPlatforming
+            m_PlayerPlatforming = asset.FindActionMap("PlayerPlatforming", throwIfNotFound: true);
+            m_PlayerPlatforming_Move = m_PlayerPlatforming.FindAction("Move", throwIfNotFound: true);
+            m_PlayerPlatforming_Interact = m_PlayerPlatforming.FindAction("Interact", throwIfNotFound: true);
+            m_PlayerPlatforming_Jump = m_PlayerPlatforming.FindAction("Jump", throwIfNotFound: true);
+            m_PlayerPlatforming_Previous = m_PlayerPlatforming.FindAction("Previous", throwIfNotFound: true);
+            m_PlayerPlatforming_Next = m_PlayerPlatforming.FindAction("Next", throwIfNotFound: true);
+            m_PlayerPlatforming_Sprint = m_PlayerPlatforming.FindAction("Sprint", throwIfNotFound: true);
+            m_PlayerPlatforming_Pause = m_PlayerPlatforming.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1004,12 +1041,17 @@ namespace _Project.Application.Input
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            // Dialogs
+            m_Dialogs = asset.FindActionMap("Dialogs", throwIfNotFound: true);
+            m_Dialogs_Pause = m_Dialogs.FindAction("Pause", throwIfNotFound: true);
+            m_Dialogs_Skip = m_Dialogs.FindAction("Skip", throwIfNotFound: true);
         }
 
         ~@PlayerInputActions()
         {
-            UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputActions.Player.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_PlayerPlatforming.enabled, "This will cause a leak and performance issues, PlayerInputActions.PlayerPlatforming.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInputActions.UI.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Dialogs.enabled, "This will cause a leak and performance issues, PlayerInputActions.Dialogs.Disable() has not been called.");
         }
 
         /// <summary>
@@ -1082,59 +1124,59 @@ namespace _Project.Application.Input
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Player
-        private readonly InputActionMap m_Player;
-        private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-        private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Interact;
-        private readonly InputAction m_Player_Jump;
-        private readonly InputAction m_Player_Previous;
-        private readonly InputAction m_Player_Next;
-        private readonly InputAction m_Player_Sprint;
-        private readonly InputAction m_Player_Pause;
+        // PlayerPlatforming
+        private readonly InputActionMap m_PlayerPlatforming;
+        private List<IPlayerPlatformingActions> m_PlayerPlatformingActionsCallbackInterfaces = new List<IPlayerPlatformingActions>();
+        private readonly InputAction m_PlayerPlatforming_Move;
+        private readonly InputAction m_PlayerPlatforming_Interact;
+        private readonly InputAction m_PlayerPlatforming_Jump;
+        private readonly InputAction m_PlayerPlatforming_Previous;
+        private readonly InputAction m_PlayerPlatforming_Next;
+        private readonly InputAction m_PlayerPlatforming_Sprint;
+        private readonly InputAction m_PlayerPlatforming_Pause;
         /// <summary>
-        /// Provides access to input actions defined in input action map "Player".
+        /// Provides access to input actions defined in input action map "PlayerPlatforming".
         /// </summary>
-        public struct PlayerActions
+        public struct PlayerPlatformingActions
         {
             private @PlayerInputActions m_Wrapper;
 
             /// <summary>
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
-            public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+            public PlayerPlatformingActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Player/Move".
+            /// Provides access to the underlying input action "PlayerPlatforming/Move".
             /// </summary>
-            public InputAction @Move => m_Wrapper.m_Player_Move;
+            public InputAction @Move => m_Wrapper.m_PlayerPlatforming_Move;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Interact".
+            /// Provides access to the underlying input action "PlayerPlatforming/Interact".
             /// </summary>
-            public InputAction @Interact => m_Wrapper.m_Player_Interact;
+            public InputAction @Interact => m_Wrapper.m_PlayerPlatforming_Interact;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Jump".
+            /// Provides access to the underlying input action "PlayerPlatforming/Jump".
             /// </summary>
-            public InputAction @Jump => m_Wrapper.m_Player_Jump;
+            public InputAction @Jump => m_Wrapper.m_PlayerPlatforming_Jump;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Previous".
+            /// Provides access to the underlying input action "PlayerPlatforming/Previous".
             /// </summary>
-            public InputAction @Previous => m_Wrapper.m_Player_Previous;
+            public InputAction @Previous => m_Wrapper.m_PlayerPlatforming_Previous;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Next".
+            /// Provides access to the underlying input action "PlayerPlatforming/Next".
             /// </summary>
-            public InputAction @Next => m_Wrapper.m_Player_Next;
+            public InputAction @Next => m_Wrapper.m_PlayerPlatforming_Next;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Sprint".
+            /// Provides access to the underlying input action "PlayerPlatforming/Sprint".
             /// </summary>
-            public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+            public InputAction @Sprint => m_Wrapper.m_PlayerPlatforming_Sprint;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Pause".
+            /// Provides access to the underlying input action "PlayerPlatforming/Pause".
             /// </summary>
-            public InputAction @Pause => m_Wrapper.m_Player_Pause;
+            public InputAction @Pause => m_Wrapper.m_PlayerPlatforming_Pause;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
-            public InputActionMap Get() { return m_Wrapper.m_Player; }
+            public InputActionMap Get() { return m_Wrapper.m_PlayerPlatforming; }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
             public void Enable() { Get().Enable(); }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -1142,9 +1184,9 @@ namespace _Project.Application.Input
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
             public bool enabled => Get().enabled;
             /// <summary>
-            /// Implicitly converts an <see ref="PlayerActions" /> to an <see ref="InputActionMap" /> instance.
+            /// Implicitly converts an <see ref="PlayerPlatformingActions" /> to an <see ref="InputActionMap" /> instance.
             /// </summary>
-            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+            public static implicit operator InputActionMap(PlayerPlatformingActions set) { return set.Get(); }
             /// <summary>
             /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
             /// </summary>
@@ -1152,11 +1194,11 @@ namespace _Project.Application.Input
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
             /// </remarks>
-            /// <seealso cref="PlayerActions" />
-            public void AddCallbacks(IPlayerActions instance)
+            /// <seealso cref="PlayerPlatformingActions" />
+            public void AddCallbacks(IPlayerPlatformingActions instance)
             {
-                if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+                if (instance == null || m_Wrapper.m_PlayerPlatformingActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PlayerPlatformingActionsCallbackInterfaces.Add(instance);
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
@@ -1186,8 +1228,8 @@ namespace _Project.Application.Input
             /// <remarks>
             /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
             /// </remarks>
-            /// <seealso cref="PlayerActions" />
-            private void UnregisterCallbacks(IPlayerActions instance)
+            /// <seealso cref="PlayerPlatformingActions" />
+            private void UnregisterCallbacks(IPlayerPlatformingActions instance)
             {
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
@@ -1213,12 +1255,12 @@ namespace _Project.Application.Input
             }
 
             /// <summary>
-            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />.
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlayerPlatformingActions.UnregisterCallbacks(IPlayerPlatformingActions)" />.
             /// </summary>
-            /// <seealso cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />
-            public void RemoveCallbacks(IPlayerActions instance)
+            /// <seealso cref="PlayerPlatformingActions.UnregisterCallbacks(IPlayerPlatformingActions)" />
+            public void RemoveCallbacks(IPlayerPlatformingActions instance)
             {
-                if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_PlayerPlatformingActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
@@ -1228,21 +1270,21 @@ namespace _Project.Application.Input
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
             /// </remarks>
-            /// <seealso cref="PlayerActions.AddCallbacks(IPlayerActions)" />
-            /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
-            /// <seealso cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />
-            public void SetCallbacks(IPlayerActions instance)
+            /// <seealso cref="PlayerPlatformingActions.AddCallbacks(IPlayerPlatformingActions)" />
+            /// <seealso cref="PlayerPlatformingActions.RemoveCallbacks(IPlayerPlatformingActions)" />
+            /// <seealso cref="PlayerPlatformingActions.UnregisterCallbacks(IPlayerPlatformingActions)" />
+            public void SetCallbacks(IPlayerPlatformingActions instance)
             {
-                foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_PlayerPlatformingActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_PlayerPlatformingActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
         /// <summary>
-        /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
+        /// Provides a new <see cref="PlayerPlatformingActions" /> instance referencing this action map.
         /// </summary>
-        public PlayerActions @Player => new PlayerActions(this);
+        public PlayerPlatformingActions @PlayerPlatforming => new PlayerPlatformingActions(this);
 
         // UI
         private readonly InputActionMap m_UI;
@@ -1438,6 +1480,113 @@ namespace _Project.Application.Input
         /// Provides a new <see cref="UIActions" /> instance referencing this action map.
         /// </summary>
         public UIActions @UI => new UIActions(this);
+
+        // Dialogs
+        private readonly InputActionMap m_Dialogs;
+        private List<IDialogsActions> m_DialogsActionsCallbackInterfaces = new List<IDialogsActions>();
+        private readonly InputAction m_Dialogs_Pause;
+        private readonly InputAction m_Dialogs_Skip;
+        /// <summary>
+        /// Provides access to input actions defined in input action map "Dialogs".
+        /// </summary>
+        public struct DialogsActions
+        {
+            private @PlayerInputActions m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public DialogsActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "Dialogs/Pause".
+            /// </summary>
+            public InputAction @Pause => m_Wrapper.m_Dialogs_Pause;
+            /// <summary>
+            /// Provides access to the underlying input action "Dialogs/Skip".
+            /// </summary>
+            public InputAction @Skip => m_Wrapper.m_Dialogs_Skip;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_Dialogs; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="DialogsActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(DialogsActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="DialogsActions" />
+            public void AddCallbacks(IDialogsActions instance)
+            {
+                if (instance == null || m_Wrapper.m_DialogsActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_DialogsActionsCallbackInterfaces.Add(instance);
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+                @Skip.started += instance.OnSkip;
+                @Skip.performed += instance.OnSkip;
+                @Skip.canceled += instance.OnSkip;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="DialogsActions" />
+            private void UnregisterCallbacks(IDialogsActions instance)
+            {
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
+                @Skip.started -= instance.OnSkip;
+                @Skip.performed -= instance.OnSkip;
+                @Skip.canceled -= instance.OnSkip;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="DialogsActions.UnregisterCallbacks(IDialogsActions)" />.
+            /// </summary>
+            /// <seealso cref="DialogsActions.UnregisterCallbacks(IDialogsActions)" />
+            public void RemoveCallbacks(IDialogsActions instance)
+            {
+                if (m_Wrapper.m_DialogsActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="DialogsActions.AddCallbacks(IDialogsActions)" />
+            /// <seealso cref="DialogsActions.RemoveCallbacks(IDialogsActions)" />
+            /// <seealso cref="DialogsActions.UnregisterCallbacks(IDialogsActions)" />
+            public void SetCallbacks(IDialogsActions instance)
+            {
+                foreach (var item in m_Wrapper.m_DialogsActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_DialogsActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="DialogsActions" /> instance referencing this action map.
+        /// </summary>
+        public DialogsActions @Dialogs => new DialogsActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
@@ -1504,11 +1653,11 @@ namespace _Project.Application.Input
             }
         }
         /// <summary>
-        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "PlayerPlatforming" which allows adding and removing callbacks.
         /// </summary>
-        /// <seealso cref="PlayerActions.AddCallbacks(IPlayerActions)" />
-        /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
-        public interface IPlayerActions
+        /// <seealso cref="PlayerPlatformingActions.AddCallbacks(IPlayerPlatformingActions)" />
+        /// <seealso cref="PlayerPlatformingActions.RemoveCallbacks(IPlayerPlatformingActions)" />
+        public interface IPlayerPlatformingActions
         {
             /// <summary>
             /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -1637,6 +1786,28 @@ namespace _Project.Application.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Dialogs" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="DialogsActions.AddCallbacks(IDialogsActions)" />
+        /// <seealso cref="DialogsActions.RemoveCallbacks(IDialogsActions)" />
+        public interface IDialogsActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPause(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Skip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSkip(InputAction.CallbackContext context);
         }
     }
 }
