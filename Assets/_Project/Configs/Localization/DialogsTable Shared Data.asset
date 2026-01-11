@@ -31,6 +31,22 @@ MonoBehaviour:
     m_Key: welcome_2
     m_Metadata:
       m_Items: []
+  - m_Id: 1048777992429568
+    m_Key: complete_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1048876034285568
+    m_Key: complete_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1083493953036288
+    m_Key: puzzle_welcome_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1083608327512064
+    m_Key: puzzle_welcome_1
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

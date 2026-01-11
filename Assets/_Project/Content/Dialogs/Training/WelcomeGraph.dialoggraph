@@ -57,7 +57,7 @@ MonoBehaviour:
           x: 791
           y: -436
           width: 1752
-          height: 555
+          height: 629
         m_GraphElementMetaData:
         - m_Guid:
             m_Value0: 10182807931959003499
@@ -273,7 +273,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: ef33b3943deaf0cfc3e7142f52534ef1
         m_Version: 2
-        m_Position: {x: 1104.2001, y: -204.54996}
+        m_Position: {x: 1104.2001, y: -206.29897}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -354,7 +354,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: _Project.Gameplay.Dialogs.Core.EmotionType, Assembly-CSharp,
               Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 1
+          m_Value: 11
         m_EnumType:
           m_Identification: _Project.Gameplay.Dialogs.Core.EmotionType, Assembly-CSharp,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -533,7 +533,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: _Project.Gameplay.Dialogs.Core.EmotionType, Assembly-CSharp,
               Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 0
+          m_Value: 10
         m_EnumType:
           m_Identification: _Project.Gameplay.Dialogs.Core.EmotionType, Assembly-CSharp,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -712,7 +712,7 @@ MonoBehaviour:
           m_EnumType:
             m_Identification: _Project.Gameplay.Dialogs.Core.EmotionType, Assembly-CSharp,
               Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          m_Value: 0
+          m_Value: 1
         m_EnumType:
           m_Identification: _Project.Gameplay.Dialogs.Core.EmotionType, Assembly-CSharp,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

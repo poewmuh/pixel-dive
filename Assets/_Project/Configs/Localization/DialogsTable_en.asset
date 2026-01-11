@@ -34,6 +34,22 @@ MonoBehaviour:
     m_Localized: Depend on how long u will press Jump button. etc
     m_Metadata:
       m_Items: []
+  - m_Id: 1048777992429568
+    m_Localized: Congrats!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1048876034285568
+    m_Localized: Welcome to my castle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1083493953036288
+    m_Localized: Welcome to my castle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1083608327512064
+    m_Localized: Look around body
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
