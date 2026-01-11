@@ -6,12 +6,10 @@ namespace _Project.Gameplay.Dialogs
 {
     public class DialogBehaviour : MonoBehaviour
     {
-        public event Action OnDialogTextCharWrote;
-        
         private event Action _onDialogFinished;
         
         [SerializeField] private EmotionsSpriteConfig _emotionsSpriteConfig;
-        [SerializeField] private DialogMessageView _dialogMessageView;
+        [field: SerializeField] public DialogMessageView DialogMessageView { get; private set; }
 
         private RuntimeDialogGraph _currentGraph;
         private RuntimeBaseNode _currentNode;
@@ -37,14 +35,19 @@ namespace _Project.Gameplay.Dialogs
             if (node is RuntimeDialogeNode dialogeNode)
             {
                 var sprite = _emotionsSpriteConfig.GetSpriteForEmotion(dialogeNode.Emotion);
-                _dialogMessageView.gameObject.SetActive(true);
-                _dialogMessageView.Setup(dialogeNode.ActorName, dialogeNode.Message, sprite);
+                DialogMessageView.gameObject.SetActive(true);
+                DialogMessageView.Setup(dialogeNode.ActorName, dialogeNode.Message, sprite);
             }
         }
 
         public void SkipDialog()
         {
             if (_currentNode == null) return;
+            if (DialogMessageView.IsTyping)
+            {
+                DialogMessageView.SkipTypewriter();
+                return;
+            }
             if (string.IsNullOrEmpty(_currentNode.NextNodeId))
             {
                 FinishDialogs();
@@ -64,7 +67,7 @@ namespace _Project.Gameplay.Dialogs
         {
             _currentNode = null;
             _currentGraph = null;
-            _dialogMessageView.gameObject.SetActive(false);
+            DialogMessageView.gameObject.SetActive(false);
             _onDialogFinished?.Invoke();
         }
     }

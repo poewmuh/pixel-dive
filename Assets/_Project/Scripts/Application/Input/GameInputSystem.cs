@@ -80,7 +80,6 @@ namespace _Project.Application.Input
 
         private void OnUIClicked(InputAction.CallbackContext context)
         {
-            Debug.Log("ON UI CLICKED");
             OnUIClick?.OnNext(new InputActionData()
             {
                 Phase = context.phase

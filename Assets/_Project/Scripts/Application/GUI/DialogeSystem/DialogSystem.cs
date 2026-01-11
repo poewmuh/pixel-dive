@@ -43,19 +43,19 @@ namespace _Project.Application.GUI.DialogeSystem
         {
             _inputSwitcher.EnableInput(InputBlockMask.Dialogs, true);
             _uiClickSubscription = _inputSystem.OnUIClick.Subscribe(OnSkipDialog);
-            IsDialogActive = true;
+            _dialogBehaviour.DialogMessageView.OnCharWrote += OnCharWrote;
             _dialogBehaviour.StartDialog(graph, () =>
             {
                 _uiClickSubscription?.Dispose();
                 _inputSwitcher.EnableInput(InputBlockMask.Dialogs, false);
+                _dialogBehaviour.DialogMessageView.OnCharWrote -= OnCharWrote;
                 onDialogEnded?.Invoke();
-                IsDialogActive = false;
             });
-            _dialogBehaviour.OnDialogTextCharWrote += OnCharWrote;
         }
         
         private void OnSceneChange(SceneChangeEvent msg)
         {
+            _dialogBehaviour.DialogMessageView.OnCharWrote -= OnCharWrote;
             _sceneChangeSubscription?.Dispose();
             _dialogBehaviour.CloseAllDialogs();
         }

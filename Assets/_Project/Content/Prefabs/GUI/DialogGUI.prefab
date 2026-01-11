@@ -306,6 +306,8 @@ MonoBehaviour:
   _speakerName: {fileID: 6492636378902384245}
   _dialogMessage: {fileID: 4847134468484828262}
   _speakerIcon: {fileID: 8473641368665821334}
+  _letterDelay: 0.03
+  _punctuationDelay: 0.3
 --- !u!1 &3962469312559116445
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Dialogs.DialogBehaviour
   _emotionsSpriteConfig: {fileID: 11400000, guid: 91ea62c65f4a51b4fbcaa8c1c07e4b8c, type: 2}
-  _dialogMessageView: {fileID: 2865367655159328381}
+  <DialogMessageView>k__BackingField: {fileID: 2865367655159328381}
 --- !u!1 &4272837225824654066
 GameObject:
   m_ObjectHideFlags: 0
