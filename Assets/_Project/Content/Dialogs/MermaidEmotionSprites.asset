@@ -14,9 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Dialogs.Core.EmotionsSpriteConfig
   _emotionSprites:
     _serializedList:
+    - Key: 18
+      Value: {fileID: 1170608618, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 17
+      Value: {fileID: 1881052801, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 16
+      Value: {fileID: -333647077, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 15
+      Value: {fileID: -1257366801, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 14
+      Value: {fileID: -71672195, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 13
+      Value: {fileID: -1557370967, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 12
+      Value: {fileID: 1990830040, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 11
+      Value: {fileID: 1563062777, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 10
+      Value: {fileID: -190340970, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 9
+      Value: {fileID: -656426268, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 8
+      Value: {fileID: -1769954093, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 7
+      Value: {fileID: 1781478110, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 6
+      Value: {fileID: -1467590409, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 5
+      Value: {fileID: 2076877609, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+    - Key: 4
+      Value: {fileID: -229632424, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
     - Key: 1
-      Value: {fileID: 21300000, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+      Value: {fileID: 1885526214, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
     - Key: 2
-      Value: {fileID: 21300000, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+      Value: {fileID: 560646570, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
     - Key: 3
-      Value: {fileID: 21300000, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
+      Value: {fileID: 1642247875, guid: ba44ef9473b1f8641bc9d117ca2a4c2a, type: 3}
