@@ -51,6 +51,26 @@ MonoBehaviour:
     m_Key: back_to_menu
     m_Metadata:
       m_Items: []
+  - m_Id: 8151196542951424
+    m_Key: game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8151239400349696
+    m_Key: audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8151279279792128
+    m_Key: graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8151372317843456
+    m_Key: music_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8151472146472960
+    m_Key: effects_volume
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

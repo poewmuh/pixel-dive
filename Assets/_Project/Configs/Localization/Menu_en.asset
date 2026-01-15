@@ -54,6 +54,26 @@ MonoBehaviour:
     m_Localized: Back to main menu
     m_Metadata:
       m_Items: []
+  - m_Id: 8151196542951424
+    m_Localized: Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8151239400349696
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8151279279792128
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8151372317843456
+    m_Localized: Music Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8151472146472960
+    m_Localized: Effects Volume
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

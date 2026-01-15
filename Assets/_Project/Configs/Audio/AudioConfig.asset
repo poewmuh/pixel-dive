@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Application.Audio.AudioConfig
   _audioClips:
     _serializedList:
+    - Key: mainmenu_theme
+      Value: {fileID: 8300000, guid: 4de5d7f5be7aeb94cb0180c85600fa6f, type: 3}
     - Key: typeText
       Value: {fileID: 8300000, guid: 8bfde1752666c3d45ad61a44e4d69654, type: 3}

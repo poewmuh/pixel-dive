@@ -56,7 +56,6 @@ namespace _Project.Application.GUI.DialogeSystem
         private void OnSceneChange(SceneChangeEvent msg)
         {
             _dialogBehaviour.DialogMessageView.OnCharWrote -= OnCharWrote;
-            _sceneChangeSubscription?.Dispose();
             _dialogBehaviour.CloseAllDialogs();
         }
 

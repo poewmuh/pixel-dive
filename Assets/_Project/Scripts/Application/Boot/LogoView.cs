@@ -9,9 +9,9 @@ namespace _Project.Application.Boot
     {
         [SerializeField] private CanvasGroup[] _slides;
 
-        private float _showTime = 1f;
-        private float _hideTime = 1f;
-        private float _stayTime = 1f;
+        [SerializeField] private float _showTime = 1f;
+        [SerializeField] private float _hideTime = 1f;
+        [SerializeField] private float _stayTime = 1f;
             
         public async UniTask StartShowLogo()
         {

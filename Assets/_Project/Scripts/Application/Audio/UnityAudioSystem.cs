@@ -2,27 +2,23 @@ using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace _Project.Application.Audio
 {
     public class UnityAudioSystem : MonoBehaviour, IAudioSystem
     {
         [SerializeField] private AudioConfig _audioConfig;
-        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioSource _effectSource;
+        [SerializeField] private AudioSource _musicSource;
+        [SerializeField] private AudioMixer _mixer;
         
         void IAudioSystem.PlayOneShot(string key)
         {
-            _audioSource.Stop();
+            _effectSource.Stop();
             var audioClip = _audioConfig.GetAudioClip(key);
-            _audioSource.clip = audioClip;
-            _audioSource.Play();
-            Stop().Forget();
-        }
-
-        private async UniTaskVoid Stop()
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(.09));
-            _audioSource.Stop();
+            _effectSource.clip = audioClip;
+            _effectSource.Play();
         }
 
         void IAudioSystem.PlayOneShot(string key, Vector3 worldPosition)
@@ -32,12 +28,15 @@ namespace _Project.Application.Audio
 
         void IAudioSystem.PlayMusic(string key)
         {
-            throw new NotImplementedException();
+            ((IAudioSystem)this).StopMusic();
+            var audioClip = _audioConfig.GetAudioClip(key);
+            _musicSource.clip = audioClip;
+            _musicSource.Play();
         }
 
         void IAudioSystem.StopMusic()
         {
-            throw new NotImplementedException();
+            _musicSource.Stop();
         }
 
         void IAudioSystem.PlayAmbient(string key)

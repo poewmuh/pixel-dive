@@ -514,7 +514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GAME NAME
+  m_text: PIXEL DIVE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: da6115b537ce2804cb52e2e0c3dcd672, type: 2}
   m_sharedMaterial: {fileID: 842396329996099519, guid: da6115b537ce2804cb52e2e0c3dcd672, type: 2}

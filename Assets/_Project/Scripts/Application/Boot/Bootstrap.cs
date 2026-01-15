@@ -1,4 +1,5 @@
 using System;
+using _Project.Application.Audio;
 using _Project.Application.Scene;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace _Project.Application.Boot
     {
         [Inject] private ISceneSystem _sceneSystem;
         [Inject] private LogoView _logoView;
+        [Inject] private IAudioSystem _audioSystem;
         
         private void Start()
         {
@@ -19,6 +21,8 @@ namespace _Project.Application.Boot
 
         private async UniTaskVoid LoadMainMenu()
         {
+            await UniTask.Delay(TimeSpan.FromSeconds(1));
+            _audioSystem.PlayMusic("mainmenu_theme");
             await _logoView.StartShowLogo();
             await _sceneSystem.LoadScene(SceneType.TrainingLocation, LoadSceneMode.Single);
         }
