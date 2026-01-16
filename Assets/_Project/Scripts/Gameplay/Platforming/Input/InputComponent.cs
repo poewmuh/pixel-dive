@@ -12,11 +12,13 @@ namespace _Project.Gameplay.Platforming.Input
         
         public Subject<float> MoveState { get; } = new();
         public Subject<bool> JumpState { get; } = new();
+        public Subject<Unit> InteractState { get; } = new();
 
         void IComponent.Init()
         {
             _inputSystem.OnMove.Subscribe(OnMovePerformed).AddTo(this);
             _inputSystem.OnJump.Subscribe(OnJumpPerformed).AddTo(this);
+            _inputSystem.OnInteract.Subscribe(OnInteractPerformed).AddTo(this);
         }
 
         private void OnMovePerformed(InputVectorActionData data)
@@ -35,6 +37,11 @@ namespace _Project.Gameplay.Platforming.Input
                     JumpState.OnNext(false);
                     break;
             }
+        }
+
+        private void OnInteractPerformed(InputActionData data)
+        {
+            InteractState.OnNext(Unit.Default);
         }
     }
 }
