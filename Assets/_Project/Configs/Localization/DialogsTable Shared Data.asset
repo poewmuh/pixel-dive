@@ -47,6 +47,74 @@ MonoBehaviour:
     m_Key: puzzle_welcome_1
     m_Metadata:
       m_Items: []
+  - m_Id: 3526086571278336
+    m_Key: human_statue_simple_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526264946638848
+    m_Key: human_statue_simple_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526448585850880
+    m_Key: human_statue_simple_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526682749648896
+    m_Key: star_statue_simple_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526769441718272
+    m_Key: star_statue_simple_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526795144413184
+    m_Key: star_statue_simple_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526821950210048
+    m_Key: whale_statue_simple_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526864027467776
+    m_Key: whale_statue_simple_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526884361453568
+    m_Key: whale_statue_simple_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526903089020928
+    m_Key: medusa_statue_simple_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3527032600739840
+    m_Key: medusa_statue_simple_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3527060505444352
+    m_Key: medusa_statue_simple_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3539205779570688
+    m_Key: puzzle_start_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3539363950968832
+    m_Key: puzzle_start_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3539590728597504
+    m_Key: puzzle_start_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3540307388350464
+    m_Key: puzzle_start_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3558816268894208
+    m_Key: puzzle_start_repeat
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

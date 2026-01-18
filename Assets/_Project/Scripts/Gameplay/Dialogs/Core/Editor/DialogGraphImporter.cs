@@ -59,6 +59,28 @@ namespace _Project.Gameplay.Dialogs.Core.Editor
                         runtimeGraph.Nodes.Add(runtimeNode);
                         break;
                     }
+                    case ConditionNode conditionNode:
+                    {
+                        var runtimeNode = new RuntimeConditionNode
+                        {
+                            NodeId = nodeIdMap[node]
+                        };
+                        
+                        FillConditionNode(conditionNode, runtimeNode, nodeIdMap);
+                        runtimeGraph.Nodes.Add(runtimeNode);
+                        break;
+                    }
+                    case RandomNode randomNode:
+                    {
+                        var runtimeNode = new RuntimeRandomNode
+                        {
+                            NodeId = nodeIdMap[node]
+                        };
+                        
+                        FillRandomNode(randomNode, runtimeNode, nodeIdMap);
+                        runtimeGraph.Nodes.Add(runtimeNode);
+                        break;
+                    }
                 }
             }
         }
@@ -75,6 +97,35 @@ namespace _Project.Gameplay.Dialogs.Core.Editor
             if (nextNodePort != null)
             {
                 runtimeNode.NextNodeId = nodeIdMap[nextNodePort.GetNode()];
+            }
+        }
+        
+        private void FillConditionNode(ConditionNode node, RuntimeConditionNode runtimeNode, Dictionary<INode, string> nodeIdMap)
+        {
+            runtimeNode.VariableName = GetPortValue<string>(node.GetInputPortByName(ConditionNode.IN_PORT_VARIABLE_NAME));
+            runtimeNode.ComparisonType = GetPortValue<ComparisonType>(node.GetInputPortByName(ConditionNode.IN_PORT_COMPARISON_TYPE));
+            runtimeNode.CompareValue = GetPortValue<int>(node.GetInputPortByName(ConditionNode.IN_PORT_COMPARE_VALUE));
+
+            var truePort = node.GetOutputPortByName(ConditionNode.OUTPUT_PORT_TRUE)?.firstConnectedPort;
+            if (truePort != null)
+            {
+                runtimeNode.TrueNodeId = nodeIdMap[truePort.GetNode()];
+            }
+            
+            var falsePort = node.GetOutputPortByName(ConditionNode.OUTPUT_PORT_FALSE)?.firstConnectedPort;
+            if (falsePort != null)
+            {
+                runtimeNode.FalseNodeId = nodeIdMap[falsePort.GetNode()];
+            }
+        }
+        
+        private void FillRandomNode(RandomNode node, RuntimeRandomNode runtimeNode, Dictionary<INode, string> nodeIdMap)
+        {
+            var allOutputPorts = new List<IPort>();
+            node.GetOutputPortByName(DialogeNode.OUTPUT_PORT_DEFAULT_NAME).GetConnectedPorts(allOutputPorts);
+            foreach (var nextNodePort in allOutputPorts)
+            {
+                runtimeNode.NextNodeIds.Add(nodeIdMap[nextNodePort.GetNode()]);
             }
         }
         

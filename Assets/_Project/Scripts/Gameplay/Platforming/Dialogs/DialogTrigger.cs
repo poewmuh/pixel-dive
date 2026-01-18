@@ -17,11 +17,14 @@ namespace _Project.Gameplay.Platforming.Dialogs
 
         [Inject] private IDialogeSystem _dialogeSystem;
         
+        private RuntimeVariableStorage _variableStorage;
         private Collider2D _collider;
 
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
+            _variableStorage = new RuntimeVariableStorage();
+            _variableStorage.SetVariable("interactCount", 0);
             
             _collider.OnTriggerEnter2DAsObservable().Subscribe(OnEnter).AddTo(this);
         }
@@ -30,11 +33,13 @@ namespace _Project.Gameplay.Platforming.Dialogs
         {
             if (other.CompareTag("Player"))
             {
-                _dialogeSystem.DialogeStart(_dialogNode, () => _onDialogEnded.Invoke());
+                _dialogeSystem.DialogeStart(_dialogNode, () => _onDialogEnded.Invoke(), _variableStorage);
                 if (_disableOnExecute)
                 {
                     gameObject.SetActive(false);
                 }
+
+                _variableStorage.IncrementInt("interactCount");
             }
         }
     }

@@ -1,10 +1,8 @@
-﻿using System;
-using Unity.GraphToolkit.Editor;
+﻿using Unity.GraphToolkit.Editor;
 
 namespace _Project.Gameplay.Dialogs.Core.Editor.Nodes
 {
-    [Serializable]
-    public class BaseDialogNode : Node
+    public abstract class BaseDialogNode : Node
     {
         public const string INPUT_PORT_DEFAULT_NAME = "InputPort";
         public const string OUTPUT_PORT_DEFAULT_NAME = "OutputPort";

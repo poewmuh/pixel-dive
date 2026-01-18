@@ -1,6 +1,7 @@
 using System;
 using _Project.Gameplay.Dialogs.Core;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Project.Gameplay.Dialogs
 {
@@ -13,11 +14,13 @@ namespace _Project.Gameplay.Dialogs
 
         private RuntimeDialogGraph _currentGraph;
         private RuntimeBaseNode _currentNode;
+        private RuntimeVariableStorage _variables;
 
-        public void StartDialog(RuntimeDialogGraph graph, Action onDialogFinished)
+        public void StartDialog(RuntimeDialogGraph graph, Action onDialogFinished, RuntimeVariableStorage variables)
         {
             _currentGraph = graph;
             _onDialogFinished = onDialogFinished;
+            _variables = variables ?? new RuntimeVariableStorage();
             var startNode = _currentGraph.Nodes.Find(x => x.NodeId == _currentGraph.EntryNodeId);
             if (startNode == null)
             {
@@ -32,12 +35,62 @@ namespace _Project.Gameplay.Dialogs
         {
             _currentNode = node;
             
-            if (node is RuntimeDialogeNode dialogeNode)
+            switch (node)
             {
-                var sprite = _emotionsSpriteConfig.GetSpriteForEmotion(dialogeNode.Emotion);
-                DialogMessageView.gameObject.SetActive(true);
-                DialogMessageView.Setup(dialogeNode.ActorName, dialogeNode.Message, sprite);
+                case RuntimeDialogeNode dialogeNode:
+                    ExecuteDialogNode(dialogeNode);
+                    return;
+                    
+                case RuntimeConditionNode conditionNode:
+                    ExecuteConditionNode(conditionNode);
+                    return;
+                    
+                case RuntimeRandomNode randomNode:
+                    ExecuteRandomNode(randomNode);
+                    return;
             }
+            
+            Debug.LogError($"Unknown node type: {node.GetType()}");
+            FinishDialogs();
+        }
+        
+        private void ExecuteDialogNode(RuntimeDialogeNode dialogeNode)
+        {
+            var sprite = _emotionsSpriteConfig.GetSpriteForEmotion(dialogeNode.Emotion);
+            DialogMessageView.gameObject.SetActive(true);
+            DialogMessageView.Setup(dialogeNode.ActorName, dialogeNode.Message, sprite);
+        }
+        
+        private void ExecuteConditionNode(RuntimeConditionNode conditionNode)
+        {
+            var result = conditionNode.Evaluate(_variables);
+            var nextNodeId = result ? conditionNode.TrueNodeId : conditionNode.FalseNodeId;
+            
+            if (string.IsNullOrEmpty(nextNodeId))
+            {
+                FinishDialogs();
+                return;
+            }
+            
+            var nextNode = _currentGraph.Nodes.Find(x => x.NodeId == nextNodeId);
+            ExecuteNodeByType(nextNode);
+        }
+        
+        private void ExecuteRandomNode(RuntimeRandomNode randomNode)
+        {
+            if (randomNode.NextNodeIds.Count == 0)
+            {
+                FinishDialogs();
+                return;
+            }
+
+            var randomIndex = Random.Range(0, randomNode.NextNodeIds.Count);
+            var nextNode = _currentGraph.Nodes.Find(x => x.NodeId == randomNode.NextNodeIds[randomIndex]);
+            if (nextNode == null)
+            {
+                Debug.LogError($"Random node not found: {randomNode.NextNodeIds[randomIndex]} index: {randomIndex}");
+            }
+            ExecuteNodeByType(nextNode);
         }
 
         public void SkipDialog()

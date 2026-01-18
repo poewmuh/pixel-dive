@@ -39,7 +39,7 @@ namespace _Project.Application.Input
                 .Merge(_inputActions.PlayerPlatforming.Jump.StartedAsObservable())
                 .Merge(_inputActions.PlayerPlatforming.Jump.CanceledAsObservable())
                 .Subscribe(OnJumpPerformed).AddTo(_disposables);
-            _inputActions.PlayerPlatforming.Interact.PerformedAsObservable()
+            _inputActions.PlayerPlatforming.Interact.StartedAsObservable()
                 .Subscribe(OnInteractPerformed).AddTo(_disposables);
             _inputActions.PlayerPlatforming.Pause.PerformedAsObservable()
                 .Subscribe(OnPausePerformed).AddTo(_disposables);
@@ -88,7 +88,6 @@ namespace _Project.Application.Input
             {
                 Phase = context.phase
             });
-            SetupCurrentControlScheme(context);
         }
         
         private void OnJumpPerformed(InputAction.CallbackContext context)
@@ -114,7 +113,6 @@ namespace _Project.Application.Input
             {
                 Phase = context.phase
             });
-            SetupCurrentControlScheme(context);
         }
         
         private void SetupCurrentControlScheme(InputAction.CallbackContext context)

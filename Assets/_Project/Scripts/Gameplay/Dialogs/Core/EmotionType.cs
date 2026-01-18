@@ -22,4 +22,14 @@ namespace _Project.Gameplay.Dialogs.Core
         Wow,
         MegaWow
     }
+    
+    public enum ComparisonType
+    {
+        Equal,
+        NotEqual,
+        Greater,
+        GreaterOrEqual,
+        Less,
+        LessOrEqual
+    }
 }

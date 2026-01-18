@@ -39,7 +39,7 @@ namespace _Project.Application.GUI.DialogeSystem
             _sceneChangeSubscription = _sceneChangeSub.Subscribe(OnSceneChange);
         }
 
-        void IDialogeSystem.DialogeStart(RuntimeDialogGraph graph, Action onDialogEnded)
+        void IDialogeSystem.DialogeStart(RuntimeDialogGraph graph, Action onDialogEnded, RuntimeVariableStorage variables = null)
         {
             _inputSwitcher.EnableInput(InputBlockMask.Dialogs, true);
             _uiClickSubscription = _inputSystem.OnUIClick.Subscribe(OnSkipDialog);
@@ -50,7 +50,7 @@ namespace _Project.Application.GUI.DialogeSystem
                 _inputSwitcher.EnableInput(InputBlockMask.Dialogs, false);
                 _dialogBehaviour.DialogMessageView.OnCharWrote -= OnCharWrote;
                 onDialogEnded?.Invoke();
-            });
+            }, variables);
         }
         
         private void OnSceneChange(SceneChangeEvent msg)
@@ -73,6 +73,6 @@ namespace _Project.Application.GUI.DialogeSystem
     public interface IDialogeSystem
     {
         bool IsDialogActive { get; }
-        void DialogeStart(RuntimeDialogGraph graph, Action onDialogEnded);
+        void DialogeStart(RuntimeDialogGraph graph, Action onDialogEnded, RuntimeVariableStorage variables = null);
     }
 }

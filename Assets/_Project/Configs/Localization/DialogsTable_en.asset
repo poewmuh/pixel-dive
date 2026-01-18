@@ -50,6 +50,74 @@ MonoBehaviour:
     m_Localized: Look around body
     m_Metadata:
       m_Items: []
+  - m_Id: 3526086571278336
+    m_Localized: Human statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526264946638848
+    m_Localized: still human statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526448585850880
+    m_Localized: Its human yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526682749648896
+    m_Localized: its star statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526769441718272
+    m_Localized: yes its star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526795144413184
+    m_Localized: its still star statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526821950210048
+    m_Localized: Its whale statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526864027467776
+    m_Localized: still whale statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526884361453568
+    m_Localized: u expect changes? Its whale statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3526903089020928
+    m_Localized: Its medusa statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3527032600739840
+    m_Localized: Still medusa statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3527060505444352
+    m_Localized: u expect changes? Its medusa statue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3539205779570688
+    m_Localized: english_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3539363950968832
+    m_Localized: english_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3539590728597504
+    m_Localized: puzzle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3540307388350464
+    m_Localized: puzzle_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3558816268894208
+    m_Localized: puzzle_repeat
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
