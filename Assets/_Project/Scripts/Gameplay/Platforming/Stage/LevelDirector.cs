@@ -7,6 +7,7 @@ namespace _Project.Gameplay.Platforming.Stage
     {
         [SerializeField] private UnityEvent _onStageStart;
         [SerializeField] private UnityEvent _onStageComplete;
+        [SerializeField] private UnityEvent _onStageBroken;
         
         public bool IsActive { get; protected set; }
 
@@ -20,6 +21,12 @@ namespace _Project.Gameplay.Platforming.Stage
         {
             IsActive = false;
             _onStageComplete?.Invoke();
+        }
+        
+        public virtual void BrokeStage()
+        {
+            IsActive = false;
+            _onStageBroken?.Invoke();
         }
     }
 }

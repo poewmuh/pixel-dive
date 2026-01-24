@@ -115,6 +115,86 @@ MonoBehaviour:
     m_Key: puzzle_start_repeat
     m_Metadata:
       m_Items: []
+  - m_Id: 5700960261718016
+    m_Key: puzzle_human_need_human
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5701090520023040
+    m_Key: puzzle_human_need_whale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5701267070861312
+    m_Key: puzzle_human_need_star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5702162986778624
+    m_Key: puzzle_human_need_medusa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5705838396653568
+    m_Key: puzzle_medusa_need_human
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5706358284828672
+    m_Key: puzzle_medusa_need_star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5706706890211328
+    m_Key: puzzle_medusa_need_whale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5707290221428736
+    m_Key: puzzle_medusa_need_medusa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5708142810185728
+    m_Key: puzzle_star_need_human
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5708407437213696
+    m_Key: puzzle_star_need_star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5708647552729088
+    m_Key: puzzle_star_need_whale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5708986045644800
+    m_Key: puzzle_star_need_medusa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5709555766345728
+    m_Key: puzzle_whale_need_human
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5709823715262464
+    m_Key: puzzle_whale_need_star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5710169825034240
+    m_Key: puzzle_whale_need_whale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5710375366901760
+    m_Key: puzzle_whale_need_medusa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5713659188166656
+    m_Key: puzzle_almost_compelte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5713818726907904
+    m_Key: puzzle_full_complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5714024000339968
+    m_Key: puzzle_broken_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5714448614899712
+    m_Key: puzzle_broken_1
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -37,5 +37,10 @@ namespace _Project.Gameplay.Platforming.Dialogs
         {
             _variables.SetVariable("puzzleMode", 0);
         }
+
+        public void SetPuzzleNeedId(int order)
+        {
+            _variables.SetVariable("puzzleNeedId", order);
+        }
     }
 }
