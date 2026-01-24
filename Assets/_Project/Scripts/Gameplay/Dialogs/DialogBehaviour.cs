@@ -1,6 +1,7 @@
 using System;
 using _Project.Gameplay.Dialogs.Core;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace _Project.Gameplay.Dialogs
@@ -8,6 +9,10 @@ namespace _Project.Gameplay.Dialogs
     public class DialogBehaviour : MonoBehaviour
     {
         private event Action _onDialogFinished;
+        
+        [SerializeField] private UnityEvent _onDialogStartedEvent;
+        [SerializeField] private UnityEvent _onNextDialogEvent;
+        [SerializeField] private UnityEvent _onDialogFinishedEvent;
         
         [SerializeField] private EmotionsSpriteConfig _emotionsSpriteConfig;
         [field: SerializeField] public DialogMessageView DialogMessageView { get; private set; }
@@ -28,7 +33,9 @@ namespace _Project.Gameplay.Dialogs
                 return;
             }
 
+            DialogMessageView.gameObject.SetActive(true);
             ExecuteNodeByType(startNode);
+            _onDialogStartedEvent?.Invoke();
         }
 
         private void ExecuteNodeByType(RuntimeBaseNode node)
@@ -57,7 +64,6 @@ namespace _Project.Gameplay.Dialogs
         private void ExecuteDialogNode(RuntimeDialogeNode dialogeNode)
         {
             var sprite = _emotionsSpriteConfig.GetSpriteForEmotion(dialogeNode.Emotion);
-            DialogMessageView.gameObject.SetActive(true);
             DialogMessageView.Setup(dialogeNode.ActorName, dialogeNode.Message, sprite);
         }
         
@@ -107,6 +113,7 @@ namespace _Project.Gameplay.Dialogs
                 return;
             }
             
+            _onNextDialogEvent?.Invoke();
             var nextNode = _currentGraph.Nodes.Find(x => x.NodeId == _currentNode.NextNodeId);
             ExecuteNodeByType(nextNode);
         }
@@ -122,6 +129,7 @@ namespace _Project.Gameplay.Dialogs
             _currentGraph = null;
             DialogMessageView.gameObject.SetActive(false);
             _onDialogFinished?.Invoke();
+            _onDialogFinishedEvent?.Invoke();
         }
     }
 }
