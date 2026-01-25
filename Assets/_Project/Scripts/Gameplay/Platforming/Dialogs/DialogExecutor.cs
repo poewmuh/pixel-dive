@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Application.GUI.DialogeSystem;
+﻿using _Project.Application.GUI.DialogeSystem;
 using _Project.Gameplay.Dialogs.Core;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,6 +10,7 @@ namespace _Project.Gameplay.Platforming.Dialogs
     {
         [SerializeField] private RuntimeDialogGraph _dialogNode;
         [SerializeField] private UnityEvent _onDialogEnded;
+        [SerializeField] private float _delay = 0;
         
         [Inject] private IDialogeSystem _dialogeSystem;
         
@@ -24,7 +24,7 @@ namespace _Project.Gameplay.Platforming.Dialogs
 
         public void ExecuteDialog()
         {
-            _dialogeSystem.DialogeStart(_dialogNode, () => _onDialogEnded.Invoke(), _variables);
+            _dialogeSystem.DelayDialogStart(_dialogNode, () => _onDialogEnded.Invoke(), _delay, _variables);
             _variables.IncrementInt("interactCount");
         }
 

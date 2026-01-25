@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace _Project.Gameplay.Platforming.Level
 {
     [RequireComponent(typeof(Collider2D))]
-    public class DoSomethingTrigger : MonoBehaviour
+    public class OnEnterTrigger : MonoBehaviour
     {
         [SerializeField] private UnityEvent _onPlayerEnter;
         [SerializeField] private bool _disableOnExecute = true;

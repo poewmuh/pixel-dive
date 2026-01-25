@@ -5,6 +5,7 @@ using _Project.Application.Input;
 using _Project.Application.Messages;
 using _Project.Gameplay.Dialogs;
 using _Project.Gameplay.Dialogs.Core;
+using Cysharp.Threading.Tasks;
 using MessagePipe;
 using R3;
 using UnityEngine;
@@ -28,8 +29,6 @@ namespace _Project.Application.GUI.DialogeSystem
         private IDisposable _uiClickSubscription;
         private IDisposable _sceneChangeSubscription;
 
-        public bool IsDialogActive { get; private set; }
-
         void IInitializable.Initialize()
         {
             var dialogParent = _guiSystem.Canvas.CreateContainer("DialogGUI");
@@ -39,7 +38,7 @@ namespace _Project.Application.GUI.DialogeSystem
             _sceneChangeSubscription = _sceneChangeSub.Subscribe(OnSceneChange);
         }
 
-        void IDialogeSystem.DialogeStart(RuntimeDialogGraph graph, Action onDialogEnded, RuntimeVariableStorage variables = null)
+        void IDialogeSystem.DialogStart(RuntimeDialogGraph graph, Action onDialogEnded, RuntimeVariableStorage variables = null)
         {
             _inputSwitcher.EnableInput(InputBlockMask.Dialogs, true);
             _uiClickSubscription = _inputSystem.OnUIClick.Subscribe(OnSkipDialog);
@@ -51,6 +50,18 @@ namespace _Project.Application.GUI.DialogeSystem
                 _dialogBehaviour.DialogMessageView.OnCharWrote -= OnCharWrote;
                 onDialogEnded?.Invoke();
             }, variables);
+        }
+        
+        void IDialogeSystem.DelayDialogStart(RuntimeDialogGraph graph, Action onDialogEnded, float delay, RuntimeVariableStorage variables = null)
+        {
+            _inputSwitcher.EnableInput(InputBlockMask.Dialogs, true);
+            StartWithDelay(graph, onDialogEnded, delay, variables).Forget();
+        }
+
+        private async UniTaskVoid StartWithDelay(RuntimeDialogGraph graph, Action onDialogEnded, float delay, RuntimeVariableStorage variables = null)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(delay));
+            ((IDialogeSystem)this).DialogStart(graph, onDialogEnded, variables);
         }
         
         private void OnSceneChange(SceneChangeEvent msg)
@@ -72,7 +83,7 @@ namespace _Project.Application.GUI.DialogeSystem
 
     public interface IDialogeSystem
     {
-        bool IsDialogActive { get; }
-        void DialogeStart(RuntimeDialogGraph graph, Action onDialogEnded, RuntimeVariableStorage variables = null);
+        void DialogStart(RuntimeDialogGraph graph, Action onDialogEnded, RuntimeVariableStorage variables = null);
+        void DelayDialogStart(RuntimeDialogGraph graph, Action onDialogEnded, float delay, RuntimeVariableStorage variables = null);
     }
 }

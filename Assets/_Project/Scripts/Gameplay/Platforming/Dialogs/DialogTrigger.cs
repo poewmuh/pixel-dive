@@ -33,7 +33,7 @@ namespace _Project.Gameplay.Platforming.Dialogs
         {
             if (other.CompareTag("Player"))
             {
-                _dialogeSystem.DialogeStart(_dialogNode, () => _onDialogEnded.Invoke(), _variableStorage);
+                _dialogeSystem.DialogStart(_dialogNode, () => _onDialogEnded.Invoke(), _variableStorage);
                 if (_disableOnExecute)
                 {
                     gameObject.SetActive(false);

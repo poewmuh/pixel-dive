@@ -118,10 +118,6 @@ MonoBehaviour:
     m_Localized: puzzle_repeat
     m_Metadata:
       m_Items: []
-  - m_Id: 5700960261718016
-    m_Localized: Yes
-    m_Metadata:
-      m_Items: []
   - m_Id: 5701090520023040
     m_Localized: No
     m_Metadata:
@@ -158,30 +154,6 @@ MonoBehaviour:
     m_Localized: Yes
     m_Metadata:
       m_Items: []
-  - m_Id: 5708647552729088
-    m_Localized: No
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5708986045644800
-    m_Localized: No
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5709555766345728
-    m_Localized: No
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5709823715262464
-    m_Localized: No
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5710169825034240
-    m_Localized: Yes
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5710375366901760
-    m_Localized: No
-    m_Metadata:
-      m_Items: []
   - m_Id: 5713659188166656
     m_Localized: Go
     m_Metadata:
@@ -192,6 +164,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 5714024000339968
     m_Localized: rage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6169229161127936
+    m_Localized: ...
     m_Metadata:
       m_Items: []
   references:
