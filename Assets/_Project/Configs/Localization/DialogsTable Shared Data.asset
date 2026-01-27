@@ -215,6 +215,10 @@ MonoBehaviour:
     m_Key: puzzle_reset_existCombination_1
     m_Metadata:
       m_Items: []
+  - m_Id: 6817202610102272
+    m_Key: puzzle_four_error_2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

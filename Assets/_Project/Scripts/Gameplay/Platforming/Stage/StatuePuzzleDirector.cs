@@ -62,13 +62,6 @@ namespace _Project.Gameplay.Platforming.Stage
                 return;
             }
             _currentPlayerCombination.Add(statudeId);
-            
-            foreach (var dialog in _dialogExecutors)
-            {
-                dialog.SetPuzzleNeedId(_rightOrder[_currentPuzzleStage]);
-            }
-
-            _currentPuzzleStage++;
 
             if (_currentPlayerCombination.Count == 4)
             {
@@ -79,7 +72,7 @@ namespace _Project.Gameplay.Platforming.Stage
                     return;
                 }
                 
-                _allPlayersCombinations.Add(_currentPlayerCombination);
+                _allPlayersCombinations.Add(new List<int>(_currentPlayerCombination));
                 if (_currentPlayerCombination.SequenceEqual(_rightOrder))
                 {
                     if (_allPlayersCombinations.Count == 1 && _resetCount <= 0)
@@ -98,6 +91,14 @@ namespace _Project.Gameplay.Platforming.Stage
                     _errorEvent[_allPlayersCombinations.Count-1]?.Invoke();
                     ResetPuzzle();
                 }
+            }
+
+            else
+            {
+                _dialogExecutors[statudeId].SetPuzzleNeedId(_rightOrder[_currentPuzzleStage]);
+                _dialogExecutors[statudeId].ExecuteDialog();
+
+                _currentPuzzleStage++;
             }
         }
 

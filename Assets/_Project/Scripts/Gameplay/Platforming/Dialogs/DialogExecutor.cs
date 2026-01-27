@@ -19,13 +19,13 @@ namespace _Project.Gameplay.Platforming.Dialogs
         private void Awake()
         {
             _variables = new RuntimeVariableStorage();
-            _variables.SetVariable("interactCount", 0);
+            _variables.SetVariable("interactCount", -1);
         }
 
         public void ExecuteDialog()
         {
-            _dialogeSystem.DelayDialogStart(_dialogNode, () => _onDialogEnded.Invoke(), _delay, _variables);
             _variables.IncrementInt("interactCount");
+            _dialogeSystem.DelayDialogStart(_dialogNode, () => _onDialogEnded.Invoke(), _delay, _variables);
         }
 
         public void EnablePuzzleMode()

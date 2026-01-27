@@ -1,5 +1,144 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3877018300163721078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1298866993758740594}
+  - component: {fileID: 8580390247677184987}
+  - component: {fileID: 982908064798877659}
+  - component: {fileID: 798835802507821764}
+  m_Layer: 0
+  m_Name: START_PUZZLE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1298866993758740594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877018300163721078}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -32.8, y: -15.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5731275595768334888}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &8580390247677184987
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877018300163721078}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 2.3902817, y: 2.1806083}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 5.7805634, y: 11.735301}
+  m_EdgeRadius: 0
+--- !u!114 &982908064798877659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877018300163721078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20764b4cdca5459abc1c5f922b503ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Platforming.Level.OnEnterTrigger
+  _onPlayerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 798835802507821764}
+        m_TargetAssemblyTypeName: _Project.Gameplay.Platforming.Dialogs.DialogExecutor,
+          Assembly-CSharp
+        m_MethodName: ExecuteDialog
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: _Project.Gameplay.Platforming.Stage.StatuePuzzleDirector,
+          Assembly-CSharp
+        m_MethodName: StartStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _disableOnExecute: 1
+--- !u!114 &798835802507821764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877018300163721078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c075b9592d024e4cbc63ceaf3b4a879a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Platforming.Dialogs.DialogExecutor
+  _dialogNode: {fileID: 3965311268370046156, guid: a245108d5085b804ca3cc2ba69563830, type: 3}
+  _onDialogEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  _delay: 2
 --- !u!1 &6400855420648478676
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +171,7 @@ Transform:
   - {fileID: 9148508335424112824}
   - {fileID: 2161233406462627967}
   - {fileID: 307682021735894558}
-  - {fileID: 7612159213475806284}
+  - {fileID: 1298866993758740594}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &856834534078118496
@@ -115,7 +254,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 75025014220923638, guid: 034a878456358994db3ef704efddd606, type: 3}
       propertyPath: _sceneType
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1592629592234584607, guid: 034a878456358994db3ef704efddd606, type: 3}
       propertyPath: m_LocalScale.x
@@ -182,104 +321,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1592629592234584607, guid: 034a878456358994db3ef704efddd606, type: 3}
   m_PrefabInstance: {fileID: 1323832916982981633}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &4924190140679218615
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5731275595768334888}
-    m_Modifications:
-    - target: {fileID: 395226696980208523, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_Name
-      value: START_PUZZLE
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5.073327
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 9.914437
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 15.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -11.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001537710708291644, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: _dialogNode
-      value: 
-      objectReference: {fileID: 3965311268370046156, guid: a245108d5085b804ca3cc2ba69563830, type: 3}
-    - target: {fileID: 9001537710708291644, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: _onDialogEnded.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001537710708291644, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: _onDialogEnded.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001537710708291644, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: _onDialogEnded.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001537710708291644, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: _onDialogEnded.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartStage
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001537710708291644, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: _onDialogEnded.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: _Project.Gameplay.Platforming.Stage.StatuePuzzleDirector, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9001537710708291644, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-      propertyPath: _onDialogEnded.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
---- !u!4 &7612159213475806284 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
-  m_PrefabInstance: {fileID: 4924190140679218615}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5981881408547508547
 PrefabInstance:

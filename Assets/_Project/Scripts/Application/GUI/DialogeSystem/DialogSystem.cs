@@ -27,7 +27,9 @@ namespace _Project.Application.GUI.DialogeSystem
 
         private DialogBehaviour _dialogBehaviour;
         private IDisposable _uiClickSubscription;
-        private IDisposable _sceneChangeSubscription;
+        
+        private bool _cutsceneDialogSkipped;
+        private Action _cutsceneDialogEndedCallback;
 
         void IInitializable.Initialize()
         {
@@ -35,7 +37,7 @@ namespace _Project.Application.GUI.DialogeSystem
             var instance = _assetLoader.LoadImmediate<GameObject>("DialogGUI");
             
             _dialogBehaviour = Object.Instantiate(instance, dialogParent).GetComponent<DialogBehaviour>();
-            _sceneChangeSubscription = _sceneChangeSub.Subscribe(OnSceneChange);
+            _sceneChangeSub.Subscribe(OnSceneChange);
         }
 
         void IDialogeSystem.DialogStart(RuntimeDialogGraph graph, Action onDialogEnded, RuntimeVariableStorage variables = null)
@@ -79,11 +81,43 @@ namespace _Project.Application.GUI.DialogeSystem
         {
             _audioSystem.PlayOneShot("typeText");
         }
+        
+        void IDialogeSystem.CutsceneDialogStart(string actorName, string message, EmotionType emotion, float letterDelay)
+        {
+            _dialogBehaviour.FinishDialogs();
+            _inputSwitcher.EnableInput(InputBlockMask.Dialogs, true);
+            _uiClickSubscription = _inputSystem.OnUIClick.Subscribe(OnSkipCutsceneDialog);
+            _dialogBehaviour.DialogMessageView.OnCharWrote += OnCharWrote;
+            _dialogBehaviour.StartCutsceneDialog(actorName, message, emotion, letterDelay, () =>
+            {
+                _uiClickSubscription?.Dispose();
+                _inputSwitcher.EnableInput(InputBlockMask.Dialogs, false);
+                _dialogBehaviour.DialogMessageView.OnCharWrote -= OnCharWrote;
+            });
+        }
+
+        private void OnSkipCutsceneDialog(InputActionData data)
+        {
+            _dialogBehaviour.SkipCutsceneDialog();
+        }
+
+        bool IDialogeSystem.IsTyping()
+        {
+            return _dialogBehaviour.DialogMessageView.IsTyping;
+        }
+        
+        bool IDialogeSystem.IsSkipped()
+        {
+            return !_dialogBehaviour.DialogMessageView.IsTyping && !_dialogBehaviour.DialogMessageView.gameObject.activeSelf;
+        }
     }
 
     public interface IDialogeSystem
     {
         void DialogStart(RuntimeDialogGraph graph, Action onDialogEnded, RuntimeVariableStorage variables = null);
         void DelayDialogStart(RuntimeDialogGraph graph, Action onDialogEnded, float delay, RuntimeVariableStorage variables = null);
+        void CutsceneDialogStart(string actorName, string message, EmotionType emotion, float letterDelay = -1);
+        bool IsTyping();
+        bool IsSkipped();
     }
 }

@@ -20,12 +20,11 @@ namespace _Project.Gameplay.Dialogs
         [SerializeField] private Image _speakerIcon;
         
         [SerializeField] private float _letterDelay = 0.05f;
-        [SerializeField] private float _punctuationDelay = 0.15f;
 
         private CancellationTokenSource _animationTokenSource;
         private string _currentFullMessage;
 
-        public void Setup(string speakerName, string dialogMessage, Sprite speakerSprite)
+        public void Setup(string speakerName, string dialogMessage, Sprite speakerSprite, float letterDelay = -1)
         {
             _currentFullMessage = dialogMessage;
             _speakerIcon.gameObject.SetActive(speakerSprite != null);
@@ -37,11 +36,14 @@ namespace _Project.Gameplay.Dialogs
                 _animationTokenSource.Cancel();
             }
             _animationTokenSource = new CancellationTokenSource();
-            TypeText(_animationTokenSource.Token).Forget();
+            var delay = letterDelay > 0 ? letterDelay : _letterDelay;
+            TypeText(delay, _animationTokenSource.Token).Forget();
         }
 
-        private async UniTaskVoid TypeText(CancellationToken cancellationToken)
+        private async UniTaskVoid TypeText(float letterDelay, CancellationToken cancellationToken)
         {
+            var startTime = Time.time;
+            Debug.Log($"letterDelay: {letterDelay} currentTime = {startTime}");
             _dialogMessage.text = "";
             
             foreach (char letter in _currentFullMessage)
@@ -51,14 +53,15 @@ namespace _Project.Gameplay.Dialogs
             
                 if (_punctuationMarks.Contains(letter.ToString()))
                 {
-                    await UniTask.Delay(TimeSpan.FromSeconds(_punctuationDelay), cancellationToken : cancellationToken);
+                    await UniTask.Delay(TimeSpan.FromSeconds(letterDelay * 10), cancellationToken : cancellationToken);
                 }
                 else
                 {
-                    await UniTask.Delay(TimeSpan.FromSeconds(_letterDelay), cancellationToken : cancellationToken);
+                    await UniTask.Delay(TimeSpan.FromSeconds(letterDelay), cancellationToken : cancellationToken);
                 }
             }
 
+            Debug.Log($"currentTime = {Time.time} delta: {Time.time - startTime}");
             _animationTokenSource = null;
         }
         

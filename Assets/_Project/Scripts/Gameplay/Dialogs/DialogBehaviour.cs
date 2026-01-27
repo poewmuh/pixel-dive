@@ -123,13 +123,30 @@ namespace _Project.Gameplay.Dialogs
             FinishDialogs();
         }
 
-        private void FinishDialogs()
+        public void FinishDialogs()
         {
             _currentNode = null;
             _currentGraph = null;
             DialogMessageView.gameObject.SetActive(false);
             _onDialogFinished?.Invoke();
             _onDialogFinishedEvent?.Invoke();
+        }
+
+        public void StartCutsceneDialog(string actorName, string message, EmotionType emotion, float letterDelay, Action action)
+        {
+            DialogMessageView.gameObject.SetActive(true);
+            _onDialogFinished = action;
+            var sprite = _emotionsSpriteConfig.GetSpriteForEmotion(emotion);
+            DialogMessageView.Setup(actorName, message, sprite, letterDelay);
+        }
+
+        public void SkipCutsceneDialog()
+        {
+            if (DialogMessageView.IsTyping)
+            {
+                return;
+            }
+            FinishDialogs();
         }
     }
 }
