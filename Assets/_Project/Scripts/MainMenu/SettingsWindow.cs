@@ -1,5 +1,6 @@
 using System;
 using _Project.Application.GUI.WindowsSystem;
+using _Project.Application.Localization;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -19,23 +20,28 @@ namespace _Project.MainMenu
 
         private void Awake()
         {
+            _languageIndex = PlayerPrefs.GetInt("LocalizationIndex", -1);
+            _languageText.text = LocalizationHelper.GetLanguageByIndex(_languageIndex);
+            
             _languageButton.OnClickAsObservable().Subscribe(OnLanguageClick).AddTo(this);
             _backButton.OnClickAsObservable().Subscribe(OnBackClick).AddTo(this);
         }
 
         private void OnLanguageClick(Unit _)
         {
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_languageIndex];
-            if (_languageIndex == 0)
+            _languageIndex = GetNewLanguageIndex();
+            LocalizationHelper.SetupLocalization(_languageIndex);
+            _languageText.text = LocalizationHelper.GetLanguageByIndex(_languageIndex);
+        }
+
+        private int GetNewLanguageIndex()
+        {
+            if (_languageIndex + 1 >= LocalizationHelper.GetMaxLocales())
             {
-                _languageText.text = "Russian";
-                _languageIndex = 1;
+                return 0;
             }
-            else
-            {
-                _languageText.text = "English";
-                _languageIndex = 0;
-            }
+
+            return _languageIndex + 1;
         }
 
         private void OnBackClick(Unit _)

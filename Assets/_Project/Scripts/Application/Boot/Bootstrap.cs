@@ -1,8 +1,10 @@
 using System;
 using _Project.Application.Audio;
+using _Project.Application.Localization;
 using _Project.Application.Scene;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using VContainer;
 
@@ -21,10 +23,17 @@ namespace _Project.Application.Boot
 
         private async UniTaskVoid LoadMainMenu()
         {
+            SetupLanguage();
             await UniTask.Delay(TimeSpan.FromSeconds(1));
             _audioSystem.PlayMusic("mainmenu_theme");
             await _logoView.StartShowLogo();
             await _sceneSystem.LoadScene(SceneType.TrainingLocation, LoadSceneMode.Single);
+        }
+
+        private void SetupLanguage()
+        {
+            var selectedLanguage = PlayerPrefs.GetInt("LocalizationIndex", -1);
+            LocalizationHelper.SetupLocalization(selectedLanguage);
         }
     }
 }
