@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using _Project.Gameplay.Platforming.Dialogs;
+using _Project.Gameplay.Platforming.Interaction;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -55,6 +56,7 @@ namespace _Project.Gameplay.Platforming.Stage
         public void InteractWithStatue(int statudeId)
         {
             if (!IsActive) return;
+            _dialogExecutors[statudeId].GetComponent<StatueLightAnimator>().AppearAnimation();
             if (_currentPlayerCombination.Contains(statudeId))
             {
                 _resetStatueDoubleClick.ExecuteDialog();
@@ -107,6 +109,11 @@ namespace _Project.Gameplay.Platforming.Stage
             _resetCount++;
             _currentPlayerCombination.Clear();
             _currentPuzzleStage = 0;
+
+            foreach (var dialogExecutor in _dialogExecutors)
+            {
+                dialogExecutor.GetComponent<StatueLightAnimator>().DisappearAnimation();
+            }
         }
 
         public void OnInteractDialogEnd()

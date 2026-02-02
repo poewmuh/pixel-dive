@@ -47,7 +47,7 @@ Shader "Photoshop/Overlay_Extreme_Performance"
                 // Оптимизированный lerp: 
                 // Вместо ler(0.5, tex*color*2, alpha) 
                 // делаем математически то же самое, но чуть "ближе к металлу"
-                fixed3 overlay = tex.rgb * i.color.rgb * 1.5;
+                fixed3 overlay = tex.rgb * i.color.rgb * 2.5;
                 fixed3 res = 0.5 + (overlay - 0.5) * alpha;
 
                 return fixed4(res, 1.0);
