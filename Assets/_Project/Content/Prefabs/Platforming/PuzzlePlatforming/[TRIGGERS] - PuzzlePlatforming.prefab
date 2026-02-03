@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3877018300163721078
+--- !u!1 &2462813755273450692
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1298866993758740594}
-  - component: {fileID: 8580390247677184987}
-  - component: {fileID: 982908064798877659}
-  - component: {fileID: 798835802507821764}
+  - component: {fileID: 6996341722293054367}
+  - component: {fileID: 2524056297479584836}
+  - component: {fileID: 211513439514261707}
   m_Layer: 0
   m_Name: START_PUZZLE
   m_TagString: Untagged
@@ -19,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1298866993758740594
+--- !u!4 &6996341722293054367
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877018300163721078}
+  m_GameObject: {fileID: 2462813755273450692}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -32.8, y: -15.3, z: 0}
@@ -34,13 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5731275595768334888}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &8580390247677184987
+--- !u!61 &2524056297479584836
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877018300163721078}
+  m_GameObject: {fileID: 2462813755273450692}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -80,13 +79,13 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5.7805634, y: 11.735301}
   m_EdgeRadius: 0
---- !u!114 &982908064798877659
+--- !u!114 &211513439514261707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877018300163721078}
+  m_GameObject: {fileID: 2462813755273450692}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20764b4cdca5459abc1c5f922b503ed3, type: 3}
@@ -95,19 +94,6 @@ MonoBehaviour:
   _onPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798835802507821764}
-        m_TargetAssemblyTypeName: _Project.Gameplay.Platforming.Dialogs.DialogExecutor,
-          Assembly-CSharp
-        m_MethodName: ExecuteDialog
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: _Project.Gameplay.Platforming.Stage.StatuePuzzleDirector,
           Assembly-CSharp
@@ -122,23 +108,6 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   _disableOnExecute: 1
---- !u!114 &798835802507821764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3877018300163721078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c075b9592d024e4cbc63ceaf3b4a879a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Platforming.Dialogs.DialogExecutor
-  _dialogNode: {fileID: 3965311268370046156, guid: a245108d5085b804ca3cc2ba69563830, type: 3}
-  _onDialogEnded:
-    m_PersistentCalls:
-      m_Calls: []
-  _delay: 2
 --- !u!1 &6400855420648478676
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +140,7 @@ Transform:
   - {fileID: 9148508335424112824}
   - {fileID: 2161233406462627967}
   - {fileID: 307682021735894558}
-  - {fileID: 1298866993758740594}
+  - {fileID: 6996341722293054367}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &856834534078118496
@@ -378,6 +347,10 @@ PrefabInstance:
       propertyPath: _dialogNode
       value: 
       objectReference: {fileID: 3965311268370046156, guid: fa596d65c117f404ab1b96edfc891513, type: 3}
+    - target: {fileID: 9001537710708291644, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
+      propertyPath: _dialogGraph
+      value: 
+      objectReference: {fileID: 9079132388228204927}
     - target: {fileID: 9195519342758604809, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
       propertyPath: _drawMode
       value: 1
@@ -385,8 +358,70 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 395226696980208523, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9079132388228204927}
+    - targetCorrespondingSourceObject: {fileID: 395226696980208523, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4777911610694293328}
   m_SourcePrefab: {fileID: 100100000, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
+--- !u!1 &6232922393140873928 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 395226696980208523, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}
+  m_PrefabInstance: {fileID: 5981881408547508547}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9079132388228204927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232922393140873928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32e4b851ebd8fa4ea0645b99be1cf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NodeCanvas::NodeCanvas.DialogueTrees.DialogueTreeController
+  _serializedExposedParameters: []
+  _boundGraphSerialization: '{"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"\u0422\u044b
+    \u0434\u0430\u0436\u0435 \u043d\u0435 \u043f\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0448\u044c
+    \u043a\u0443\u0434\u0430 \u0442\u044b \u043f\u043e\u043f\u0430\u043b. \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e
+    \u0442\u044b \u0441\u043e\u0447\u0442\u0435\u0448\u044c \u0443\u0432\u0438\u0434\u0435\u043d\u043d\u043e\u0435
+    \u0432\u043f\u0435\u0440\u0435\u0434\u0438 \u0441\u043b\u0438\u0448\u043a\u043e\u043c
+    \u0448\u043e\u043a\u0438\u0440\u0443\u044e\u0449\u0438\u043c \u0438 \u043a\u0440\u044b\u0448\u0435\u0441\u043d\u043e\u0441\u043d\u044b\u043c.","_emotionType":1,"_localizations":{}},"_position":{"x":551.0,"y":268.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"0"},{"statement":{"_text":"\u041d\u0443...
+    \u0424\u0438\u0433\u0443\u0440\u0430\u043b\u044c\u043d\u043e \u0432\u044b\u0440\u0430\u0436\u0430\u044f\u0441\u044c","_emotionType":7,"_localizations":{}},"_position":{"x":664.0,"y":402.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"1"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _boundGraphObjectReferences: []
+  _boundGraphSource:
+    _version: 3.33
+    _category: 
+    _comments: 
+    _translation: {x: 0, y: 0}
+    _zoomFactor: 1
+  _firstActivation: 0
+  _enableAction: 1
+  _disableAction: 2
+  _lockBoundGraphPrefabOverrides: 1
+  _preInitializeSubGraphs: 0
+  _updateMode: 0
+  _graph: {fileID: 0}
+  _blackboard: {fileID: 4777911610694293328}
+--- !u!114 &4777911610694293328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232922393140873928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ParadoxNotion::NodeCanvas.Framework.Blackboard
+  _parentBlackboard: {fileID: 0}
+  _serializedBlackboard: '{"_variables":{}}'
+  _objectReferences: []
+  _serializedVariables: []
 --- !u!4 &9148508335424112824 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3311815534933924347, guid: 48f4ea949a86a794a8ff1f15b3f71bc7, type: 3}

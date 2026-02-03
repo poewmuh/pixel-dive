@@ -1,46 +1,25 @@
-﻿using _Project.Application.GUI.DialogeSystem;
-using _Project.Gameplay.Dialogs.Core;
+﻿using NodeCanvas.DialogueTrees;
 using UnityEngine;
 using UnityEngine.Events;
 using VContainer;
 
 namespace _Project.Gameplay.Platforming.Dialogs
 {
+    [RequireComponent(typeof(DialogueTreeController))]
     public class DialogExecutor : MonoBehaviour
     {
-        [SerializeField] private RuntimeDialogGraph _dialogNode;
+        private DialogueTreeController _dialogTree;
+        
         [SerializeField] private UnityEvent _onDialogEnded;
-        [SerializeField] private float _delay = 0;
-        
-        [Inject] private IDialogeSystem _dialogeSystem;
-        
-        private RuntimeVariableStorage _variables;
 
         private void Awake()
         {
-            _variables = new RuntimeVariableStorage();
-            _variables.SetVariable("interactCount", -1);
+            _dialogTree = GetComponent<DialogueTreeController>();
         }
 
         public void ExecuteDialog()
         {
-            _variables.IncrementInt("interactCount");
-            _dialogeSystem.DelayDialogStart(_dialogNode, () => _onDialogEnded.Invoke(), _delay, _variables);
-        }
-
-        public void EnablePuzzleMode()
-        {
-            _variables.SetVariable("puzzleMode", 1);
-        }
-        
-        public void DisablePuzzleMode()
-        {
-            _variables.SetVariable("puzzleMode", 0);
-        }
-
-        public void SetPuzzleNeedId(int order)
-        {
-            _variables.SetVariable("puzzleNeedId", order);
+            _dialogTree.StartDialogue(_=> _onDialogEnded?.Invoke());
         }
     }
 }

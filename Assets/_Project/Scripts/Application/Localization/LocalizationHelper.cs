@@ -8,8 +8,8 @@ namespace _Project.Application.Localization
         public static void SetupLocalization(int localizationIndex)
         {
             var validLocalizationIndex = GetValidLocalizationIndex(localizationIndex);
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[validLocalizationIndex];
             PlayerPrefs.SetInt("LocalizationIndex", validLocalizationIndex);
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[validLocalizationIndex];
         }
 
         public static int GetValidLocalizationIndex(int localizationIndex)

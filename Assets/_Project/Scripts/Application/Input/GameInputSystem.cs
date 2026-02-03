@@ -17,7 +17,7 @@ namespace _Project.Application.Input
         public Subject<InputActionData> OnJump { get; } = new();
         public Subject<InputVectorActionData> OnMove { get; }  = new();
         public Subject<InputActionData> OnPause { get; } = new();
-        public Subject<InputActionData> OnUIClick { get; } = new();
+        public Subject<InputActionData> OnSkipClicked { get; } = new();
         public Subject<InputActionData> OnInteract { get; } = new();
 
         public ReactiveProperty<string> CurrentControlScheme { get; } = new();
@@ -48,7 +48,7 @@ namespace _Project.Application.Input
             
             
             _inputActions.Dialogs.Skip.PerformedAsObservable()
-                .Subscribe(OnUIClicked).AddTo(_disposables);
+                .Subscribe(OnSkipPressed).AddTo(_disposables);
         }
 
         void IInputSystem.EnablePlayerInput()
@@ -99,9 +99,9 @@ namespace _Project.Application.Input
             SetupCurrentControlScheme(context);
         }
 
-        private void OnUIClicked(InputAction.CallbackContext context)
+        private void OnSkipPressed(InputAction.CallbackContext context)
         {
-            OnUIClick?.OnNext(new InputActionData()
+            OnSkipClicked?.OnNext(new InputActionData()
             {
                 Phase = context.phase
             });

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: Puzzle_Wrong_Interact
+  m_EditorClassIdentifier: NodeCanvas::NodeCanvas.DialogueTrees.DialogueTree
+  _serializedGraph: '{"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"conditions":[{"valueA":{"_type":"System.Enum","_name":"InteractStatue","_targetVariableID":"c244d311-1270-4377-9edf-857fab44e778"},"valueB":{"_type":"_Project.Gameplay.Platforming.Stage.StatueType","_value":{"$content":0,"$type":"_Project.Gameplay.Platforming.Stage.StatueType"}},"$type":"NodeCanvas.Tasks.Conditions.CheckEnum"},null],"_position":{"x":843.0,"y":219.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"0"},{"conditions":[{"valueA":{"_type":"System.Enum","_name":"CurrentNeed","_targetVariableID":"246faee0-003e-4dd2-b043-52d529518983"},"valueB":{"_type":"_Project.Gameplay.Platforming.Stage.StatueType","_value":{"$content":2,"$type":"_Project.Gameplay.Platforming.Stage.StatueType"}},"$type":"NodeCanvas.Tasks.Conditions.CheckEnum"},{"valueA":{"_type":"System.Enum","_name":"CurrentNeed","_targetVariableID":"246faee0-003e-4dd2-b043-52d529518983"},"valueB":{"_type":"_Project.Gameplay.Platforming.Stage.StatueType","_value":{"$content":3,"$type":"_Project.Gameplay.Platforming.Stage.StatueType"}},"$type":"NodeCanvas.Tasks.Conditions.CheckEnum"},null],"_position":{"x":453.0,"y":364.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"1"},{"statement":{"_text":"\u041e
+    \u0434\u0430, \u0442\u044b \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u043e
+    \u00ab\u0431\u043e\u043b\u044c\u0448\u0435 \u0432\u0441\u0435\u0445 \u043e\u0441\u0442\u0430\u043b\u044c\u043d\u044b\u0445\u00bb.","_emotionType":13,"_localizations":{}},"_position":{"x":180.0,"y":532.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"\u0412
+    \u0442\u0430\u043a\u043e\u043c \u0441\u043b\u0443\u0447\u0430\u0435 \u0443 \u0442\u0435\u0431\u044f
+    \u0438 \u043c\u043e\u0437\u0433 \u0434\u043e\u043b\u0436\u0435\u043d \u0431\u044b\u0442\u044c
+    \u0431\u043e\u043b\u044c\u0448\u0435, \u0442\u0430\u043a \u0447\u0442\u043e \u043f\u0435\u0440\u0435\u0441\u0442\u0430\u043d\u044c
+    \u0432\u044b\u0431\u0438\u0440\u0430\u0442\u044c \u043d\u0435\u043b\u0435\u043f\u044b\u0435
+    \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u044b.","_emotionType":14,"_localizations":{}},"_position":{"x":180.0,"y":646.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"3"},{"statement":{"_text":"\u041e\u0445,
+    \u044f \u0443\u0432\u0435\u0440\u0435\u043d\u0430 \u0442\u044b \u0432\u043e\u0432\u0441\u0435
+    \u043d\u0435 \u00ab\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0448\u044c
+    \u0431\u0435\u0437 \u043c\u043e\u0437\u0433\u043e\u0432\u00bb","_emotionType":15,"_localizations":{}},"_position":{"x":555.0,"y":532.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"},{"statement":{"_text":"\u0425\u043e\u0442\u044f
+    c \u0434\u0440\u0443\u0433\u043e\u0439 \u0441\u0442\u043e\u0440\u043e\u043d\u044b,
+    \u043c\u044b \u0431\u044b \u0442\u0443\u0442 \u0441 \u0442\u043e\u0431\u043e\u0439
+    \u0442\u0430\u043a \u0434\u043e\u043b\u0433\u043e \u043d\u0435 \u0441\u0438\u0434\u0435\u043b\u0438.","_emotionType":13,"_localizations":{}},"_position":{"x":553.0,"y":649.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"5"},{"statement":{"_text":"\u0424\u0443,
+    \u0442\u044b \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u043e?..
+    ","_emotionType":9,"_localizations":{}},"_position":{"x":932.0,"y":537.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"},{"statement":{"_text":"\u042d\u043c,
+    \u044f \u0445\u043e\u0442\u0435\u043b\u0430 \u0441\u043a\u0430\u0437\u0430\u0442\u044c
+    \u043d\u0435\u0442 \u043d\u0438\u0447\u0435\u0433\u043e \u043f\u043e\u0441\u0442\u044b\u0434\u043d\u043e\u0433\u043e
+    \u0432 \u0442\u043e\u043c, \u0447\u0442\u043e \u0447\u0435\u043b\u043e\u0432\u0435\u043a
+    \u0435\u0441\u0442 \u043e\u0442\u0445\u043e\u0434\u044b. \u041e\u0447\u0435\u043d\u044c
+    \u0431\u043b\u0430\u0433\u043e\u0440\u043e\u0434\u043d\u043e \u0441 \u0432\u0430\u0448\u0435\u0439
+    \u0441\u0442\u043e\u0440\u043e\u043d\u044b \u0431\u0440\u0430\u0442\u044c \u043d\u0430
+    \u0441\u0435\u0431\u044f \u0442\u0430\u043a\u0443\u044e \u043d\u043e\u0448\u0443
+    \u0435\u0441\u043b\u0438 \u0433\u043e\u0432\u043e\u0440\u0438\u0442\u044c \u0432
+    \u0433\u043b\u043e\u0431\u0430\u043b\u044c\u043d\u043e\u043c \u0441\u043c\u044b\u0441\u043b\u0435.","_emotionType":15,"_localizations":{}},"_position":{"x":917.0,"y":653.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"7"},{"childOptions":[{"weight":{"_value":1.0}},{"weight":{"_value":1.0}},{"weight":{"_value":1.0}},{"weight":{"_value":1.0}}],"_position":{"x":1351.0,"y":341.0},"$type":"NodeCanvas.DialogueTrees.ProbabilitySelector","$id":"8"},{"statement":{"_text":"\u042d\u043c\u043c
+    \u0442\u044b \u0432 \u044d\u0442\u043e\u043c \u0443\u0432\u0435\u0440\u0435\u043d?
+    \u042d\u0442\u043e \u0430\u0431\u0441\u043e\u043b\u044e\u0442\u043d\u043e \u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u044b\u0439
+    \u043e\u0442\u0432\u0435\u0442\r\n","_emotionType":15,"_localizations":{}},"_position":{"x":1266.0,"y":524.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"9"},{"statement":{"_text":"\u041c\u0434\u0430,
+    \u0432 \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0440\u0430\u0437
+    \u044f \u0442\u0435\u0431\u0435 \u0431\u043e\u043b\u044c\u0448\u0435 \u00ab\u043d\u0438\u0447\u0435\u0433\u043e
+    \u043d\u0435 \u0440\u0430\u0441\u0441\u043a\u0430\u0436\u0443\u00bb, \u0447\u0442\u043e\u0431
+    \u0442\u044b \u0442\u043e\u0447\u043d\u043e \u043d\u0438\u0447\u0435\u0433\u043e
+    \u043d\u0435 \u0437\u0430\u0431\u044b\u043b","_emotionType":13,"_localizations":{}},"_position":{"x":1473.0,"y":626.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"10"},{"statement":{"_text":"\u0422\u044b
+    \u044f\u0432\u043d\u043e \u0434\u043e\u043b\u0433\u043e \u0434\u0443\u043c\u0430\u043b
+    \u0447\u0442\u043e\u0431\u044b \u043e\u0442\u0432\u0435\u0442\u0438\u0442\u044c
+    \u0442\u0430\u043a, \u043d\u043e \u044d\u0442\u043e \u0442\u043e\u0433\u043e
+    \u043d\u0435 \u0441\u0442\u043e\u0438\u043b\u043e","_emotionType":5,"_localizations":{}},"_position":{"x":1595.0,"y":527.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"11"},{"statement":{"_text":"\u0422\u044b
+    \u0442\u0430\u043a \u0443\u0432\u0435\u0440\u0435\u043d\u043d\u043e \u0432\u044b\u0431\u0440\u0430\u043b
+    \u0447\u0442\u043e \u044f \u0441\u0430\u043c\u0430 \u0447\u0443\u0442\u044c \u043d\u0435
+    \u043f\u043e\u0432\u0435\u0440\u0438\u043b\u0430","_emotionType":17,"_localizations":{}},"_position":{"x":1766.0,"y":407.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"12"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _graphSource:
+    _version: 3.33
+    _category: 
+    _comments: 
+    _translation: {x: -82.522285, y: 131.13069}
+    _zoomFactor: 0.7757024
+  _haltSerialization: 0
+  _externalSerializationFile: {fileID: 0}
+  actorParameters: []

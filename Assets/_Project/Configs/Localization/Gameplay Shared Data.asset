@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: interact
     m_Metadata:
       m_Items: []
+  - m_Id: 6517507237076992
+    m_Key: mermaid
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

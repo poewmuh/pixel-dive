@@ -8,7 +8,7 @@ namespace _Project.Application.Input
         Subject<InputActionData> OnJump { get; }
         Subject<InputVectorActionData> OnMove { get; }
         Subject<InputActionData> OnPause { get; }
-        Subject<InputActionData> OnUIClick { get; }
+        Subject<InputActionData> OnSkipClicked { get; }
         Subject<InputActionData> OnInteract { get; }
         
         ReactiveProperty<string> CurrentControlScheme { get; }

@@ -1,123 +1,123 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using _Project.Gameplay.Platforming.Dialogs;
+using _Project.Gameplay.Platforming.Input;
 using _Project.Gameplay.Platforming.Interaction;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.Playables;
 
 namespace _Project.Gameplay.Platforming.Stage
 {
     public class StatuePuzzleDirector : LevelDirector
     {
-        [SerializeField] private DialogExecutor _resetStatueDoubleClick;
-        [SerializeField] private DialogExecutor _resetStatueExist;
-        [SerializeField] private DialogExecutor _perfectComplete;
-        [SerializeField] private DialogExecutor _errorComplete;
-        [SerializeField] private List<DialogExecutor> _dialogExecutors;
-        [SerializeField] private List<int> _rightOrder;
+        [SerializeField] private InputComponent _playerInput;
+        [SerializeField] private SerializedDictionary<StatueType, StatueLightAnimator> _statueLights;
+        [SerializeField] private List<StatueType> _rightOrder;
+        
+        [SerializeField] private PlayableDirector _playableDirector;
+        [SerializeField] private List<PlayableAsset> _playableAssets;
+        
+        private readonly List<StatueType> _interactStatues = new ();
+        private readonly List<List<StatueType>> _alreadyUseCombinations = new();
 
-        [SerializeField] private UnityEvent[] _errorEvent;
-
-        private int _currentPuzzleStage;
-        private int _rightAnswersCount;
-        private int _resetCount;
-
-        private List<int> _currentPlayerCombination = new(4);
-        private List<List<int>> _allPlayersCombinations = new(4);
+        private int interactCount;
         
         public override void StartStage()
         {
-            _currentPlayerCombination.Clear();
-            _allPlayersCombinations.Clear();
-
-            _resetCount = 0;
-            _rightAnswersCount = 0;
-            _currentPuzzleStage = 0;
+            _alreadyUseCombinations.Clear();
+            _interactStatues.Clear();
+            blackboard.SetVariableValue("IsHaveError", false);
+            interactCount = 0;
+            SetCurrentNeedStatue(_rightOrder[0]);
             base.StartStage();
-            foreach (var dialog in _dialogExecutors)
-            {
-                dialog.EnablePuzzleMode();
-                dialog.SetPuzzleNeedId(_rightOrder[_currentPuzzleStage]);
-            }
         }
 
         public override void CompleteStage()
         {
             base.CompleteStage();
-            _currentPlayerCombination.Clear();
-            _allPlayersCombinations.Clear();
-            
-            foreach (var dialog in _dialogExecutors)
-            {
-                dialog.DisablePuzzleMode();
-            }
         }
 
-        public void InteractWithStatue(int statudeId)
+        public void TogglePlayerInput(bool isEnabled)
         {
-            if (!IsActive) return;
-            _dialogExecutors[statudeId].GetComponent<StatueLightAnimator>().AppearAnimation();
-            if (_currentPlayerCombination.Contains(statudeId))
+            _playerInput.ToggleInput(isEnabled);
+        }
+
+        public void InteractWithStatue(int statueId)
+        {
+            interactCount++;
+            var interactStatueType = (StatueType)statueId;
+            blackboard.SetVariableValue("InteractStatue", interactStatueType);
+
+            if (_interactStatues.Contains(interactStatueType))
             {
-                _resetStatueDoubleClick.ExecuteDialog();
-                ResetPuzzle();
+                fsmOwner.SendEvent("OnDoubleClick");
                 return;
             }
-            _currentPlayerCombination.Add(statudeId);
+            
+            _interactStatues.Add(interactStatueType);
 
-            if (_currentPlayerCombination.Count == 4)
+            if (_alreadyUseCombinations.Any(combination => combination.SequenceEqual(_interactStatues)))
             {
-                if (_allPlayersCombinations.Any(combination => combination.SequenceEqual(_currentPlayerCombination)))
-                {
-                    _resetStatueExist.ExecuteDialog();
-                    ResetPuzzle();
-                    return;
-                }
-                
-                _allPlayersCombinations.Add(new List<int>(_currentPlayerCombination));
-                if (_currentPlayerCombination.SequenceEqual(_rightOrder))
-                {
-                    if (_allPlayersCombinations.Count == 1 && _resetCount <= 0)
-                    {
-                        _perfectComplete.ExecuteDialog();
-                    }
-                    else
-                    {
-                        _errorComplete.ExecuteDialog();
-                    }
-                    
-                    CompleteStage();
-                }
-                else
-                {
-                    _errorEvent[_allPlayersCombinations.Count-1]?.Invoke();
-                    ResetPuzzle();
-                }
+                fsmOwner.SendEvent("OnRepeatCombination");
+                return;
+            }
+            
+            if (_interactStatues.SequenceEqual(_rightOrder))
+            {
+                CompleteStage();
+                return;
             }
 
-            else
+            if (interactCount >= _rightOrder.Count)
             {
-                _dialogExecutors[statudeId].SetPuzzleNeedId(_rightOrder[_currentPuzzleStage]);
-                _dialogExecutors[statudeId].ExecuteDialog();
+                fsmOwner.SendEvent("OnWrongAnswer");
+                blackboard.SetVariableValue("IsHaveError", true);
+                _alreadyUseCombinations.Add(new List<StatueType>(_interactStatues));
+                return;
+            }
+            
+            fsmOwner.SendEvent("OnInteract");
+            
+        }
 
-                _currentPuzzleStage++;
+        public void AppearLight(StatueType statueType)
+        {
+            _statueLights[statueType].AppearAnimation();
+        }
+
+        public void SetupNextNeedStatue()
+        {
+            if (interactCount >= _rightOrder.Count) return;
+            
+            SetCurrentNeedStatue(_rightOrder[interactCount]);
+        }
+
+        private void SetCurrentNeedStatue(StatueType statueType)
+        {
+            blackboard.SetVariableValue("CurrentNeed", statueType);
+        }
+
+        public void ResetAllStatues()
+        {
+            interactCount = 0;
+            SetCurrentNeedStatue(_rightOrder[0]);
+            _interactStatues.Clear();
+            
+            foreach (var statueLight in _statueLights.Values)
+            {
+                statueLight.DisappearAnimation();
             }
         }
 
-        private void ResetPuzzle()
+        public void PlayCutscene(int index)
         {
-            _resetCount++;
-            _currentPlayerCombination.Clear();
-            _currentPuzzleStage = 0;
-
-            foreach (var dialogExecutor in _dialogExecutors)
-            {
-                dialogExecutor.GetComponent<StatueLightAnimator>().DisappearAnimation();
-            }
+            _playableDirector.time = 0;
+            _playableDirector.Play(_playableAssets[index]);
         }
 
-        public void OnInteractDialogEnd()
+        public void StopCutscene()
         {
+            _playableDirector.time = _playableDirector.duration;
         }
     }
 }

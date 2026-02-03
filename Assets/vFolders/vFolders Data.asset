@@ -45,6 +45,7 @@ MonoBehaviour:
     - e3ca696700a0cb649b7bcdec0489c12b
     - cf852f268c7e6eb40bff302dc46631de
     - e405bfe473914044b8e19320575b199c
+    - 7ba16df2a88ec6a45a242eaea1faba18
     values:
     - iconNameOrGuid: 
       colorIndex: 6
@@ -168,6 +169,10 @@ MonoBehaviour:
       isColorRecursive: 0
     - iconNameOrGuid: 
       colorIndex: 10
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: AudioClip Icon
+      colorIndex: 5
       isIconRecursive: 0
       isColorRecursive: 0
   bookmarks:

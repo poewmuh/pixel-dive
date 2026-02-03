@@ -22,6 +22,10 @@ MonoBehaviour:
     m_Localized: Interact
     m_Metadata:
       m_Items: []
+  - m_Id: 6517507237076992
+    m_Localized: Mermaid
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
