@@ -12,6 +12,7 @@ namespace _Project.Gameplay.Platforming.Level
     public class NextLevelTrigger : MonoBehaviour
     {
         [SerializeField] private SceneType _sceneType;
+        [SerializeField] private Color _fadeColor;
         
         [Inject] private ISceneSystem _sceneSystem;
         
@@ -27,7 +28,7 @@ namespace _Project.Gameplay.Platforming.Level
         {
             if (collider.CompareTag("Player"))
             {
-                _sceneSystem.LoadScene(_sceneType, LoadSceneMode.Single);   
+                _sceneSystem.LoadScene(_sceneType, LoadSceneMode.Single, _fadeColor);
             }
         }
     }

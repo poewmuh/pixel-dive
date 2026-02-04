@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VContainer;
 
-namespace _Project.Pause
+namespace _Project.Windows.Pause
 {
     public class PauseMenuWindow : WindowBase
     {
@@ -21,7 +21,7 @@ namespace _Project.Pause
             _backToMainMenuButton.OnClickAsObservable().Subscribe(_ =>
             {
                 ((IWindow)this).Close();
-                _sceneSystem.LoadScene(SceneType.Bootstrap, LoadSceneMode.Single);
+                _sceneSystem.LoadScene(SceneType.Bootstrap, LoadSceneMode.Single, Color.black);
             }).AddTo(this);
         }
     }

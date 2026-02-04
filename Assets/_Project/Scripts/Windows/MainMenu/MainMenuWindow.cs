@@ -1,13 +1,11 @@
-using System;
 using _Project.Application.Scene;
 using _Project.Application.GUI.WindowsSystem;
 using R3;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VContainer;
 
-namespace _Project.MainMenu
+namespace _Project.Windows.MainMenu
 {
     public class MainMenuWindow : WindowBase
     {

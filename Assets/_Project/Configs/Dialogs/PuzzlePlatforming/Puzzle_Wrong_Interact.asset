@@ -57,8 +57,8 @@ MonoBehaviour:
     _version: 3.33
     _category: 
     _comments: 
-    _translation: {x: -82.522285, y: 131.13069}
-    _zoomFactor: 0.7757024
+    _translation: {x: -144.90826, y: -32.136147}
+    _zoomFactor: 1
   _haltSerialization: 0
   _externalSerializationFile: {fileID: 0}
   actorParameters: []

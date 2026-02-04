@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mermaid_eee
+      name: mermaid_che_za_huyna
       rect:
         serializedVersion: 2
         x: 0
@@ -119,7 +119,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mermaid_dontunderstand
+      name: Mermaid_udivlenno_ne_ponimaet
       rect:
         serializedVersion: 2
         x: 144
@@ -141,7 +141,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mermaid_amaze
+      name: Mermaid_radost
       rect:
         serializedVersion: 2
         x: 288
@@ -509,23 +509,23 @@ TextureImporter:
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Mermaid_WOWED: 1170608618
-      Mermaid_amaze: 1885526214
       Mermaid_angry: 560646570
       Mermaid_calm: 1642247875
       Mermaid_cute_smile: -229632424
       Mermaid_disapointed: 2076877609
-      Mermaid_dontunderstand: -1467590409
       Mermaid_dumb_smile: 1781478110
       Mermaid_dumb_tongue: -1769954093
       Mermaid_evil_smile: -190340970
       Mermaid_happy: 1563062777
       Mermaid_lookdown: 1990830040
       Mermaid_poker_face: -1557370967
+      Mermaid_radost: 1885526214
       Mermaid_serious: -71672195
       Mermaid_think_0: -1257366801
       Mermaid_think_1: -333647077
+      Mermaid_udivlenno_ne_ponimaet: -1467590409
       Mermaid_wow: 1881052801
-      mermaid_eee: -656426268
+      mermaid_che_za_huyna: -656426268
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

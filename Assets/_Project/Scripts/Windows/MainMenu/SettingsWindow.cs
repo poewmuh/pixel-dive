@@ -1,13 +1,11 @@
-using System;
 using _Project.Application.GUI.WindowsSystem;
 using _Project.Application.Localization;
 using R3;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
-namespace _Project.MainMenu
+namespace _Project.Windows.MainMenu
 {
     public class SettingsWindow : WindowBase
     {

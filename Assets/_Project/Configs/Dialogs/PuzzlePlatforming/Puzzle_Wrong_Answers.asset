@@ -19,22 +19,22 @@ MonoBehaviour:
     \u0434\u043b\u044f \u0442\u0432\u043e\u0435\u0433\u043e \u0443\u043c\u0430, \u043d\u043e
     \u044f \u0437\u0434\u0435\u0441\u044c \u043a\u0430\u043a \u0440\u0430\u0437 \u0434\u043b\u044f
     \u0442\u043e\u0433\u043e \u0447\u0442\u043e\u0431\u044b \u043f\u043e\u043c\u043e\u0433\u0430\u0442\u044c
-    \u0442\u0435\u0431\u0435.","_emotionType":3,"_localizations":{}},"_position":{"x":453.0,"y":432.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"\u0435\u0441\u043b\u0438
+    \u0442\u0435\u0431\u0435.","_emotionType":7,"_localizations":{}},"_position":{"x":453.0,"y":432.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"\u0435\u0441\u043b\u0438
     \u0442\u044b \u0437\u0430\u0431\u044b\u043b, \u043e\u043d\u0430 \u0437\u0432\u0443\u0447\u0438\u0442
-    \u0442\u0430\u043a:","_emotionType":4,"_localizations":{}},"_position":{"x":454.0,"y":540.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"3"},{"_subTree":{"_value":1},"_position":{"x":870.0394,"y":828.1561},"$type":"NodeCanvas.DialogueTrees.SubDialogueTree","$id":"4"},{"statement":{"_text":"\u0417\u043d\u0430\u0435\u0448\u044c,
+    \u0442\u0430\u043a:","_emotionType":15,"_localizations":{}},"_position":{"x":454.0,"y":540.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"3"},{"_subTree":{"_value":1},"_position":{"x":870.0394,"y":828.1561},"$type":"NodeCanvas.DialogueTrees.SubDialogueTree","$id":"4"},{"statement":{"_text":"\u0417\u043d\u0430\u0435\u0448\u044c,
     \u0435\u0441\u043b\u0438 \u0442\u044b \u0434\u0435\u043b\u0430\u0435\u0448\u044c
     \u044d\u0442\u043e \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u044c\u043d\u043e,
     \u0442\u043e \u044f \u0431\u044b \u0441\u043a\u0430\u0437\u0430\u043b\u0430 \u0447\u0442\u043e
     \u0443 \u0442\u0435\u0431\u044f \u0421\u0423\u0425\u041e\u0415 \u0447\u0443\u0432\u0441\u0442\u0432\u043e
     \u044e\u043c\u043e\u0440\u0430, \u0434\u043e\u0448\u043b\u043e?","_emotionType":8,"_localizations":{}},"_position":{"x":803.0,"y":445.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"5"},{"statement":{"_text":"\u0414\u0430\u0432\u0430\u0439
-    \u0435\u0449\u0435 \u0440\u0430\u0437\u043e\u043a","_emotionType":1,"_localizations":{}},"_position":{"x":846.0,"y":540.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"},{"statement":{"_text":"\u0425\u043c,
+    \u0435\u0449\u0435 \u0440\u0430\u0437\u043e\u043a","_emotionType":11,"_localizations":{}},"_position":{"x":846.0,"y":540.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"},{"statement":{"_text":"\u0425\u043c,
     \u0434\u043e\u043b\u0436\u043d\u043e \u0431\u044b\u0442\u044c \u0442\u044b \u0441\u043b\u0438\u0448\u043a\u043e\u043c
     \u043f\u0435\u0440\u0435\u0443\u0441\u043b\u043e\u0436\u043d\u044f\u0435\u0448\u044c
     \u044d\u0442\u0443 \u0437\u0430\u0433\u0430\u0434\u043a\u0443 \u0432 \u0441\u0432\u043e\u0435\u0439
     \u0433\u043e\u043b\u043e\u0432\u0435. \u0422\u0430\u043a\u043e\u0439 \u043f\u043e\u0434\u0445\u043e\u0434
     \u043d\u0435 \u043d\u0430\u0437\u0432\u0430\u0442\u044c \u0438\u043d\u0430\u0447\u0435
     \u043a\u0430\u043a \u0442\u0443\u043f\u0438\u043a. \u0422\u0438\u043f\u0438\u0447\u043d\u0430\u044f
-    \u043e\u0448\u0438\u0431\u043a\u0430.","_emotionType":7,"_localizations":{}},"_position":{"x":1160.0,"y":435.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"7"},{"statement":{"_text":"\u0422\u0430\u043a
+    \u043e\u0448\u0438\u0431\u043a\u0430.","_emotionType":16,"_localizations":{}},"_position":{"x":1158.968,"y":435.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"7"},{"statement":{"_text":"\u0422\u0430\u043a
     \u0443\u0436 \u0438 \u0431\u044b\u0442\u044c, \u0434\u0430\u0432\u0430\u0439
     \u044f \u0442\u0435\u0431\u0435 \u0441\u043b\u0435\u0433\u043a\u0430 \u043d\u0430\u043c\u0435\u043a\u043d\u0443
     \u043d\u0430 \u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u044b\u0439 \u043e\u0442\u0432\u0435\u0442:","_emotionType":3,"_localizations":{}},"_position":{"x":1168.0,"y":548.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"8"},{"_action":{"boolVariable":{"_name":"IsNeedWrongCutscene","_targetVariableID":"cb08ca7a-a007-4903-b31d-98fbe3e73754"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},"_position":{"x":1344.0,"y":673.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"9"},{"statement":{"_text":"\u041f\u043e\u0441\u043b\u0443\u0448\u0430\u0439,
@@ -42,7 +42,7 @@ MonoBehaviour:
     \u043d\u0435 \u043f\u0440\u0438\u0434\u0435\u043c, \u043f\u043e\u0447\u0435\u043c\u0443
     \u0442\u044b \u0442\u0430\u043a \u0443\u043f\u043e\u0440\u043d\u043e \u043c\u0435\u0448\u0430\u0435\u0448\u044c
     \u043c\u043d\u0435 \u043f\u043e\u043c\u043e\u0447\u044c \u0442\u0435\u0431\u0435
-    \u0432 \u0442\u0432\u043e\u0435\u0439 \u0446\u0435\u043b\u0438?","_emotionType":14,"_localizations":{}},"_position":{"x":1544.0,"y":417.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"10"},{"statement":{"_text":"\u041b\u0430\u0434\u043d\u043e
+    \u0432 \u0442\u0432\u043e\u0435\u0439 \u0446\u0435\u043b\u0438?","_emotionType":5,"_localizations":{}},"_position":{"x":1544.0,"y":417.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"10"},{"statement":{"_text":"\u041b\u0430\u0434\u043d\u043e
     \u044f \u043f\u043e\u0433\u043e\u0440\u044f\u0447\u0438\u043b\u0430\u0441\u044c,
     \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u0434\u0435\u043b\u043e \u0432
     \u043d\u0435\u0434\u043e\u043f\u043e\u043d\u0438\u043c\u0430\u043d\u0438\u0438

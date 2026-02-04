@@ -15,21 +15,6 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 51f807c55bad82a41905ff4f9ee3330b
   m_SerializeEntries:
-  - m_GUID: 189038f8e178a6448b4e9fa0b2b33e1b
-    m_Address: PuzzleLevel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2d9730ac4b490f248a5bcba941cce39b
-    m_Address: Level1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3ab083e749fc1f941900aa97e4385114
-    m_Address: PuzzlePlatforming
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 59006f576d210ed4cb9be49c5e6c3870
     m_Address: PauseMenuWindow
     m_ReadOnly: 0

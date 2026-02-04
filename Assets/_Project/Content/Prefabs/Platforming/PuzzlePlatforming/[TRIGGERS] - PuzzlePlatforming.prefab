@@ -153,7 +153,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 75025014220923638, guid: 034a878456358994db3ef704efddd606, type: 3}
       propertyPath: _sceneType
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1592629592234584607, guid: 034a878456358994db3ef704efddd606, type: 3}
       propertyPath: m_LocalPosition.x
@@ -224,6 +224,18 @@ PrefabInstance:
     - target: {fileID: 75025014220923638, guid: 034a878456358994db3ef704efddd606, type: 3}
       propertyPath: _sceneType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 75025014220923638, guid: 034a878456358994db3ef704efddd606, type: 3}
+      propertyPath: _fadeColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 75025014220923638, guid: 034a878456358994db3ef704efddd606, type: 3}
+      propertyPath: _fadeColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 75025014220923638, guid: 034a878456358994db3ef704efddd606, type: 3}
+      propertyPath: _fadeColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1592629592234584607, guid: 034a878456358994db3ef704efddd606, type: 3}
       propertyPath: m_LocalScale.x

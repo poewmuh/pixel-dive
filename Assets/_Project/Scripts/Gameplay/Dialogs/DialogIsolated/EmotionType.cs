@@ -3,24 +3,24 @@ namespace _Project.Gameplay.Dialogs.Core
     public enum EmotionType
     {
         None = 0,
-        Amazing,
-        Angry,
+        VeryHappy,
+        VeryAngry,
         Calm,
         CuteSmile,
         Disappointed,
-        DontUnderstand,
+        UdivlennoNePonimaet,
         DumbSmile,
         DumbTongue,
-        Doubt,
+        CheZaHuyna,
         EvilSmile,
-        Happy,
+        WideSmile,
         LookDown,
         PokerFace,
         Serious,
-        ThinkIdea,
-        ThinkHard,
-        Wow,
-        MegaWow
+        NuDopustim,
+        Think,
+        WowNotSmile,
+        WowSurprised
     }
     
     public enum ComparisonType

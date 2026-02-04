@@ -1,5 +1,5 @@
 ﻿using _Project.Application.GUI.WindowsSystem;
-using _Project.MainMenu;
+using _Project.Windows.MainMenu;
 using UnityEngine;
 using UnityEngine.Events;
 using VContainer;

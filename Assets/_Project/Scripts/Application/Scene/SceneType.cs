@@ -7,6 +7,6 @@ namespace _Project.Application.Scene
         TrainingLocation,
         PuzzlePlatforming,
         PuzzleLevel,
-        Level1,
+        ToBeContinued
     }
 }

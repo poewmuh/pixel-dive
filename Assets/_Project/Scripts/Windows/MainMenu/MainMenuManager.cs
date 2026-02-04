@@ -2,7 +2,7 @@ using _Project.Application.GUI.WindowsSystem;
 using UnityEngine;
 using VContainer;
 
-namespace _Project.MainMenu
+namespace _Project.Windows.MainMenu
 {
     public class MainMenuManager : MonoBehaviour
     {

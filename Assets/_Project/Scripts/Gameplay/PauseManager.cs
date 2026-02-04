@@ -1,9 +1,8 @@
 using System;
 using _Project.Application.GUI.WindowsSystem;
 using _Project.Application.Input;
-using _Project.Pause;
+using _Project.Windows.Pause;
 using R3;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;

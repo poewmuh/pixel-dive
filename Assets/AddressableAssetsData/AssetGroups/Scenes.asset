@@ -20,6 +20,26 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 189038f8e178a6448b4e9fa0b2b33e1b
+    m_Address: PuzzleLevel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d9730ac4b490f248a5bcba941cce39b
+    m_Address: Level1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ab083e749fc1f941900aa97e4385114
+    m_Address: PuzzlePlatforming
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95287a6b6adc5c644a82bf1a295b25c9
+    m_Address: ToBeContinued
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9e16fda79c8c1114fb3092ace23207a2
     m_Address: TrainingLocation
     m_ReadOnly: 0

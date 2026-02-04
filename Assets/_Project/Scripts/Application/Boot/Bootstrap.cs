@@ -27,7 +27,7 @@ namespace _Project.Application.Boot
             await UniTask.Delay(TimeSpan.FromSeconds(1));
             _audioSystem.PlayMusic("mainmenu_theme");
             await _logoView.StartShowLogo();
-            await _sceneSystem.LoadScene(SceneType.TrainingLocation, LoadSceneMode.Single);
+            await _sceneSystem.LoadScene(SceneType.PuzzlePlatforming, LoadSceneMode.Single, Color.black);
         }
 
         private void SetupLanguage()

@@ -1,7 +1,7 @@
 using VContainer;
 using VContainer.Unity;
 
-namespace _Project.MainMenu
+namespace _Project.Windows.MainMenu
 {
     public class MainMenuLifetimeScope : LifetimeScope
     {
