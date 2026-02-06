@@ -42,7 +42,6 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
         public RectTransform waitInputIndicator;
         public SubtitleDelays subtitleDelays = new SubtitleDelays();
         public List<AudioClip> typingSounds;
-        private AudioSource playSource;
 
         //Group...
         [Header("Multiple Choice")]
@@ -52,11 +51,10 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
         private Vector2 originalSubsPosition;
         private bool isWaitingChoice;
         private bool isStartedByGraph;
-
-        private AudioSource _localSource;
-        private AudioSource localSource => _localSource != null ? _localSource : _localSource = gameObject.AddComponent<AudioSource>();
+        private AudioSource _sfxAudioSource;
 
         public void SetAnyKeyDown() => anyKeyDown = true;
+        public void SetupAudioSource(AudioSource audioSource) => _sfxAudioSource = audioSource;
         private bool anyKeyDown;
         void LateUpdate() => anyKeyDown = false;
 
@@ -97,7 +95,6 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
             subtitlesGroup.gameObject.SetActive(false);
             optionsGroup.gameObject.SetActive(false);
             StopAllCoroutines();
-            playSource?.Stop();
         }
 
         void OnDialogueFinished(DialogueTree dlg) {
@@ -112,7 +109,6 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
                 cachedButtons = null;
             }
             StopAllCoroutines();
-            playSource?.Stop();
         }
 
         ///----------------------------------------------------------------------------------------------
@@ -139,15 +135,10 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
             actorPortrait.sprite = portraitSprite;
 
             if ( audio != null ) {
-                var actorSource = localSource;
-                playSource = actorSource != null ? actorSource : localSource;
-                playSource.clip = audio;
-                playSource.Play();
                 actorSpeech.text = text;
                 var timer = 0f;
                 while ( timer < audio.length ) {
                     if ( skipOnInput && anyKeyDown ) {
-                        playSource.Stop();
                         break;
                     }
                     timer += Time.deltaTime;
@@ -210,7 +201,7 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
             if ( typingSounds.Count > 0 ) {
                 var sound = typingSounds[Random.Range(0, typingSounds.Count)];
                 if ( sound != null ) {
-                    localSource.PlayOneShot(sound, Random.Range(0.6f, 1f));
+                    _sfxAudioSource.PlayOneShot(sound, Random.Range(0.6f, 1f));
                 }
             }
         }

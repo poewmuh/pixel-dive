@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Application.Audio;
 using _Project.Application.Input;
 using _Project.Application.Localization;
 using _Project.GUI;
@@ -18,12 +19,14 @@ namespace _Project.Gameplay.Dialogs
     {
         [Inject] private IInputSwitcher _inputSwitcher;
         [Inject] private IInputSystem _inputSystem;
+        [Inject] private IAudioSystem _audioSystem;
 
         private DialogueUGUI _dialogueUGUI;
 
         private void Awake()
         {
             _dialogueUGUI = GetComponent<DialogueUGUI>();
+            _dialogueUGUI.SetupAudioSource(_audioSystem.GetSFXSource());
             UpdateLanguage();
         }
 

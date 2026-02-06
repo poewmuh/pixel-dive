@@ -26,8 +26,11 @@ namespace _Project.Application.Settings
         void IInitializable.Initialize()
         {
             Load();
-            ApplyAllSettings();
             SubscribeToChanges();
+            
+            Observable.NextFrame()
+                .Subscribe(_ => ApplyAllSettings())
+                .AddTo(_disposables);
         }
 
         private void Load()

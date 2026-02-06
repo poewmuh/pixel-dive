@@ -31,6 +31,11 @@ namespace _Project.Application.Audio
             _effectSource.Play();
         }
 
+        AudioSource IAudioSystem.GetSFXSource()
+        {
+            return _effectSource;
+        }
+
         void IAudioSystem.PlayOneShot(string key, Vector3 worldPosition)
         {
             throw new NotImplementedException();
