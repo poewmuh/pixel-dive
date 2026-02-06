@@ -12,18 +12,27 @@ namespace _Project.Windows.Loading
         [SerializeField] private Image _background;
 
         [SerializeField] private float _animationDuration;
+        
+        private Tween _currentTween;
 
         public async UniTask StartShowAnimation(Color fadeColor)
         {
+            _currentTween?.Kill();
             _background.color = fadeColor;
-            _background.DOFade(1, _animationDuration);
+            _currentTween = _background.DOFade(1, _animationDuration);
             await UniTask.Delay(TimeSpan.FromSeconds(_animationDuration));
         }
 
         public async UniTask StartHideAnimation()
         {
-            _background.DOFade(0, _animationDuration);
+            _currentTween?.Kill();
+            _currentTween = _background.DOFade(0, _animationDuration);
             await UniTask.Delay(TimeSpan.FromSeconds(_animationDuration));
+        }
+
+        protected override void OnDestroy()
+        {
+            _currentTween?.Kill();
         }
     }
 }

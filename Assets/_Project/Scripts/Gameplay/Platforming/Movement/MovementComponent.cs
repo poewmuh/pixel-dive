@@ -65,6 +65,7 @@ namespace _Project.Gameplay.Platforming.Movement
         private void OnDestroy()
         {
             CollisionChecker.Dispose();
+            JumpHandler.Dispose();
         }
     }
 }

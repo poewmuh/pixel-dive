@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Application.Asset;
@@ -6,10 +7,11 @@ using R3;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace _Project.Application.GUI.WindowsSystem
 {
-    public class WindowSystem : IWindowSystem, IInitializable
+    public class WindowSystem : IWindowSystem, IInitializable, IDisposable
     {
         [Inject] private IGUISystem _guiSystem;
         [Inject] private IObjectResolver _objectResolver;
@@ -23,10 +25,15 @@ namespace _Project.Application.GUI.WindowsSystem
         
         public Subject<IWindow> OnWindowOpened { get; } = new();
         public Subject<IWindow> OnWindowClosed { get; } = new();
+        
+        private readonly CompositeDisposable _disposables = new();
 
         void IInitializable.Initialize()
         {
             _windowsContainer = _guiSystem.Canvas.CreateContainer("Windows");
+            
+            OnWindowOpened.AddTo(_disposables);
+            OnWindowClosed.AddTo(_disposables);
         }
 
         T IWindowSystem.Show<T>()
@@ -34,11 +41,16 @@ namespace _Project.Application.GUI.WindowsSystem
             _inputSwitcher.EnableInput(InputBlockMask.Windows, true);
             var key = typeof(T).Name;
             var instance = _assetLoader.LoadImmediate<GameObject>(key);
-            IWindow window = Object.Instantiate(instance, _windowsContainer).GetComponent<IWindow>();
-            _objectResolver.Inject(window);
+            IWindow window = _objectResolver.Instantiate(instance, _windowsContainer).GetComponent<IWindow>();
             window.Initialize(this);
             window.OnClosed += HandleOnWindowClosed;
             window.Show();
+
+            if (_windowList.Count > 0)
+            {
+                var lastWindow = _windowList.Last();
+                lastWindow.SetHidden(true);
+            }
             
             _windowList.Add(window);
             OnWindowOpened.OnNext(window);
@@ -92,6 +104,12 @@ namespace _Project.Application.GUI.WindowsSystem
         private void Close(IWindow window)
         {
             window.Close();
+            
+            if (_windowList.Count > 0)
+            {
+                var lastWindow = _windowList.Last();
+                lastWindow.SetHidden(false);
+            }
         }
 
         private void HandleOnWindowClosed(WindowBase window)
@@ -99,13 +117,18 @@ namespace _Project.Application.GUI.WindowsSystem
             window.OnClosed -= HandleOnWindowClosed;
             _windowList.Remove(window);
             OnWindowClosed.OnNext(window);
-            _assetLoader.Release(nameof(window));
+            _assetLoader.Release(window.GetType().Name);
             Object.Destroy(window.gameObject);
 
             if (((IWindowSystem)this).WindowsCount == 0)
             {
                 _inputSwitcher.EnableInput(InputBlockMask.Windows, false);
             }
+        }
+
+        void IDisposable.Dispose()
+        {
+            _disposables.Dispose();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace _Project.Application.Audio
@@ -13,5 +14,10 @@ namespace _Project.Application.Audio
         void PlayAmbient(string key);
         void StopAmbient(string key);
         void StopAllAmbient();
+
+        void SetMasterVolume(float volume);
+        void SetMusicVolume(float volume);
+        void SetSfxVolume(float volume);
+        void SetLowpassValue(float lowpass);
     }
 }

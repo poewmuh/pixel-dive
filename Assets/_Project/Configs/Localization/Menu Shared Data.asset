@@ -71,6 +71,26 @@ MonoBehaviour:
     m_Key: effects_volume
     m_Metadata:
       m_Items: []
+  - m_Id: 15927631500271616
+    m_Key: resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15927694423220224
+    m_Key: window_mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15928081427456000
+    m_Key: master_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15928205654351872
+    m_Key: music_volum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15928273329446912
+    m_Key: sfx_volume
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

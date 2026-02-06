@@ -35,10 +35,14 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: a27db36bc1808c245b6f7c98874ed4e2
+    name: MasterVolume
   - guid: 50c8210a79c78e94faf60f4eebda7315
     name: MusicVolume
+  - guid: 714eee069dadc0c4cb1735f17d5ec7fc
+    name: Lowpass
   - guid: a4d73b55797ff504393b44545284e1b7
-    name: SoundVolume
+    name: SFXVolume
   m_AudioMixerGroupViews:
   - guids:
     - 4a4415abc1bb3d84da0563e253568101
@@ -91,7 +95,36 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 987d5eaeff0d2b5459cbf9a4632081a6
-  m_FloatValues: {}
+  m_FloatValues:
+    23568210179e4724ba33c8c5e938787d: 488
+    4daf56104fd65914ab072af05d83bed4: -7297
+    d6c836d022bbd89449f04f13225e9b1e: -2865
+    ca168ee1163da38478c41f4fb35d160f: 9.5
+    3ffc4422b416092489e3ac08317a5d1e: 47.6
+    22a01c62addf8754eba03b9926bf4bd6: 2000
+    888527929d41bcb429cca4c7427bb44f: 20
+    c31825b20a0b85f478ecc8102460f9ed: 0.119
+    d19111d2faea986478502c7ed3d6c62f: 1
+    c1f542d4baed62440a5d6dab4dd42e47: 1.43
+    714eee069dadc0c4cb1735f17d5ec7fc: 22000
+    e3f687463edf4b549a5466161cf6de17: 16.3
+    15a05186239830d458db1e1f479b6d7d: 41.1
+    28acb7071fb99ca41a752630ebb25d18: 0.751
+    5df7390783c042e4da6bd7f3fe94ca62: 0
+    ef8aded7cac495748894a3f9b1649950: 0.776
+    e53e08886672c9b4d9e03281a2df9729: 11
+    bbc1d7d8095df7f4da13f8f8631dbd02: 0.0811
+    f4c3c0c9d87169148910cf036d6eb0d2: 0
+    8bfaaa5a05bbc7f44986b2b9ca0fcb07: 841
+    fc9625ba71035c24db77117fe2274fca: 3.4
+    a71a45dabfcdd7c45a5ff2760e3d94ce: 22000
+    5d8c8fda62adb724a99fcb6126936643: -7622
+    032a9b3c6044b044790c40ae4e9fcacc: 0.457
+    216b647c2ac206a43917114334aff0e0: 37
+    583029dc09eb79040a889448c38ccd66: 0.23
+    e7aee04db993fba4988d6340b566105a: 0.19
+    3589896dc052f9d48b8aa20739674e6c: 12346
+    2a022ebdbc8288742bd91756603d4da9: 94
   m_TransitionOverrides: {}
 --- !u!244 &1920971847593361152
 AudioMixerEffectController:
@@ -122,6 +155,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 4906793478996087389}
+  - {fileID: 4915821760443138123}
   m_UserColorIndex: 8
   m_Mute: 0
   m_Solo: 0
@@ -137,6 +171,22 @@ AudioMixerEffectController:
   m_EffectName: Attenuation
   m_MixLevel: 57fc1cff836d9084086c3e10c2621211
   m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &4915821760443138123
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 0fbf24ca9ead9b944b45c8ae18d922bb
+  m_EffectName: Lowpass Simple
+  m_MixLevel: 7d6905d9b0394c940be19a1eb2dc01f9
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: 714eee069dadc0c4cb1735f17d5ec7fc
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0

@@ -1,8 +1,6 @@
-using System;
-
 namespace _Project.Application.GUI
 {
-    public interface IGUISystem : IDisposable
+    public interface IGUISystem
     {
         CanvasBehaviour Canvas { get; }
     }

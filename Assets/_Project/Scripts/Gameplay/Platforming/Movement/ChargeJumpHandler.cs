@@ -1,4 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
@@ -15,6 +17,8 @@ namespace _Project.Gameplay.Platforming.Movement
         private bool _isCharging;
         private float _chargeTime;
         
+        private CancellationTokenSource _cts;
+        
         public ChargeJumpHandler(Rigidbody2D rb, MovementConfig config, CollisionChecker collisionChecker)
         {
             _rb = rb;
@@ -30,16 +34,17 @@ namespace _Project.Gameplay.Platforming.Movement
                 _chargeTime = 0f;
                 SetJumpState(JumpState.Charging);
 
-                ChargeJump().Forget();
+                _cts = new CancellationTokenSource();
+                ChargeJump(_cts.Token).Forget();
             }
         }
 
-        private async UniTaskVoid ChargeJump()
+        private async UniTaskVoid ChargeJump(CancellationToken cancellationToken)
         {
-            while (_isCharging)
+            while (_isCharging && !cancellationToken.IsCancellationRequested)
             {
                 _chargeTime += Time.deltaTime;
-                await UniTask.NextFrame();
+                await UniTask.NextFrame(cancellationToken);
             }
         }
 
@@ -68,6 +73,15 @@ namespace _Project.Gameplay.Platforming.Movement
         private void SetJumpState(JumpState state)
         {
             State.Value = state;
+        }
+
+        void IDisposable.Dispose()
+        {
+            if (_cts != null)
+            {
+                _cts.Cancel();
+                _cts.Dispose();
+            }
         }
     }
 }

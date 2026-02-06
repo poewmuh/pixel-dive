@@ -19,12 +19,12 @@ namespace _Project.Application.GUI.WindowsSystem
 
         void IWindow.Show()
         {
-            InternalShow();
+            InternalShow(false);
         }
 
         void IWindow.Close()
         {
-            InternalClose();
+            InternalClose(false);
             OnClosed?.Invoke(this);
         }
 
@@ -32,20 +32,20 @@ namespace _Project.Application.GUI.WindowsSystem
         {
             if (hidden)
             {
-                InternalClose();
+                InternalClose(true);
             }
             else
             {
-                InternalShow();
+                InternalShow(true);
             }
         }
         
-        protected virtual void InternalShow()
+        protected virtual void InternalShow(bool isHidden)
         {
             gameObject.SetActive(true);
         }
         
-        public virtual void InternalClose()
+        protected virtual void InternalClose(bool isHidden)
         {
             gameObject.SetActive(false);
         }

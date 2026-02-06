@@ -1,48 +1,56 @@
+using _Project.Application.GUI.Components;
 using _Project.Application.GUI.WindowsSystem;
-using _Project.Application.Localization;
 using R3;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace _Project.Windows.MainMenu
 {
     public class SettingsWindow : WindowBase
     {
-        [SerializeField] private Button _languageButton;
-        [SerializeField] private TextMeshProUGUI _languageText;
+        [Header("Tabs")]
+        [SerializeField] private TabGroup _tabGroup;
+        [SerializeField] private SettingsTabBase[] _settingsTabs;
         
+        [Header("Buttons")]
         [SerializeField] private Button _backButton;
-        
-        private int _languageIndex = 0;
+
+        [Inject] private IObjectResolver _objectResolver;
 
         private void Awake()
         {
-            _languageIndex = PlayerPrefs.GetInt("LocalizationIndex", -1);
-            _languageText.text = LocalizationHelper.GetLanguageByIndex(_languageIndex);
-            
-            _languageButton.OnClickAsObservable().Subscribe(OnLanguageClick).AddTo(this);
-            _backButton.OnClickAsObservable().Subscribe(OnBackClick).AddTo(this);
-        }
-
-        private void OnLanguageClick(Unit _)
-        {
-            _languageIndex = GetNewLanguageIndex();
-            LocalizationHelper.SetupLocalization(_languageIndex);
-            _languageText.text = LocalizationHelper.GetLanguageByIndex(_languageIndex);
-        }
-
-        private int GetNewLanguageIndex()
-        {
-            if (_languageIndex + 1 >= LocalizationHelper.GetMaxLocales())
+            foreach (var tab in _settingsTabs)
             {
-                return 0;
+                _objectResolver.Inject(tab);
+            }
+        }
+
+        private void Start()
+        {
+            foreach (var tab in _settingsTabs)
+            {
+                tab.Initialize();
             }
 
-            return _languageIndex + 1;
+            _tabGroup.OnTabChanged
+                .Subscribe(OnTabChanged)
+                .AddTo(this);
+
+            _backButton.OnClickAsObservable()
+                .Subscribe(_ => OnBackClicked())
+                .AddTo(this);
         }
 
-        private void OnBackClick(Unit _)
+        private void OnTabChanged(int tabIndex)
+        {
+            if (tabIndex >= 0 && tabIndex < _settingsTabs.Length)
+            {
+                _settingsTabs[tabIndex].Refresh();
+            }
+        }
+
+        private void OnBackClicked()
         {
             WindowSystem.Close(this);
             WindowSystem.SetHidden<MainMenuWindow>(false);

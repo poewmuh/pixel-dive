@@ -74,6 +74,26 @@ MonoBehaviour:
     m_Localized: Effects Volume
     m_Metadata:
       m_Items: []
+  - m_Id: 15927631500271616
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15927694423220224
+    m_Localized: Window Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15928081427456000
+    m_Localized: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15928205654351872
+    m_Localized: Music Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15928273329446912
+    m_Localized: SFX Volume
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

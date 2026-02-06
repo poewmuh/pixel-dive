@@ -1,9 +1,11 @@
 using _Project.Application.Asset;
 using _Project.Application.Audio;
 using _Project.Application.GUI;
-using _Project.Application.Scene;
 using _Project.Application.GUI.WindowsSystem;
 using _Project.Application.Input;
+using _Project.Application.Persistence;
+using _Project.Application.Scene;
+using _Project.Application.Settings;
 using _Project.Gameplay.Dialogs;
 using MessagePipe;
 using UnityEngine;
@@ -19,8 +21,29 @@ namespace _Project.Application.Boot
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterMessageBrokers(builder);
-            
+            RegisterPersistence(builder);
+            RegisterCoreSystems(builder);
+        }
+
+        private void RegisterMessageBrokers(IContainerBuilder builder)
+        {
+            builder.RegisterMessagePipe();
+            builder.RegisterBuildCallback(x =>
+                GlobalMessagePipe.SetProvider(x.AsServiceProvider()));
+        }
+
+        private void RegisterPersistence(IContainerBuilder builder)
+        {
+            builder.Register<JsonFileStorageProvider>(Lifetime.Singleton)
+                .As<IStorageProvider>();
+        }
+
+        private void RegisterCoreSystems(IContainerBuilder builder)
+        {
             builder.RegisterInstance(_audioSystem.GetComponent<IAudioSystem>());
+            
+            builder.Register<SettingsService>(Lifetime.Singleton)
+                .AsImplementedInterfaces();
             
             builder.Register<GUISystem>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<AddressablesLoader>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -29,13 +52,6 @@ namespace _Project.Application.Boot
             builder.Register<GameInputSystem>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<InputSwitcher>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<DialogSystem>(Lifetime.Singleton).AsImplementedInterfaces();
-        }
-        
-        private void RegisterMessageBrokers(IContainerBuilder builder)
-        {
-            builder.RegisterMessagePipe();
-            builder.RegisterBuildCallback(x =>
-                GlobalMessagePipe.SetProvider(x.AsServiceProvider()));
         }
     }
 }
