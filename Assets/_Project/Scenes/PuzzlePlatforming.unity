@@ -3678,18 +3678,6 @@ PrefabInstance:
       propertyPath: _onRunTrueLevel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 278193269}
-    - target: {fileID: 6409963266799172664, guid: f00b268bc150d1a48aef1df3f0d84bbc, type: 3}
-      propertyPath: _boundGraphSource._zoomFactor
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6409963266799172664, guid: f00b268bc150d1a48aef1df3f0d84bbc, type: 3}
-      propertyPath: _boundGraphSource._translation.x
-      value: -247
-      objectReference: {fileID: 0}
-    - target: {fileID: 6409963266799172664, guid: f00b268bc150d1a48aef1df3f0d84bbc, type: 3}
-      propertyPath: _boundGraphSource._translation.y
-      value: -351
-      objectReference: {fileID: 0}
     - target: {fileID: 7567343716778747163, guid: f00b268bc150d1a48aef1df3f0d84bbc, type: 3}
       propertyPath: _onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
