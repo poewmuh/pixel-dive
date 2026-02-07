@@ -101,6 +101,19 @@ namespace _Project.Application.GUI.WindowsSystem
             Close(lastWindow);
         }
 
+        bool IWindowSystem.IsShowing<T>()
+        {
+            foreach (var window in _windowList)
+            {
+                if (window is T)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void Close(IWindow window)
         {
             window.Close();

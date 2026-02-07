@@ -25,7 +25,14 @@ namespace _Project.Gameplay
         {
             if (data.Phase == InputActionPhase.Performed)
             {
-                _windowSystem.Show<PauseMenuWindow>();
+                if (_windowSystem.IsShowing<PauseMenuWindow>())
+                {
+                    _windowSystem.CloseLast();
+                }
+                else
+                {
+                    _windowSystem.Show<PauseMenuWindow>();
+                }
             }
         }
 

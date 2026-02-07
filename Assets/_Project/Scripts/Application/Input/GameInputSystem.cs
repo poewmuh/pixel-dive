@@ -43,12 +43,13 @@ namespace _Project.Application.Input
                 .Subscribe(OnInteractPerformed).AddTo(_disposables);
             _inputActions.PlayerPlatforming.Pause.PerformedAsObservable()
                 .Subscribe(OnPausePerformed).AddTo(_disposables);
+            
             _inputActions.Dialogs.Pause.PerformedAsObservable()
                 .Subscribe(OnPausePerformed).AddTo(_disposables);
-            
-            
             _inputActions.Dialogs.Skip.PerformedAsObservable()
                 .Subscribe(OnSkipPressed).AddTo(_disposables);
+            _inputActions.UI.Pause.PerformedAsObservable()
+                .Subscribe(OnPausePerformed).AddTo(_disposables);
         }
 
         void IInputSystem.EnablePlayerInput()

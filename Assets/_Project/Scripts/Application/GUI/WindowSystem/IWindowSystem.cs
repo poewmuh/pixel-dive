@@ -15,5 +15,6 @@ namespace _Project.Application.GUI.WindowsSystem
         void Close<T>() where T : IWindow;
         void CloseAll();
         void CloseLast();
+        bool IsShowing<T>() where T : IWindow;
     }
 }

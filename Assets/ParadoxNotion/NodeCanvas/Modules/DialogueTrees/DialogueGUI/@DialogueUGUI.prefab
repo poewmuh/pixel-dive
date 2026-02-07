@@ -628,10 +628,10 @@ MonoBehaviour:
   actorPortrait: {fileID: 11400000}
   waitInputIndicator: {fileID: 0}
   subtitleDelays:
-    characterDelay: 0.05
-    sentenceDelay: 0.5
+    characterDelay: 0.03
+    sentenceDelay: 0.3
     commaDelay: 0.1
-    finalDelay: 1.2
+    finalDelay: 0.6
   typingSounds:
   - {fileID: 8300000, guid: a0d9ccf1ea0e87d4794965b3fa230c65, type: 3}
   - {fileID: 8300000, guid: 5e5452015663bd141a0af3ff478c7272, type: 3}
