@@ -3135,7 +3135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Dialogs.CustomDialogShower
   _message: {fileID: 1726809252}
   _textAnimator: {fileID: 1726809255}
-  _characterDelay: 0.05
+  _characterDelay: 0.1
   _punctuationDelay: 0.2
   _typingSounds:
   - {fileID: 8300000, guid: a0d9ccf1ea0e87d4794965b3fa230c65, type: 3}
@@ -3182,9 +3182,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _enableBounce: 1
+  _enableBounce: 0
   _bounceOvershoot: 1.1
-  _enableFade: 1
+  _enableFade: 0
   _startAlpha: 0
 --- !u!114 &1726809256
 MonoBehaviour:
