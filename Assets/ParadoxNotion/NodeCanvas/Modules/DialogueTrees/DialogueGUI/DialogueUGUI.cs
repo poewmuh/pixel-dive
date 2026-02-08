@@ -3,7 +3,9 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _Project.Gameplay.Dialogs;
 using _Project.Gameplay.Dialogs.Core;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.Localization;
@@ -15,7 +17,8 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
     {
         [SerializeField] private LocalizedString _mermaidActor;
         [SerializeField] private EmotionsSpriteConfig _spriteConfig;
-        [SerializeField] private UnityEvent _onPortraitChanged;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private TMPTextAnimator _textAnimator;
         
         public Locales language;
 
@@ -126,7 +129,11 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
             subtitlesGroup.gameObject.SetActive(true);
             subtitlesGroup.position = originalSubsPosition;
             actorSpeech.text = "";
-            _onPortraitChanged?.Invoke();
+            _animator.Play("ChangeDialog");
+            if (info.statement.emotionType is EmotionType.VeryAngry)
+            {
+                UniTask.WaitForSeconds(1.3f).ContinueWith(() => { _animator.Play("Angry"); });
+            }
 
             actorName.text = _mermaidActor.GetLocalizedString();
             actorSpeech.color = Color.antiqueWhite;
@@ -179,6 +186,7 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
                     }
 
                     actorSpeech.text = tempText;
+                    _textAnimator?.AnimateLastCharacter();
                 }
 
                 if ( !waitForInput ) {

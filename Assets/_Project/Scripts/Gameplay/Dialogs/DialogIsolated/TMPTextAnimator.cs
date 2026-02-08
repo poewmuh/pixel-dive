@@ -1,0 +1,216 @@
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+namespace _Project.Gameplay.Dialogs
+{
+    /// <summary>
+    /// Animates individual characters in TextMeshPro text.
+    /// Attach to the same GameObject as TextMeshProUGUI.
+    /// Call AnimateLastCharacter() after adding each new character for typewriter effect.
+    /// </summary>
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    public class TMPTextAnimator : MonoBehaviour
+    {
+        [Header("Scale Animation")]
+        [SerializeField] private float _startScale = 1.5f;
+        [SerializeField] private float _endScale = 1f;
+        [SerializeField] private float _animationDuration = 0.15f;
+        [SerializeField] private AnimationCurve _scaleCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+        
+        [Header("Optional Effects")]
+        [SerializeField] private bool _enableBounce = true;
+        [SerializeField] private float _bounceOvershoot = 1.1f;
+        
+        [Header("Fade Animation")]
+        [SerializeField] private bool _enableFade = true;
+        [SerializeField] private float _startAlpha = 0f;
+
+        private TextMeshProUGUI _textComponent;
+        private readonly Dictionary<int, CharacterAnimation> _activeAnimations = new();
+        
+        private struct CharacterAnimation
+        {
+            public float StartTime;
+            public Vector3[] OriginalVertices;
+            public Color32[] OriginalColors;
+        }
+
+        private void Awake()
+        {
+            _textComponent = GetComponent<TextMeshProUGUI>();
+            
+            if (_enableBounce)
+            {
+                _scaleCurve = CreateBounceCurve();
+            }
+        }
+
+        private void Update()
+        {
+            if (_activeAnimations.Count == 0) return;
+            
+            _textComponent.ForceMeshUpdate();
+            var textInfo = _textComponent.textInfo;
+            
+            var completedAnimations = new List<int>();
+            
+            foreach (var kvp in _activeAnimations)
+            {
+                var charIndex = kvp.Key;
+                var animation = kvp.Value;
+                
+                if (charIndex >= textInfo.characterCount) continue;
+                
+                var charInfo = textInfo.characterInfo[charIndex];
+                if (!charInfo.isVisible) continue;
+                
+                var elapsed = Time.time - animation.StartTime;
+                var t = Mathf.Clamp01(elapsed / _animationDuration);
+                var curveValue = _scaleCurve.Evaluate(t);
+                
+                var scale = Mathf.LerpUnclamped(_startScale, _endScale, curveValue);
+                var alpha = _enableFade ? Mathf.Lerp(_startAlpha, 1f, t) : 1f;
+                
+                ApplyCharacterTransform(textInfo, charIndex, scale, alpha);
+                
+                if (t >= 1f)
+                {
+                    completedAnimations.Add(charIndex);
+                }
+            }
+            
+            foreach (var index in completedAnimations)
+            {
+                _activeAnimations.Remove(index);
+            }
+            
+            UpdateMeshes(textInfo);
+        }
+
+        /// <summary>
+        /// Call this after adding a new character to animate it.
+        /// </summary>
+        public void AnimateLastCharacter()
+        {
+            _textComponent.ForceMeshUpdate();
+            var textInfo = _textComponent.textInfo;
+            
+            var lastVisibleIndex = -1;
+            for (var i = textInfo.characterCount - 1; i >= 0; i--)
+            {
+                if (textInfo.characterInfo[i].isVisible)
+                {
+                    lastVisibleIndex = i;
+                    break;
+                }
+            }
+            
+            if (lastVisibleIndex >= 0)
+            {
+                AnimateCharacter(lastVisibleIndex);
+            }
+        }
+
+        /// <summary>
+        /// Animate a specific character by index.
+        /// </summary>
+        public void AnimateCharacter(int charIndex)
+        {
+            _textComponent.ForceMeshUpdate();
+            var textInfo = _textComponent.textInfo;
+            
+            if (charIndex < 0 || charIndex >= textInfo.characterCount) return;
+            if (!textInfo.characterInfo[charIndex].isVisible) return;
+            
+            var charInfo = textInfo.characterInfo[charIndex];
+            var meshInfo = textInfo.meshInfo[charInfo.materialReferenceIndex];
+            
+            var animation = new CharacterAnimation
+            {
+                StartTime = Time.time,
+                OriginalVertices = (Vector3[])meshInfo.vertices.Clone(),
+                OriginalColors = (Color32[])meshInfo.colors32.Clone()
+            };
+            
+            _activeAnimations[charIndex] = animation;
+        }
+
+        /// <summary>
+        /// Animate all currently visible characters (for reveal-all effect).
+        /// </summary>
+        public void AnimateAllCharacters()
+        {
+            _textComponent.ForceMeshUpdate();
+            var textInfo = _textComponent.textInfo;
+            
+            for (var i = 0; i < textInfo.characterCount; i++)
+            {
+                if (textInfo.characterInfo[i].isVisible)
+                {
+                    AnimateCharacter(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clear all active animations and reset text to normal.
+        /// </summary>
+        public void ResetAnimations()
+        {
+            _activeAnimations.Clear();
+            _textComponent.ForceMeshUpdate();
+        }
+
+        private void ApplyCharacterTransform(TMP_TextInfo textInfo, int charIndex, float scale, float alpha)
+        {
+            var charInfo = textInfo.characterInfo[charIndex];
+            var meshInfo = textInfo.meshInfo[charInfo.materialReferenceIndex];
+            var vertexIndex = charInfo.vertexIndex;
+            
+            // Calculate character center
+            var vertices = meshInfo.vertices;
+            var center = (vertices[vertexIndex] + vertices[vertexIndex + 2]) / 2f;
+            
+            // Apply scale from center
+            for (var i = 0; i < 4; i++)
+            {
+                var offset = vertices[vertexIndex + i] - center;
+                vertices[vertexIndex + i] = center + offset * scale;
+            }
+            
+            // Apply alpha
+            if (_enableFade)
+            {
+                var colors = meshInfo.colors32;
+                var byteAlpha = (byte)(alpha * 255);
+                for (var i = 0; i < 4; i++)
+                {
+                    var color = colors[vertexIndex + i];
+                    color.a = byteAlpha;
+                    colors[vertexIndex + i] = color;
+                }
+            }
+        }
+
+        private void UpdateMeshes(TMP_TextInfo textInfo)
+        {
+            for (var i = 0; i < textInfo.meshInfo.Length; i++)
+            {
+                var meshInfo = textInfo.meshInfo[i];
+                meshInfo.mesh.vertices = meshInfo.vertices;
+                meshInfo.mesh.colors32 = meshInfo.colors32;
+                _textComponent.UpdateGeometry(meshInfo.mesh, i);
+            }
+        }
+
+        private AnimationCurve CreateBounceCurve()
+        {
+            var curve = new AnimationCurve();
+            curve.AddKey(new Keyframe(0f, 0f, 0f, 2f));
+            curve.AddKey(new Keyframe(0.5f, _bounceOvershoot, 0f, 0f));
+            curve.AddKey(new Keyframe(1f, 1f, 0f, 0f));
+            return curve;
+        }
+    }
+}

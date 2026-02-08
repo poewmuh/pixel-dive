@@ -23,6 +23,10 @@ MonoBehaviour:
     m_Key: mermaid
     m_Metadata:
       m_Items: []
+  - m_Id: 8251197835173888
+    m_Key: prepare_true_level_text
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

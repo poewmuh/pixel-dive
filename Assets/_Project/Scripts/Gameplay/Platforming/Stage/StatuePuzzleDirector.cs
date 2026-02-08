@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _Project.Application.Audio;
 using _Project.Gameplay.Platforming.Input;
 using _Project.Gameplay.Platforming.Interaction;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.Playables;
+using VContainer;
 
 namespace _Project.Gameplay.Platforming.Stage
 {
@@ -19,6 +21,8 @@ namespace _Project.Gameplay.Platforming.Stage
         
         private readonly List<StatueType> _interactStatues = new ();
         private readonly List<List<StatueType>> _alreadyUseCombinations = new();
+
+        [Inject] private IAudioSystem _audioSystem;
 
         private int interactCount;
         
@@ -118,6 +122,11 @@ namespace _Project.Gameplay.Platforming.Stage
         public void StopCutscene()
         {
             _playableDirector.time = _playableDirector.duration;
+        }
+
+        public void StopMusic()
+        {
+            _audioSystem.StopMusic();
         }
     }
 }

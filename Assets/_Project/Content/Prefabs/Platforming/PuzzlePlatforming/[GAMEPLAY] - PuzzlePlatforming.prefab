@@ -760,6 +760,7 @@ GameObject:
   - component: {fileID: 6203498425230846245}
   - component: {fileID: 4185496317494569578}
   - component: {fileID: 8107871165289755562}
+  - component: {fileID: 5087879536398936994}
   m_Layer: 0
   m_Name: All Statues Camera
   m_TagString: Untagged
@@ -842,6 +843,30 @@ MonoBehaviour:
   AmplitudeGain: 0.17
   FrequencyGain: 0.26
   m_NoiseOffsets: {x: -627.1227, y: -309.86368, z: 642.75574}
+--- !u!114 &5087879536398936994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3952353194915324089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
+  ApplyAfter: 2
+  ChannelMask: 1
+  Gain: 1
+  Use2DDistance: 1
+  UseCameraSpace: 1
+  SignalCombinationMode: 0
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 11400000, guid: 27f6000c440d8be43b9529c83bb72277, type: 2}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    Duration: 2
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &4352587033039150466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,6 +2164,7 @@ GameObject:
   - component: {fileID: 6409963266799172664}
   - component: {fileID: 5317775363608377178}
   - component: {fileID: 8041886233951734491}
+  - component: {fileID: 3497537477906399484}
   m_Layer: 0
   m_Name: PUZZLE_STAGE
   m_TagString: Untagged
@@ -2280,9 +2306,9 @@ MonoBehaviour:
     RESPONSE","_position":{"x":862.1905,"y":656.0179},"$type":"NodeCanvas.StateMachines.EmptyState","$id":"3"},{"_nestedDLG":{"_value":3},"_name":"COMPLETE
     DIALOG","_position":{"x":250.2583,"y":355.1528},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"4"},{"_actionList":{"executionMode":1,"actions":[{"setTo":0,"overrideAgent":{"_type":"UnityEngine.Transform","_value":1},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"setTo":1,"overrideAgent":{"_type":"UnityEngine.Transform","_value":4},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_name":"END
     PUZZLE","_position":{"x":633.5139,"y":299.8538},"$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_nestedDLG":{"_value":5},"_name":"WRONG
-    DIALOG","_position":{"x":1032.102,"y":734.1702},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"6"},{"_actionList":{"executionMode":1,"actions":[{"boolVariable":{"_name":"IsNeedWrongCutscene","_targetVariableID":"cb08ca7a-a007-4903-b31d-98fbe3e73754"},"setTo":0,"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"valueA":{"_name":"WrongAnswersCount","_targetVariableID":"87856b3c-97cf-4b68-bd06-a2a5818721a8"},"Operation":1,"valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_position":{"x":1103.995,"y":938.7675},"$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_actionList":{"actions":[{"statement":{"_text":"...","_emotionType":2,"_localizations":{}},"overrideAgent":{"_name":"Mermaid","_targetVariableID":"a9583a04-0d5e-42b0-a755-cf43e2fa2e6a"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"_Project.Gameplay.Platforming.Stage.StatuePuzzleDirector|RunTrueLevel|System.Void","_paramsInfo":""},"parameters":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_position":{"x":846.8381,"y":1046.247},"$type":"NodeCanvas.StateMachines.ActionState","$id":"8"},{"_nestedDLG":{"_value":6},"_name":"DOUBLE
-    CLICK","_position":{"x":1274.104,"y":369.3266},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"9"},{"_nestedDLG":{"_value":7},"_name":"REPEATC
-    COMBINATION","_position":{"x":1508.425,"y":470.8655},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"10"},{"_subFSM":{"_value":8},"_tag":"","_position":{"x":586.7847,"y":706.837},"$type":"NodeCanvas.StateMachines.ConcurrentSubFSM"}],"connections":[{"_condition":{"eventName":{"_value":"OnStageStart"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnStageFinish"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnWrongAnswer"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnDoubleClick"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnRepeatCombination"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"0"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"WrongAnswersCount","_targetVariableID":"87856b3c-97cf-4b68-bd06-a2a5818721a8"},"valueB":{"_value":4},"$type":"NodeCanvas.Tasks.Conditions.CheckInt"},"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"10"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}}}'
+    DIALOG","_position":{"x":1032.102,"y":734.1702},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"6"},{"_actionList":{"executionMode":1,"actions":[{"boolVariable":{"_name":"IsNeedWrongCutscene","_targetVariableID":"cb08ca7a-a007-4903-b31d-98fbe3e73754"},"setTo":0,"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"valueA":{"_name":"WrongAnswersCount","_targetVariableID":"87856b3c-97cf-4b68-bd06-a2a5818721a8"},"Operation":1,"valueB":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.SetInt"}]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_position":{"x":1147.995,"y":939.7675},"$type":"NodeCanvas.StateMachines.ActionState","$id":"7"},{"_nestedDLG":{"_value":6},"_name":"DOUBLE
+    CLICK","_position":{"x":1274.104,"y":369.3266},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"8"},{"_nestedDLG":{"_value":7},"_name":"REPEATC
+    COMBINATION","_position":{"x":1508.425,"y":470.8655},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"9"},{"_subFSM":{"_value":8},"_tag":"","_position":{"x":586.7847,"y":706.837},"$type":"NodeCanvas.StateMachines.ConcurrentSubFSM"}],"connections":[{"_condition":{"eventName":{"_value":"OnStageStart"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnStageFinish"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnWrongAnswer"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnDoubleClick"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"OnRepeatCombination"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"0"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}}}'
   _boundGraphObjectReferences:
   - {fileID: 0}
   - {fileID: 5853215548927948338}
@@ -2297,7 +2323,7 @@ MonoBehaviour:
     _version: 3.33
     _category: 
     _comments: 
-    _translation: {x: -247, y: -351}
+    _translation: {x: -188.9129, y: -328.904}
     _zoomFactor: 1
   _firstActivation: 0
   _enableAction: 0
@@ -2383,6 +2409,59 @@ PlayableDirector:
   m_ExposedReferences:
     m_References:
     - 5ffa60351feabe34884291c53e16de86: {fileID: 8211835622014962052}
+--- !u!114 &3497537477906399484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8924169330076854863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 4
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.4
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 2, y: 2, z: 0}
 --- !u!1 &9031547476558074296
 GameObject:
   m_ObjectHideFlags: 0
