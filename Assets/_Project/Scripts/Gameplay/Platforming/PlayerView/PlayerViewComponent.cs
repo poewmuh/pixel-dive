@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace _Project.Gameplay.Platforming.PlayerView
 {
-    [RequireComponent(typeof(InputComponent))]
     public class PlayerViewComponent : MonoBehaviour, IComponent
     {
         [SerializeField] private Transform _viewTransform;
@@ -19,7 +18,10 @@ namespace _Project.Gameplay.Platforming.PlayerView
 
         void IComponent.Init()
         {
-            _inputComponent.MoveState.Subscribe(OnMove).AddTo(this);
+            if (_inputComponent)
+            {
+                _inputComponent.MoveState.Subscribe(OnMove).AddTo(this);
+            }
         }
         
         private void OnMove(float horizontalInput)

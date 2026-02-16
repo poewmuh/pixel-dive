@@ -6,7 +6,7 @@ namespace _Project.Application.Scene
         MainMenu,
         TrainingLocation,
         PuzzlePlatforming,
-        PuzzleLevel,
+        TruePuzzle,
         ToBeContinued
     }
 }

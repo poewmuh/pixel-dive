@@ -40,6 +40,7 @@ namespace _Project.Application.Boot
 
         private void RegisterCoreSystems(IContainerBuilder builder)
         {
+            Cursor.visible = false;
             builder.RegisterInstance(_audioSystem.GetComponent<IAudioSystem>());
             
             builder.Register<SettingsService>(Lifetime.Singleton)
@@ -51,7 +52,6 @@ namespace _Project.Application.Boot
             builder.Register<WindowSystem>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GameInputSystem>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<InputSwitcher>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<DialogSystem>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

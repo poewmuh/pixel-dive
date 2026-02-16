@@ -645,7 +645,6 @@ GameObject:
   - component: {fileID: 96978895744194015}
   - component: {fileID: 8105525973058816160}
   - component: {fileID: 756491383320303693}
-  - component: {fileID: 4214513601028284498}
   - component: {fileID: 6576819106015899032}
   m_Layer: 0
   m_Name: PlayerAvatar
@@ -779,18 +778,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Platforming.Damage.HealthComponent
   <Health>k__BackingField:
     value: 1
---- !u!114 &4214513601028284498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4440216494429243872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15b05dc07e6804546846cdd7a034821d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.Platforming.CheckPoints.CheckPointComponent
 --- !u!114 &6576819106015899032
 MonoBehaviour:
   m_ObjectHideFlags: 0

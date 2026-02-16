@@ -1,24 +1,20 @@
 using System;
-using System.Linq;
-using _Project.Application.GUI.WindowsSystem;
 using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 using Utils;
-using VContainer;
 using VContainer.Unity;
 
 namespace _Project.Application.Input
 {
     public class GameInputSystem : IInitializable, IInputSystem, IDisposable
     {
-        
         public Subject<InputActionData> OnJump { get; } = new();
         public Subject<InputVectorActionData> OnMove { get; }  = new();
         public Subject<InputActionData> OnPause { get; } = new();
         public Subject<InputActionData> OnSkipClicked { get; } = new();
         public Subject<InputActionData> OnInteract { get; } = new();
+        public Subject<InputActionData> OnMouseClick { get; } = new();
 
         public ReactiveProperty<string> CurrentControlScheme { get; } = new();
 
@@ -44,33 +40,26 @@ namespace _Project.Application.Input
             _inputActions.PlayerPlatforming.Pause.PerformedAsObservable()
                 .Subscribe(OnPausePerformed).AddTo(_disposables);
             
-            _inputActions.Dialogs.Pause.PerformedAsObservable()
-                .Subscribe(OnPausePerformed).AddTo(_disposables);
-            _inputActions.Dialogs.Skip.PerformedAsObservable()
+            _inputActions.UI.Skip.PerformedAsObservable()
                 .Subscribe(OnSkipPressed).AddTo(_disposables);
             _inputActions.UI.Pause.PerformedAsObservable()
                 .Subscribe(OnPausePerformed).AddTo(_disposables);
+            _inputActions.UI.Click.PerformedAsObservable()
+                .Merge( _inputActions.UI.Click.StartedAsObservable())
+                .Merge(_inputActions.UI.Click.CanceledAsObservable())
+                .Subscribe(OnMouseClickPerformed).AddTo(_disposables);
         }
 
         void IInputSystem.EnablePlayerInput()
         {
             _inputActions.PlayerPlatforming.Enable();
             _inputActions.UI.Disable();
-            _inputActions.Dialogs.Disable();
         }
         
         void IInputSystem.EnableUIInput()
         {
             _inputActions.PlayerPlatforming.Disable();
             _inputActions.UI.Enable();
-            _inputActions.Dialogs.Disable();
-        }
-        
-        void IInputSystem.EnableDialogsInput()
-        {
-            _inputActions.PlayerPlatforming.Disable();
-            _inputActions.UI.Disable();
-            _inputActions.Dialogs.Enable();
         }
 
         private void OnMovePerformed(InputAction.CallbackContext context)
@@ -111,6 +100,14 @@ namespace _Project.Application.Input
         private void OnPausePerformed(InputAction.CallbackContext context)
         {
             OnPause?.OnNext(new InputActionData
+            {
+                Phase = context.phase
+            });
+        }
+
+        private void OnMouseClickPerformed(InputAction.CallbackContext context)
+        {
+            OnMouseClick?.OnNext(new InputActionData()
             {
                 Phase = context.phase
             });

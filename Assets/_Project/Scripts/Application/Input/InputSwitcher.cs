@@ -1,44 +1,28 @@
-﻿using VContainer;
+﻿using R3;
+using VContainer;
 
 namespace _Project.Application.Input
 {
     public class InputSwitcher : IInputSwitcher
     {
         [Inject] private IInputSystem _inputSystem;
-        
-        private bool _dialogActive;
+
+        public ReactiveProperty<InputBlockMask> Blockers { get; } = new(InputBlockMask.None);
 
         void IInputSwitcher.EnableInput(InputBlockMask source, bool enable)
         {
-            switch(source)
+            if (enable)
             {
-                case InputBlockMask.Platforming:
-                    if (enable) _inputSystem.EnablePlayerInput();
-                    else _inputSystem.EnableUIInput();
-                    break;
-                case InputBlockMask.Windows:
-                    if (enable) _inputSystem.EnableUIInput();
-                    else if (_dialogActive)
-                    {
-                        _inputSystem.EnableDialogsInput();
-                    }
-                    else
-                    {
-                        _inputSystem.EnablePlayerInput();
-                    }
-                    break;
-                case InputBlockMask.Dialogs:
-                    if (enable)
-                    {
-                        _inputSystem.EnableDialogsInput();
-                        _dialogActive = true;
-                    }
-                    else
-                    {
-                        _inputSystem.EnablePlayerInput();
-                        _dialogActive = false;
-                    }
-                    break;
+                Blockers.Value |= source;
+                _inputSystem.EnableUIInput();
+            }
+            else
+            {
+                Blockers.Value &= ~source;
+                if (Blockers.Value is InputBlockMask.None)
+                {
+                    _inputSystem.EnablePlayerInput();
+                }
             }
         }
     }
@@ -49,6 +33,6 @@ namespace _Project.Application.Input
         None        = 0,
         Windows     = 1 << 0,
         Dialogs     = 1 << 1,
-        Platforming = 1 << 2,
+        TruePuzzle  = 1 << 2
     }
 }

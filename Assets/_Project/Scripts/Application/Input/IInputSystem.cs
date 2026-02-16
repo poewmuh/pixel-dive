@@ -10,12 +10,12 @@ namespace _Project.Application.Input
         Subject<InputActionData> OnPause { get; }
         Subject<InputActionData> OnSkipClicked { get; }
         Subject<InputActionData> OnInteract { get; }
+        Subject<InputActionData> OnMouseClick { get; }
         
         ReactiveProperty<string> CurrentControlScheme { get; }
         InputAction PlatformingInteractAction { get; }
 
         void EnablePlayerInput();
-        void EnableDialogsInput();
         void EnableUIInput();
     }
 }
