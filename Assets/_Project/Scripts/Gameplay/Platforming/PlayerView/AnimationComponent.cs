@@ -7,13 +7,6 @@ namespace _Project.Gameplay.Platforming.PlayerView
     [RequireComponent(typeof(MovementComponent))]
     public class AnimationComponent : MonoBehaviour, IComponent
     {
-        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-        private static readonly int IsCharging = Animator.StringToHash("IsCharging");
-        private static readonly int IsJumping = Animator.StringToHash("IsJumping");
-        private static readonly int IsFalling = Animator.StringToHash("IsFalling");
-        private static readonly int IsGrounded = Animator.StringToHash("IsGrounded");
-        
-        
         [SerializeField] private Animator _animator;
         
         private MovementComponent _movementComponent;
@@ -32,16 +25,16 @@ namespace _Project.Gameplay.Platforming.PlayerView
 
         private void OnMoving(bool isMoving)
         {
-            _animator.SetBool(IsMoving, isMoving);
+            _animator.SetBool(AnimatorHelper.IsMoving, isMoving);
         }
 
         private void OnGroundedChange(bool isGrounded)
         {
-            _animator.SetBool(IsGrounded, isGrounded);
+            _animator.SetBool(AnimatorHelper.IsGrounded, isGrounded);
             if (isGrounded)
             {
-                _animator.SetBool(IsJumping, false);
-                _animator.SetBool(IsFalling, false);
+                _animator.SetBool(AnimatorHelper.IsJumping, false);
+                _animator.SetBool(AnimatorHelper.IsFalling, false);
             }
         }
 
@@ -50,16 +43,16 @@ namespace _Project.Gameplay.Platforming.PlayerView
             switch (state)
             {
                 case JumpState.Charging:
-                    _animator.SetBool(IsCharging, true);
+                    _animator.SetBool(AnimatorHelper.IsCharging, true);
                     break;
                 case JumpState.Falling:
-                    _animator.SetBool(IsFalling, true);
-                    _animator.SetBool(IsJumping, false);
-                    _animator.SetBool(IsCharging, false);
+                    _animator.SetBool(AnimatorHelper.IsFalling, true);
+                    _animator.SetBool(AnimatorHelper.IsJumping, false);
+                    _animator.SetBool(AnimatorHelper.IsCharging, false);
                     break;
                 case JumpState.Jumping:
-                    _animator.SetBool(IsCharging, false);
-                    _animator.SetBool(IsJumping, true);
+                    _animator.SetBool(AnimatorHelper.IsCharging, false);
+                    _animator.SetBool(AnimatorHelper.IsJumping, true);
                     break;
             }
         }
