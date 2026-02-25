@@ -24,12 +24,14 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
         
         void IInitializable.Initialize()
         {
-            _inputSystem.OnMouseClick.Subscribe(OnMouseClickPerformed).AddTo(_disposables);
+            _inputSystem.OnUIMouseClick.Subscribe(OnMouseClickPerformed).AddTo(_disposables);
+            _inputSystem.OnPuzzleMouseClick.Subscribe(OnMouseClickPerformed).AddTo(_disposables);
             _hoverSubscriber.Subscribe(OnHoverChange).AddTo(_disposables);
             _inputSwitcher.Blockers.Subscribe(OnBlockersChange).AddTo(_disposables);
+            _inputSwitcher.InputMap.Subscribe(OnInputMapChanged).AddTo(_disposables);
         }
 
-        private void OnMouseClickPerformed(InputActionData data)
+        private void OnMouseClickPerformed(InputVectorActionData data)
         {
             _isPressed = data.Phase is InputActionPhase.Started or InputActionPhase.Performed;
             UpdateCurrentState();
@@ -37,13 +39,7 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
 
         private void OnBlockersChange(InputBlockMask blockers)
         {
-            if (blockers.HasFlag(InputBlockMask.TruePuzzle))
-            {
-                _isBlocked = false;
-                return;
-            }
-
-            if (!blockers.HasFlag(InputBlockMask.Windows))
+            if (!blockers.HasFlag(InputBlockMask.Windows) && !IsCursorGameMode())
             {
                 CurrentState.Value = CursorState.Disabled;
                 _isBlocked = true;
@@ -53,6 +49,16 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
                 CurrentState.Value = CursorState.Default;
                 _isBlocked = false;
             }
+        }
+
+        private void OnInputMapChanged(InputMapMode mode)
+        {
+            OnBlockersChange(_inputSwitcher.Blockers.Value);
+        }
+
+        private bool IsCursorGameMode()
+        {
+            return _inputSwitcher.InputMap.Value is InputMapMode.Puzzle;
         }
 
         private void OnHoverChange(InteractableHoverEvent msg)

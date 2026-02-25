@@ -13,12 +13,7 @@ namespace _Project.Gameplay.Initializations
         protected override void Start()
         {
             base.Start();
-            _inputSwitcher.EnableInput(InputBlockMask.TruePuzzle, true);
-        }
-
-        private void OnDestroy()
-        {
-            _inputSwitcher.EnableInput(InputBlockMask.TruePuzzle, false);
+            _inputSwitcher.SetLevelMode(InputMapMode.Puzzle);
         }
     }
 }

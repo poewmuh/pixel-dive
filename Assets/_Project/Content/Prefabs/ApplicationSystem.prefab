@@ -104,6 +104,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _audioSystem: {fileID: 1810944770694617472}
+  _camera: {fileID: 886862873247117332}
 --- !u!1 &5520045268020107906
 GameObject:
   m_ObjectHideFlags: 0

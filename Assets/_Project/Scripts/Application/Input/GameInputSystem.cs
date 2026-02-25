@@ -14,7 +14,8 @@ namespace _Project.Application.Input
         public Subject<InputActionData> OnPause { get; } = new();
         public Subject<InputActionData> OnSkipClicked { get; } = new();
         public Subject<InputActionData> OnInteract { get; } = new();
-        public Subject<InputActionData> OnMouseClick { get; } = new();
+        public Subject<InputVectorActionData> OnUIMouseClick { get; } = new();
+        public Subject<InputVectorActionData> OnPuzzleMouseClick { get; } = new();
 
         public ReactiveProperty<string> CurrentControlScheme { get; } = new();
 
@@ -47,17 +48,32 @@ namespace _Project.Application.Input
             _inputActions.UI.Click.PerformedAsObservable()
                 .Merge( _inputActions.UI.Click.StartedAsObservable())
                 .Merge(_inputActions.UI.Click.CanceledAsObservable())
-                .Subscribe(OnMouseClickPerformed).AddTo(_disposables);
+                .Subscribe(OnUIMouseClickPerformed).AddTo(_disposables);
+            _inputActions.PlayerPuzzle.Click.PerformedAsObservable()
+                .Merge( _inputActions.PlayerPuzzle.Click.StartedAsObservable())
+                .Merge(_inputActions.PlayerPuzzle.Click.CanceledAsObservable())
+                .Subscribe(OnPuzzleMouseClickPerformed).AddTo(_disposables);
+            _inputActions.PlayerPuzzle.Pause.PerformedAsObservable()
+                .Subscribe(OnPausePerformed).AddTo(_disposables);
         }
 
-        void IInputSystem.EnablePlayerInput()
+        void IInputSystem.EnablePlatformingInput()
         {
             _inputActions.PlayerPlatforming.Enable();
             _inputActions.UI.Disable();
+            _inputActions.PlayerPuzzle.Disable();
+        }
+        
+        void IInputSystem.EnablePuzzleInput()
+        {
+            _inputActions.PlayerPlatforming.Disable();
+            _inputActions.UI.Disable();
+            _inputActions.PlayerPuzzle.Enable();
         }
         
         void IInputSystem.EnableUIInput()
         {
+            _inputActions.PlayerPuzzle.Disable();
             _inputActions.PlayerPlatforming.Disable();
             _inputActions.UI.Enable();
         }
@@ -105,11 +121,21 @@ namespace _Project.Application.Input
             });
         }
 
-        private void OnMouseClickPerformed(InputAction.CallbackContext context)
+        private void OnPuzzleMouseClickPerformed(InputAction.CallbackContext context)
         {
-            OnMouseClick?.OnNext(new InputActionData()
+            OnPuzzleMouseClick?.OnNext(new InputVectorActionData()
             {
-                Phase = context.phase
+                Phase = context.phase,
+                Vector = _inputActions.PlayerPuzzle.Point.ReadValue<Vector2>()
+            });
+        }
+        
+        private void OnUIMouseClickPerformed(InputAction.CallbackContext context)
+        {
+            OnUIMouseClick?.OnNext(new InputVectorActionData()
+            {
+                Phase = context.phase,
+                Vector = _inputActions.PlayerPuzzle.Point.ReadValue<Vector2>()
             });
         }
         

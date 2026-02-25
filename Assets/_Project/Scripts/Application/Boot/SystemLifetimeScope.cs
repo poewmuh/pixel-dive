@@ -17,6 +17,7 @@ namespace _Project.Application.Boot
     public class SystemLifetimeScope : LifetimeScope
     {
         [SerializeField] private GameObject _audioSystem;
+        [SerializeField] private Camera _camera;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -42,6 +43,7 @@ namespace _Project.Application.Boot
         {
             Cursor.visible = false;
             builder.RegisterInstance(_audioSystem.GetComponent<IAudioSystem>());
+            builder.RegisterInstance(_camera);
             
             builder.Register<SettingsService>(Lifetime.Singleton)
                 .AsImplementedInterfaces();

@@ -404,6 +404,147 @@ namespace _Project.Application.Input
             ]
         },
         {
+            ""name"": ""PlayerPuzzle"",
+            ""id"": ""c9c46b08-fba6-42f5-84db-7664faa62645"",
+            ""actions"": [
+                {
+                    ""name"": ""Point"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""873bff1e-c841-4c51-8fe8-4013b2d93d7b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c1f3bec5-bdcc-4fbe-b71e-5a631ae5f830"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RightClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""8a2bdba6-d589-409d-b862-ca3a615e9958"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MiddleClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""bd4491bd-02b1-4326-aae7-b6f579c00135"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""27b542b2-d977-40ad-8115-2b79d3ce9a39"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b014a467-023f-4d7c-a6e8-06bc1cc24dcf"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca1b951f-b981-4885-bbf1-1fcbd5b804a2"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5bef35a-3f9e-4dce-8447-3b60987e6700"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98eda4fb-0bd3-44f9-ad98-dec566f2d47e"",
+                    ""path"": ""<Pen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f071550-a88d-4e0d-bf99-183f37fd2706"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d109ee3-2eef-49df-9d00-163d2d32596e"",
+                    ""path"": ""<Pen>/tip"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce4751ed-444c-4d81-9c2b-892b54510785"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f3528f3-53c8-48ed-bf05-0b6111931e51"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MiddleClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""UI"",
             ""id"": ""272f6d14-89ba-496f-b7ff-215263d3219f"",
             ""actions"": [
@@ -1043,6 +1184,13 @@ namespace _Project.Application.Input
             m_PlayerPlatforming_Next = m_PlayerPlatforming.FindAction("Next", throwIfNotFound: true);
             m_PlayerPlatforming_Sprint = m_PlayerPlatforming.FindAction("Sprint", throwIfNotFound: true);
             m_PlayerPlatforming_Pause = m_PlayerPlatforming.FindAction("Pause", throwIfNotFound: true);
+            // PlayerPuzzle
+            m_PlayerPuzzle = asset.FindActionMap("PlayerPuzzle", throwIfNotFound: true);
+            m_PlayerPuzzle_Point = m_PlayerPuzzle.FindAction("Point", throwIfNotFound: true);
+            m_PlayerPuzzle_Click = m_PlayerPuzzle.FindAction("Click", throwIfNotFound: true);
+            m_PlayerPuzzle_RightClick = m_PlayerPuzzle.FindAction("RightClick", throwIfNotFound: true);
+            m_PlayerPuzzle_MiddleClick = m_PlayerPuzzle.FindAction("MiddleClick", throwIfNotFound: true);
+            m_PlayerPuzzle_Pause = m_PlayerPuzzle.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1062,6 +1210,7 @@ namespace _Project.Application.Input
         ~@PlayerInputActions()
         {
             UnityEngine.Debug.Assert(!m_PlayerPlatforming.enabled, "This will cause a leak and performance issues, PlayerInputActions.PlayerPlatforming.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_PlayerPuzzle.enabled, "This will cause a leak and performance issues, PlayerInputActions.PlayerPuzzle.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInputActions.UI.Disable() has not been called.");
         }
 
@@ -1296,6 +1445,146 @@ namespace _Project.Application.Input
         /// Provides a new <see cref="PlayerPlatformingActions" /> instance referencing this action map.
         /// </summary>
         public PlayerPlatformingActions @PlayerPlatforming => new PlayerPlatformingActions(this);
+
+        // PlayerPuzzle
+        private readonly InputActionMap m_PlayerPuzzle;
+        private List<IPlayerPuzzleActions> m_PlayerPuzzleActionsCallbackInterfaces = new List<IPlayerPuzzleActions>();
+        private readonly InputAction m_PlayerPuzzle_Point;
+        private readonly InputAction m_PlayerPuzzle_Click;
+        private readonly InputAction m_PlayerPuzzle_RightClick;
+        private readonly InputAction m_PlayerPuzzle_MiddleClick;
+        private readonly InputAction m_PlayerPuzzle_Pause;
+        /// <summary>
+        /// Provides access to input actions defined in input action map "PlayerPuzzle".
+        /// </summary>
+        public struct PlayerPuzzleActions
+        {
+            private @PlayerInputActions m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public PlayerPuzzleActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "PlayerPuzzle/Point".
+            /// </summary>
+            public InputAction @Point => m_Wrapper.m_PlayerPuzzle_Point;
+            /// <summary>
+            /// Provides access to the underlying input action "PlayerPuzzle/Click".
+            /// </summary>
+            public InputAction @Click => m_Wrapper.m_PlayerPuzzle_Click;
+            /// <summary>
+            /// Provides access to the underlying input action "PlayerPuzzle/RightClick".
+            /// </summary>
+            public InputAction @RightClick => m_Wrapper.m_PlayerPuzzle_RightClick;
+            /// <summary>
+            /// Provides access to the underlying input action "PlayerPuzzle/MiddleClick".
+            /// </summary>
+            public InputAction @MiddleClick => m_Wrapper.m_PlayerPuzzle_MiddleClick;
+            /// <summary>
+            /// Provides access to the underlying input action "PlayerPuzzle/Pause".
+            /// </summary>
+            public InputAction @Pause => m_Wrapper.m_PlayerPuzzle_Pause;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_PlayerPuzzle; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="PlayerPuzzleActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(PlayerPuzzleActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="PlayerPuzzleActions" />
+            public void AddCallbacks(IPlayerPuzzleActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PlayerPuzzleActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PlayerPuzzleActionsCallbackInterfaces.Add(instance);
+                @Point.started += instance.OnPoint;
+                @Point.performed += instance.OnPoint;
+                @Point.canceled += instance.OnPoint;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+                @RightClick.started += instance.OnRightClick;
+                @RightClick.performed += instance.OnRightClick;
+                @RightClick.canceled += instance.OnRightClick;
+                @MiddleClick.started += instance.OnMiddleClick;
+                @MiddleClick.performed += instance.OnMiddleClick;
+                @MiddleClick.canceled += instance.OnMiddleClick;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="PlayerPuzzleActions" />
+            private void UnregisterCallbacks(IPlayerPuzzleActions instance)
+            {
+                @Point.started -= instance.OnPoint;
+                @Point.performed -= instance.OnPoint;
+                @Point.canceled -= instance.OnPoint;
+                @Click.started -= instance.OnClick;
+                @Click.performed -= instance.OnClick;
+                @Click.canceled -= instance.OnClick;
+                @RightClick.started -= instance.OnRightClick;
+                @RightClick.performed -= instance.OnRightClick;
+                @RightClick.canceled -= instance.OnRightClick;
+                @MiddleClick.started -= instance.OnMiddleClick;
+                @MiddleClick.performed -= instance.OnMiddleClick;
+                @MiddleClick.canceled -= instance.OnMiddleClick;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlayerPuzzleActions.UnregisterCallbacks(IPlayerPuzzleActions)" />.
+            /// </summary>
+            /// <seealso cref="PlayerPuzzleActions.UnregisterCallbacks(IPlayerPuzzleActions)" />
+            public void RemoveCallbacks(IPlayerPuzzleActions instance)
+            {
+                if (m_Wrapper.m_PlayerPuzzleActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="PlayerPuzzleActions.AddCallbacks(IPlayerPuzzleActions)" />
+            /// <seealso cref="PlayerPuzzleActions.RemoveCallbacks(IPlayerPuzzleActions)" />
+            /// <seealso cref="PlayerPuzzleActions.UnregisterCallbacks(IPlayerPuzzleActions)" />
+            public void SetCallbacks(IPlayerPuzzleActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PlayerPuzzleActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PlayerPuzzleActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="PlayerPuzzleActions" /> instance referencing this action map.
+        /// </summary>
+        public PlayerPuzzleActions @PlayerPuzzle => new PlayerPuzzleActions(this);
 
         // UI
         private readonly InputActionMap m_UI;
@@ -1627,6 +1916,49 @@ namespace _Project.Application.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnSprint(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPause(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "PlayerPuzzle" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="PlayerPuzzleActions.AddCallbacks(IPlayerPuzzleActions)" />
+        /// <seealso cref="PlayerPuzzleActions.RemoveCallbacks(IPlayerPuzzleActions)" />
+        public interface IPlayerPuzzleActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "Point" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPoint(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnClick(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RightClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRightClick(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "MiddleClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnMiddleClick(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

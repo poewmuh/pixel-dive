@@ -863,9 +863,9 @@ MonoBehaviour:
   SignalCombinationMode: 0
   ReactionSettings:
     m_SecondaryNoise: {fileID: 11400000, guid: 27f6000c440d8be43b9529c83bb72277, type: 2}
-    AmplitudeGain: 1
-    FrequencyGain: 1
-    Duration: 2
+    AmplitudeGain: 2
+    FrequencyGain: 2
+    Duration: 10
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &4352587033039150466
 GameObject:
