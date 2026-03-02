@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Application.Input;
+using _Project.Gameplay.TruePuzzle.Interactable;
 using MessagePipe;
 using R3;
 using UnityEngine;
@@ -17,9 +18,11 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
         [Inject] private IInputSwitcher _inputSwitcher;
         [Inject] private ISubscriber<InteractableHoverEvent> _hoverSubscriber;
 
+        private bool _hasBlocker;
         private bool _isPressed;
         private bool _isHovering;
         private bool _isBlocked;
+        private IInteractable _currentInteractable;
         private CompositeDisposable _disposables = new ();
         
         void IInitializable.Initialize()
@@ -35,10 +38,17 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
         {
             _isPressed = data.Phase is InputActionPhase.Started or InputActionPhase.Performed;
             UpdateCurrentState();
+            if (_hasBlocker) return;
+
+            if (_isHovering && _currentInteractable != null)
+            {
+                _currentInteractable.OnClick();
+            }
         }
 
         private void OnBlockersChange(InputBlockMask blockers)
         {
+            _hasBlocker = blockers != InputBlockMask.None;
             if (!blockers.HasFlag(InputBlockMask.Windows) && !IsCursorGameMode())
             {
                 CurrentState.Value = CursorState.Disabled;
@@ -63,6 +73,8 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
 
         private void OnHoverChange(InteractableHoverEvent msg)
         {
+            if (_hasBlocker) return;
+            _currentInteractable = msg.Interactable;
             _isHovering = msg.IsHovering;
             UpdateCurrentState();
         }
