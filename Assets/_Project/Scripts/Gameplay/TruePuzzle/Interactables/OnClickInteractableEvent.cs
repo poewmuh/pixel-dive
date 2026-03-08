@@ -13,4 +13,14 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
             DestinationPoint = destinationPoint;
         }
     }
+
+    public class ReachedInteractableEvent
+    {
+        public InteractableType InteractableType { get; }
+
+        public ReachedInteractableEvent(InteractableType interactableType)
+        {
+            InteractableType = interactableType;
+        }
+    }
 }

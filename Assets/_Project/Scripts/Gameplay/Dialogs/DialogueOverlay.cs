@@ -15,7 +15,7 @@ using VContainer;
 namespace _Project.Gameplay.Dialogs
 {
     [RequireComponent(typeof(DialogueUGUI))]
-    public class DialogOverlay : BaseOverlay
+    public class DialogueOverlay : BaseOverlay
     {
         [Inject] private IInputSwitcher _inputSwitcher;
         [Inject] private IInputSystem _inputSystem;
@@ -53,10 +53,13 @@ namespace _Project.Gameplay.Dialogs
         {
             _inputSwitcher.EnableInput(InputBlockMask.Dialogs, true);
         }
-
+        
         private void OnSkipClicked(InputActionData action)
         {
-            _dialogueUGUI.SetAnyKeyDown();
+            if (action.Phase is InputActionPhase.Canceled)
+            {
+                _dialogueUGUI.SetAnyKeyDown();
+            }
         }
 
         private void UpdateLanguage()

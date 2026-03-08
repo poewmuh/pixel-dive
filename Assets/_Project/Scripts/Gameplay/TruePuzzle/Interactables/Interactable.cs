@@ -1,3 +1,4 @@
+using System;
 using _Project.Gameplay.TruePuzzle.Cursor;
 using MessagePipe;
 using UnityEngine;
@@ -6,7 +7,7 @@ using VContainer;
 
 namespace _Project.Gameplay.TruePuzzle.Interactable
 {
-    public class InteractableBase : MonoBehaviour, IInteractable
+    public class Interactable : MonoBehaviour, IInteractable
     {
         [SerializeField] private InteractableType _interactableType;
         [SerializeField] private Transform _destinationPoint;
@@ -14,6 +15,8 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
         [Inject] private IPublisher<InteractableHoverEvent> _hoverSubscriber;
         [Inject] private IPublisher<OnClickInteractableEvent> _onClickInteractableSub;
         
+        InteractableType IInteractable.InteractableType => _interactableType;
+
         void IInteractable.OnHoverEnter()
         {
             _hoverSubscriber.Publish(new InteractableHoverEvent(true, this));
@@ -26,7 +29,10 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
 
         void IInteractable.OnClick()
         {
-            _onClickInteractableSub.Publish(new OnClickInteractableEvent(_interactableType, _destinationPoint));
+            if (_interactableType is not InteractableType.None)
+            {
+                _onClickInteractableSub.Publish(new OnClickInteractableEvent(_interactableType, _destinationPoint));
+            }
         }
     }
 }

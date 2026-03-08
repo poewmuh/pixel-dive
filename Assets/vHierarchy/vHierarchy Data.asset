@@ -141,17 +141,52 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-261193624-0
         - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-70991243-0
         - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-856542923-0
+        - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-612746784-0
+        - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-1681117220-0
+        - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-1529017164-0
+        - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-743750237-0
+        - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-1242281034-0
+        - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-390612292-0
+        - globalObjectIdString: GlobalObjectId_V1-2-189038f8e178a6448b4e9fa0b2b33e1b-8571608946052581680-0
         values:
         - colorIndex: 4
           iconNameOrGuid: 
           isIconRecursive: 0
           isColorRecursive: 0
         - colorIndex: 2
-          iconNameOrGuid: 
+          iconNameOrGuid: Folder Icon
           isIconRecursive: 0
           isColorRecursive: 0
         - colorIndex: 0
           iconNameOrGuid: Camera Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 4
+          iconNameOrGuid: Folder Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 3
+          iconNameOrGuid: Folder Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 6
+          iconNameOrGuid: Folder Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 9
+          iconNameOrGuid: Folder Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 8
+          iconNameOrGuid: Folder Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 1
+          iconNameOrGuid: Folder Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: AvatarMask On Icon
           isIconRecursive: 0
           isColorRecursive: 0
     - goDatas_byGlobalId:

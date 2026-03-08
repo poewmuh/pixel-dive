@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: PortalDialogue
+  m_EditorClassIdentifier: NodeCanvas::NodeCanvas.DialogueTrees.DialogueTree
+  _serializedGraph: '{"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"\u0422\u044b
+    \u0443\u0432\u0435\u0440\u0435\u043d \u0447\u0442\u043e \u0445\u043e\u0447\u0435\u0448\u044c
+    \u0443\u0439\u0442\u0438? \u0425\u043e\u0447\u0435\u0448\u044c \u043d\u0430\u0447\u0430\u0442\u044c
+    \u0441\u043d\u0430\u0447\u0430\u043b\u0430?","_emotionType":14,"_localizations":{}},"_position":{"x":919.0,"y":205.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"0"},{"availableChoices":[{"statement":{"_text":"\u041d\u0435,
+    \u044f \u043f\u0435\u0440\u0435\u0434\u0443\u043c\u0430\u043b, \u043e\u0441\u0442\u0430\u044e\u0441\u044c","_localizations":{}}},{"statement":{"_text":"\u0414\u0430","_localizations":{}}}],"_position":{"x":967.0,"y":366.0},"$type":"NodeCanvas.DialogueTrees.MultipleChoiceNode","$id":"1"},{"conditions":[{"valueA":{"_name":"IsInventoryShow","_targetVariableID":"8ce06c2f-252d-40d9-be3c-d347ff062c97"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},{"valueA":{"_name":"IsInventoryShow","_targetVariableID":"8ce06c2f-252d-40d9-be3c-d347ff062c97"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"_position":{"x":690.0,"y":549.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"2"},{"statement":{"_text":"\u041d\u0443
+    \u0442\u043e\u0433\u0434\u0430 \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u043c","_emotionType":1,"_localizations":{}},"_position":{"x":445.0,"y":696.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"3"},{"statement":{"_text":"\u0427\u0442\u043e
+    \u0442\u043e \u0437\u0430\u043c\u0435\u0442\u0438\u043b? \u0417\u0434\u0435\u0441\u044c
+    \u043d\u0438\u0447\u0435\u0433\u043e \u043d\u0435\u0442","_emotionType":10,"_localizations":{}},"_position":{"x":786.0,"y":696.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"},{"conditions":[{"valueA":{"_name":"IsInventoryShow","_targetVariableID":"8ce06c2f-252d-40d9-be3c-d347ff062c97"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},{"valueA":{"_name":"IsInventoryShow","_targetVariableID":"8ce06c2f-252d-40d9-be3c-d347ff062c97"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"}],"_position":{"x":1497.0,"y":478.0},"$type":"NodeCanvas.DialogueTrees.MultipleConditionNode","$id":"5"},{"statement":{"_text":"\u041a\u0430\u043a
+    \u0433\u043e\u0432\u043e\u0440\u0438\u0442\u0441\u044f, \u043f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u0435
+    \u043c\u0430\u0442\u044c \u0443\u0447\u0435\u043d\u0438\u044f","_emotionType":4,"_localizations":{}},"_position":{"x":1260.0,"y":837.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"6"},{"_action":{"setTo":1,"overrideAgent":{"_type":"UnityEngine.Transform","_name":"PortalLevelObject","_targetVariableID":"7b851245-9ffc-4c31-ba2a-d0dad5d3fc56"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},"_position":{"x":1270.0,"y":946.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"7"},{"statement":{"_text":"\u041c\u043d\u0435
+    \u043f\u043e\u0432\u0435\u0437\u043b\u043e \u0447\u0442\u043e \u0442\u044b \u043d\u0435
+    \u0437\u0430\u043c\u0435\u0442\u0438\u043b..","_emotionType":10,"_localizations":{}},"_position":{"x":1635.0,"y":663.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"8"},{"statement":{"_text":"\u041e\u0439,
+    \u044f \u0441\u043a\u0430\u0437\u0430\u043b\u0430 \u044d\u0442\u043e \u0432\u0441\u043b\u0443\u0445?","_emotionType":17,"_localizations":{}},"_position":{"x":1654.0,"y":767.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"9"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"8"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _graphSource:
+    _version: 3.33
+    _category: 
+    _comments: 
+    _translation: {x: -147, y: -210}
+    _zoomFactor: 1
+  _haltSerialization: 0
+  _externalSerializationFile: {fileID: 0}
+  actorParameters: []

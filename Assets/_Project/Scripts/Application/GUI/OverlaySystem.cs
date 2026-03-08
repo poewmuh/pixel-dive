@@ -35,6 +35,7 @@ namespace _Project.Application.GUI
     public enum OverlayType
     {
         DialogGUI,
-        CursorGUI
+        CursorGUI,
+        InventoryGUI
     }
 }

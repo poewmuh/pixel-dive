@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Application.Input;
+﻿using _Project.Application.Input;
 using _Project.Gameplay.TruePuzzle.Interactable;
 using MessagePipe;
 using Pathfinding;
@@ -20,25 +19,30 @@ namespace _Project.Gameplay.TruePuzzle.Player
         [Inject] private IInputSystem _inputSystem;
         [Inject] private Camera _camera;
         [Inject] private ISubscriber<OnClickInteractableEvent> _onClickInteractableSub;
+        [Inject] private IPublisher<ReachedInteractableEvent> _onReachedInteractablePub;
         
         private IAstarAI _astarAI;
         private bool _isBlocked;
         private float _lastClickTime;
+        private bool _isClickInteractable;
+        private InteractableType _interactableType;
+        private bool _isMoving;
+        private bool _isMoved;
         
         void IComponent.Init()
         {
             _astarAI = GetComponent<IAstarAI>();
-            
-            if (_astarAI != null) 
-                _astarAI.onSearchPath += Update;
+            _astarAI.onSearchPath += SetDestination;
             
             _inputSystem.OnPuzzleMouseClick.DelayFrame(1).Subscribe(SetTarget).AddTo(this);
             _onClickInteractableSub.Subscribe(OnClickInteractable).AddTo(this);
+            _astarAI.canSearch = false;
         }
 
         private void SetTarget(InputVectorActionData data)
         {
             if (data.Phase is not InputActionPhase.Performed) return;
+            
             if (Time.time - _lastClickTime <= DOUBLE_CLICK_TIME && _isBlocked)
             {
                 _astarAI.Teleport(_target.position);
@@ -53,37 +57,78 @@ namespace _Project.Gameplay.TruePuzzle.Player
             if (hit.collider != null)
             {
                 _target.position = new Vector3(hit.point.x, hit.point.y, 0);
+                _astarAI.SearchPath();
                 _isBlocked = true;
+                _isClickInteractable = false;
+                _astarAI.isStopped = false;
             }
         }
 
         private void OnClickInteractable(OnClickInteractableEvent msg)
         {
             if (_isBlocked) return;
+            
             _isBlocked = true;
             _target.position = msg.DestinationPoint.position;
+            _astarAI.SearchPath();
+            _isClickInteractable = true;
+            _interactableType = msg.InteractableType;
+            _astarAI.isStopped = false;
         }
 
         public void BlockMovement(bool isBlocked)
         {
             _isBlocked = isBlocked;
         }
-
-        private void OnDestroy()
-        {
-            _astarAI.onSearchPath -= Update;
-        }
+        
+        private bool _hasStartedMoving;
         
         private void Update ()
         {
             if (!_target || _astarAI == null)
                 return;
-            
-            _astarAI.destination = _target.position;
-            if (_astarAI.reachedEndOfPath)
+            SetDestination();
+
+            if (!_hasStartedMoving)
             {
-                _isBlocked = false;
+                if (!_astarAI.pathPending && _astarAI.velocity.sqrMagnitude > 0.01f)
+                {
+                    _hasStartedMoving = true;
+                }
+                else if (!_astarAI.pathPending && !_astarAI.hasPath)
+                {
+                    OnArrived();
+                }
+                return;
             }
+            
+            if (_astarAI.reachedEndOfPath && !_astarAI.pathPending)
+            {
+                OnArrived();
+            }
+        }
+        
+        private void OnArrived()
+        {
+            _hasStartedMoving = false;
+            _astarAI.isStopped = true;
+            _isBlocked = false;
+
+            if (_isClickInteractable)
+            {
+                _onReachedInteractablePub.Publish(new ReachedInteractableEvent(_interactableType));
+                _isClickInteractable = false;
+            }
+        }
+
+        private void SetDestination()
+        {
+            _astarAI.destination = _target.position;
+        }
+
+        private void OnDestroy()
+        {
+            _astarAI.onSearchPath -= SetDestination;
         }
     }
 }

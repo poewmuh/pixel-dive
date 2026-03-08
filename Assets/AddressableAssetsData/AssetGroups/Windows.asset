@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7339a3f4b7da2ea45a2e300e53257bf4
+    m_Address: InventoryGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e093c371a4d5b15459e41aa4a610eab6
     m_Address: CursorGUI
     m_ReadOnly: 0

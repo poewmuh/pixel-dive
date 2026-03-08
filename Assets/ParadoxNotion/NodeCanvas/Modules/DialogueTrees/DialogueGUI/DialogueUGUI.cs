@@ -235,8 +235,6 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
 
             optionsGroup.gameObject.SetActive(true);
             var buttonHeight = optionButton.GetComponent<RectTransform>().rect.height;
-            optionsGroup.sizeDelta = new Vector2(optionsGroup.sizeDelta.x, ( info.options.Values.Count * buttonHeight ) + 20);
-
             cachedButtons = new Dictionary<Button, int>();
             int i = 0;
 
@@ -245,7 +243,7 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
                 btn.gameObject.SetActive(true);
                 btn.transform.SetParent(optionsGroup.transform, false);
                 btn.transform.localPosition = (Vector3)optionButton.transform.localPosition - new Vector3(0, buttonHeight * i, 0);
-                btn.GetComponentInChildren<Text>().text = pair.Key.GetLocalizedText(language);
+                btn.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.GetLocalizedText(language);
                 cachedButtons.Add(btn, pair.Value);
                 btn.onClick.AddListener(() => { Finalize(info, cachedButtons[btn]); });
                 i++;
@@ -253,8 +251,6 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
 
             if ( info.showLastStatement ) {
                 subtitlesGroup.gameObject.SetActive(true);
-                var newY = optionsGroup.anchoredPosition.y + optionsGroup.sizeDelta.y + 1;
-                subtitlesGroup.anchoredPosition = new Vector2(subtitlesGroup.anchoredPosition.x, newY);
             }
 
             if ( info.availableTime > 0 ) {

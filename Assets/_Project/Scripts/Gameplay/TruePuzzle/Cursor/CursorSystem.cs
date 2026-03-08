@@ -28,7 +28,7 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
         void IInitializable.Initialize()
         {
             _inputSystem.OnUIMouseClick.Subscribe(OnMouseClickPerformed).AddTo(_disposables);
-            _inputSystem.OnPuzzleMouseClick.Subscribe(OnMouseClickPerformed).AddTo(_disposables);
+            _inputSystem.OnPuzzleMouseClick.Subscribe(OnMouseClickPuzzle).AddTo(_disposables);
             _hoverSubscriber.Subscribe(OnHoverChange).AddTo(_disposables);
             _inputSwitcher.Blockers.Subscribe(OnBlockersChange).AddTo(_disposables);
             _inputSwitcher.InputMap.Subscribe(OnInputMapChanged).AddTo(_disposables);
@@ -38,6 +38,13 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
         {
             _isPressed = data.Phase is InputActionPhase.Started or InputActionPhase.Performed;
             UpdateCurrentState();
+        }
+
+        private void OnMouseClickPuzzle(InputVectorActionData data)
+        {
+            OnMouseClickPerformed(data);
+            
+            if (data.Phase is not InputActionPhase.Performed) return;
             if (_hasBlocker) return;
 
             if (_isHovering && _currentInteractable != null)
@@ -59,6 +66,8 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
                 CurrentState.Value = CursorState.Default;
                 _isBlocked = false;
             }
+            
+            UpdateCurrentState();
         }
 
         private void OnInputMapChanged(InputMapMode mode)
@@ -73,7 +82,6 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
 
         private void OnHoverChange(InteractableHoverEvent msg)
         {
-            if (_hasBlocker) return;
             _currentInteractable = msg.Interactable;
             _isHovering = msg.IsHovering;
             UpdateCurrentState();
@@ -82,13 +90,27 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
         private void UpdateCurrentState()
         {
             if (_isBlocked) return;
-            CurrentState.Value = (_isHovering, _isPressed) switch
+            if (_hasBlocker)
             {
-                (false, false) => CursorState.Default,
-                (false, true)  => CursorState.DefaultPressed,
-                (true, false)  => CursorState.Interactive,
-                (true, true)   => CursorState.InteractivePressed
-            };
+                CurrentState.Value = (_isHovering, _isPressed) switch
+                {
+                    (false, false) => CursorState.Default,
+                    (false, true)  => CursorState.DefaultPressed,
+                    (true, false)  => CursorState.Default,
+                    (true, true)   => CursorState.DefaultPressed
+                };
+            }
+            else
+            {
+                CurrentState.Value = (_isHovering, _isPressed) switch
+                {
+                    (false, false) => CursorState.Default,
+                    (false, true)  => CursorState.DefaultPressed,
+                    (true, false)  => CursorState.Interactive,
+                    (true, true)   => CursorState.InteractivePressed
+                };
+            }
+            
         }
 
         void IDisposable.Dispose()

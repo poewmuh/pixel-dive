@@ -8,6 +8,7 @@
         RedDoor,
         MiddleDoor,
         UnderInventory,
-        Portal
+        Portal,
+        FirstQuest
     }
 }

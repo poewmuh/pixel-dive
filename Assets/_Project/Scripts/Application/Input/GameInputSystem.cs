@@ -1,6 +1,7 @@
 using System;
 using R3;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Utils;
 using VContainer.Unity;
@@ -42,6 +43,8 @@ namespace _Project.Application.Input
                 .Subscribe(OnPausePerformed).AddTo(_disposables);
             
             _inputActions.UI.Skip.PerformedAsObservable()
+                .Merge( _inputActions.UI.Skip.StartedAsObservable())
+                .Merge(_inputActions.UI.Skip.CanceledAsObservable())
                 .Subscribe(OnSkipPressed).AddTo(_disposables);
             _inputActions.UI.Pause.PerformedAsObservable()
                 .Subscribe(OnPausePerformed).AddTo(_disposables);
@@ -123,6 +126,10 @@ namespace _Project.Application.Input
 
         private void OnPuzzleMouseClickPerformed(InputAction.CallbackContext context)
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
             OnPuzzleMouseClick?.OnNext(new InputVectorActionData()
             {
                 Phase = context.phase,

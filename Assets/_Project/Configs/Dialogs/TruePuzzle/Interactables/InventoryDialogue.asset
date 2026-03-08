@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: InventoryDialogue
+  m_EditorClassIdentifier: NodeCanvas::NodeCanvas.DialogueTrees.DialogueTree
+  _serializedGraph: '{"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"_action":{"layerIndex":{},"stateName":{"_value":"PaketAnimation"},"waitUntilFinish":true,"overrideAgent":{"_type":"UnityEngine.Animator","_name":"paketAnimator","_targetVariableID":"e6abdd6a-9832-4270-854c-eaaf50ff17dd"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},"_position":{"x":823.0,"y":256.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"0"},{"statement":{"_text":"\u0427\u0442\u043e
+    \u0442\u044b \u043d\u0430\u0434\u0435\u043b\u0430\u043b???","_emotionType":2,"_localizations":{}},"_position":{"x":829.0,"y":365.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"1"},{"statement":{"_text":"....","_emotionType":13,"_localizations":{}},"_position":{"x":826.0,"y":477.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"2"},{"statement":{"_text":"\u0412
+    \u043f\u0440\u043e\u0447\u0435\u043c, \u044f \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u043b\u0430
+    \u043d\u0430\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0442\u044b \u0432\u043d\u0438\u043c\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u0439","_emotionType":8,"_localizations":{}},"_position":{"x":767.0,"y":585.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"3"},{"statement":{"_text":"\u041b\u0430\u0434\u043d\u043e
+    \u0443\u0436, \u043c\u043e\u0436\u0435\u0448\u044c \u0437\u0430\u0431\u0440\u0430\u0442\u044c
+    \u0441\u0435\u0431\u0435 \u044d\u0442\u043e\u0442 \u041c\u0410\u0413\u0418\u0427\u0415\u0421\u041a\u0418\u0419
+    \u0410\u0420\u0422\u0415\u0424\u0410\u041a\u0422, \u043a\u043e\u0442\u043e\u0440\u044b\u0439
+    \u0434\u0430\u0440\u0443\u0435\u0442 \u0442\u0435\u0431\u0435 \u0432\u043c\u0435\u0441\u0442\u0438\u043b\u0438\u0449\u0435
+    \u0434\u043b\u044f \u043f\u0440\u0435\u0434\u043c\u0435\u0442\u043e\u0432.","_emotionType":4,"_localizations":{}},"_position":{"x":790.0,"y":701.0},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"4"},{"_action":{"layerIndex":{},"stateName":{"_value":"MoveToWindow"},"waitUntilFinish":true,"overrideAgent":{"_type":"UnityEngine.Animator","_name":"paketAnimator","_targetVariableID":"e6abdd6a-9832-4270-854c-eaaf50ff17dd"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},"_position":{"x":816.0,"y":832.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _graphSource:
+    _version: 3.33
+    _category: 
+    _comments: 
+    _translation: {x: 103.10707, y: -176.28996}
+    _zoomFactor: 1
+  _haltSerialization: 0
+  _externalSerializationFile: {fileID: 0}
+  actorParameters: []
