@@ -9,6 +9,12 @@
         MiddleDoor,
         UnderInventory,
         Portal,
-        FirstQuest
+        FirstQuest,
+        FirstKey,
+        Head1,
+        Head2,
+        Head3,
+        Head4,
+        ReturnToStartRoom
     }
 }

@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Application.Audio.AudioConfig
   _audioClips:
     _serializedList:
+    - Key: head4
+      Value: {fileID: 8300000, guid: 7cf4aa9bd07818a48a152b1dfd856900, type: 3}
+    - Key: head3
+      Value: {fileID: 8300000, guid: f921fb4a40519ec4891947d10a2ee07a, type: 3}
+    - Key: head2
+      Value: {fileID: 8300000, guid: 1b81c5cee7b4d28418db9394ee626c60, type: 3}
+    - Key: head1
+      Value: {fileID: 8300000, guid: 7014959b96a83944ebbb54f375854101, type: 3}
     - Key: mainmenu_theme
       Value: {fileID: 8300000, guid: 4de5d7f5be7aeb94cb0180c85600fa6f, type: 3}
     - Key: puzzle_platforming

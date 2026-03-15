@@ -25,10 +25,8 @@ namespace _Project.Application.Audio
 
         void IAudioSystem.PlayOneShot(string key)
         {
-            _effectSource.Stop();
             var audioClip = _audioConfig.GetAudioClip(key);
-            _effectSource.clip = audioClip;
-            _effectSource.Play();
+            _effectSource.PlayOneShot(audioClip);
         }
 
         AudioSource IAudioSystem.GetSFXSource()
@@ -38,7 +36,8 @@ namespace _Project.Application.Audio
 
         void IAudioSystem.PlayOneShot(string key, Vector3 worldPosition)
         {
-            throw new NotImplementedException();
+            var audioClip = _audioConfig.GetAudioClip(key);
+            AudioSource.PlayClipAtPoint(audioClip, worldPosition);
         }
 
         void IAudioSystem.PlayMusic(string key)

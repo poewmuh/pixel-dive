@@ -27,6 +27,10 @@ MonoBehaviour:
     m_Key: prepare_true_level_text
     m_Metadata:
       m_Items: []
+  - m_Id: 21021828137869312
+    m_Key: time_left
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

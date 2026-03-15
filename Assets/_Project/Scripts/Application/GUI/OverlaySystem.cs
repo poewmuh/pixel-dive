@@ -36,6 +36,7 @@ namespace _Project.Application.GUI
     {
         DialogGUI,
         CursorGUI,
-        InventoryGUI
+        InventoryGUI,
+        FadeGUI
     }
 }

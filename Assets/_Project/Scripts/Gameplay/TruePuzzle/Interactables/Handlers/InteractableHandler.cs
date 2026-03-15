@@ -3,14 +3,14 @@ using NodeCanvas.Framework;
 using NodeCanvas.StateMachines;
 using R3;
 using UnityEngine;
+using UnityEngine.Events;
 using VContainer;
 
 namespace _Project.Gameplay.TruePuzzle.Interactable
 {
-    [RequireComponent(typeof(Interactable))]
-    [RequireComponent(typeof(FSMOwner))]
     public class InteractableHandler : MonoBehaviour
     {
+        [SerializeField] private UnityEvent _onInteract;
         [Inject] private ISubscriber<ReachedInteractableEvent> _onReachedInteractableSub;
         
         protected FSMOwner _fsmOwner;
@@ -37,7 +37,8 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
         {
             if (msg.InteractableType != _interactableType) return;
             
-            _fsmOwner.SendEvent("OnHandle");
+            _onInteract?.Invoke();
+            _fsmOwner?.SendEvent("OnHandle");
         }
     }
 }

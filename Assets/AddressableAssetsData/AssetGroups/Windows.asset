@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ef863a7fbc668c46bfcfa29edd32c36
+    m_Address: FadeGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e093c371a4d5b15459e41aa4a610eab6
     m_Address: CursorGUI
     m_ReadOnly: 0

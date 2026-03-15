@@ -45,7 +45,8 @@ namespace _Project.Gameplay.TruePuzzle.Player
             
             if (Time.time - _lastClickTime <= DOUBLE_CLICK_TIME && _isBlocked)
             {
-                _astarAI.Teleport(_target.position);
+                _hasStartedMoving = true;
+                TeleportToPos(_target);
             }
             _lastClickTime = Time.time;
             if (_isBlocked) return;
@@ -64,11 +65,21 @@ namespace _Project.Gameplay.TruePuzzle.Player
             }
         }
 
+        public void TeleportToPos(Transform target)
+        {
+            _target.position = target.position;
+            _astarAI.Teleport(target.position);
+        }
+
         private void OnClickInteractable(OnClickInteractableEvent msg)
         {
             if (_isBlocked) return;
-            
+
             _isBlocked = true;
+            if (Vector3.Distance(_target.position, msg.DestinationPoint.position) <= 0.1f)
+            {
+                _hasStartedMoving = true;
+            }
             _target.position = msg.DestinationPoint.position;
             _astarAI.SearchPath();
             _isClickInteractable = true;
