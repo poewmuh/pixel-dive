@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
+  m_Name: TruePuzzleDoorsFSM
+  m_EditorClassIdentifier: NodeCanvas::NodeCanvas.StateMachines.FSM
+  _serializedGraph: '{"type":"NodeCanvas.StateMachines.FSM","nodes":[{"_actionList":{"executionMode":1,"actions":[]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_name":"WAITING
+    INTERACT","_position":{"x":844.0,"y":331.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"0"},{"_actionList":{"executionMode":1,"actions":[]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_position":{"x":1144.0,"y":400.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"1"},{"_actionList":{"actions":[{"setTo":0,"overrideAgent":{"_type":"UnityEngine.Transform","_name":"MoveTarget","_targetVariableID":"ef7b02b9-cb09-4036-9ee1-6eca8b178641"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"},{"layerIndex":{},"stateName":{"_value":"OpenDoor"},"transitTime":0.0,"waitUntilFinish":true,"overrideAgent":{"_type":"UnityEngine.Animator","_name":"Animator","_targetVariableID":"31b3dbd8-2860-4270-ab40-fa6fa73a704a"},"$type":"NodeCanvas.Tasks.Actions.MecanimPlayAnimation"},{"boolVariable":{"_name":"IsDoorOpen","_targetVariableID":"d0dda1ca-7c45-4ee5-9fe6-61cf35e8e763"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"},{"setTo":1,"overrideAgent":{"_type":"UnityEngine.Transform","_name":"MoveTarget","_targetVariableID":"ef7b02b9-cb09-4036-9ee1-6eca8b178641"},"$type":"NodeCanvas.Tasks.Actions.SetObjectActive"}]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_position":{"x":969.0,"y":606.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_nestedDLG":{"_value":1},"_position":{"x":879.0,"y":747.0},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"3"},{"_nestedDLG":{"_value":2},"_position":{"x":1302.0,"y":558.0},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"4"},{"_actionList":{"executionMode":1,"actions":[{"eventName":{"_value":"LOAD_GREENLEVEL"},"delay":{},"sendGlobal":true,"$type":"NodeCanvas.Tasks.Actions.SendEvent"}]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_position":{"x":1252.0,"y":249.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"5"},{"_actionList":{"executionMode":1,"actions":[{"boolVariable":{"_name":"IsUsedKey","_targetVariableID":"f8bf9783-2eb9-46c5-b070-8b20d76e6810"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}]},"_color":{"r":1.0,"g":0.42,"b":0.32,"a":1.0},"_position":{"x":536.0,"y":444.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"6"},{"_nestedDLG":{"_value":3},"_position":{"x":617.0,"y":602.0},"$type":"NodeCanvas.StateMachines.NestedDTState","$id":"7"}],"connections":[{"_condition":{"eventName":{"_value":"OnHandle"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"ItemActivate"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"eventName":{"_value":"ItemIncorrect"},"$type":"NodeCanvas.Tasks.Conditions.CheckEvent"},"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"trigger":{"_name":"IsUsedKey","_targetVariableID":"f8bf9783-2eb9-46c5-b070-8b20d76e6810"},"$type":"NodeCanvas.Tasks.Conditions.CheckBooleanTrigger"},"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"IsDoorOpen","_targetVariableID":"d0dda1ca-7c45-4ee5-9fe6-61cf35e8e763"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"IsDoorOpen","_targetVariableID":"d0dda1ca-7c45-4ee5-9fe6-61cf35e8e763"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"0"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"0"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"0"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"7"},"_targetNode":{"$ref":"0"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f42d3c62980e5364ba5ee95d6f35d4e0, type: 2}
+  - {fileID: 11400000, guid: 36cb22ebfc824e3419dd552de793263f, type: 2}
+  - {fileID: 11400000, guid: beb838fe63273f44b98d5bcd54dbc1ad, type: 2}
+  _graphSource:
+    _version: 3.33
+    _category: 
+    _comments: 
+    _translation: {x: 0, y: 0}
+    _zoomFactor: 1
+  _haltSerialization: 0
+  _externalSerializationFile: {fileID: 0}

@@ -4,6 +4,7 @@ using System.Linq;
 using _Project.Gameplay.FadeGUI;
 using _Project.Gameplay.Platforming.Stage;
 using _Project.Gameplay.TruePuzzle.Interactable;
+using _Project.Gameplay.TruePuzzle.Inventory;
 using _Project.Gameplay.TruePuzzle.Player;
 using AYellowpaper.SerializedCollections;
 using Cysharp.Threading.Tasks;
@@ -18,9 +19,24 @@ namespace _Project.Gameplay.TruePuzzle.Level
     public class StartLevelDirector : LevelDirector
     {
         [Inject] private IPublisher<FadeMessageEvent> _fadeMessagePub;
+        [Inject] private ISubscriber<DragFailedMessage> _dragFailedSub;
+        
         [SerializeField] private SerializedDictionary<CurrentLevelType, GameObject[]> _levelObjects;
         [SerializeField] private DepthScalerComponent _depthScalerComponent;
-        
+
+        private void Start()
+        {
+            _dragFailedSub.Subscribe(OnDragFailed).AddTo(this);
+        }
+
+        private void OnDragFailed(DragFailedMessage msg)
+        {
+            if (msg.Reason is DragFailedReason.InvalidTarget)
+            {
+                fsmOwner.SendEvent("OnFailedDrag");
+            }
+        }
+
         public IEnumerator AsyncFade(FadeType fadeType)
         {
             var completion = new UniTaskCompletionSource();
@@ -62,11 +78,18 @@ namespace _Project.Gameplay.TruePuzzle.Level
         {
             LoadLevel(CurrentLevelType.FirstKeyLevel);
         }
+        
+        [Button]
+        public void LoadGreenLevel()
+        {
+            LoadLevel(CurrentLevelType.GreenLevel);
+        }
     }
 
     public enum CurrentLevelType
     {
         StartLevel,
-        FirstKeyLevel
+        FirstKeyLevel,
+        GreenLevel
     }
 }

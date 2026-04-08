@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd02001325d4ad0a1799bc1fb852f66, type: 3}
+  m_Name: InventoySpritesConfig
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.TruePuzzle.Inventory.InventoySpritesConfig
+  _inventoryItemSprites:
+    _serializedList:
+    - Key: 8
+      Value: {fileID: 21300000, guid: 93a1fa08887ef5348abc7fb028377d27, type: 3}

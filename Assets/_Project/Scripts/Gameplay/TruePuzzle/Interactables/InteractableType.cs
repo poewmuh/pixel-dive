@@ -10,7 +10,7 @@
         UnderInventory,
         Portal,
         FirstQuest,
-        FirstKey,
+        GreenKey,
         Head1,
         Head2,
         Head3,

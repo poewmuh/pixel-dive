@@ -11,7 +11,9 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
     public class InteractableHandler : MonoBehaviour
     {
         [SerializeField] private UnityEvent _onInteract;
+        [SerializeField] private UnityEvent _onCompleteInteraction;
         [Inject] private ISubscriber<ReachedInteractableEvent> _onReachedInteractableSub;
+        [Inject] private IPublisher<OnInteractionCompleteEvent> _onInteractionCompletePub;
         
         protected FSMOwner _fsmOwner;
         protected Blackboard _blackboard;
@@ -39,6 +41,24 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
             
             _onInteract?.Invoke();
             _fsmOwner?.SendEvent("OnHandle");
+        }
+        
+        public void SendCompleteInteraction()
+        {
+            _onCompleteInteraction?.Invoke();
+            _onInteractionCompletePub.Publish(new OnInteractionCompleteEvent(_interactableType, transform));
+        }
+    }
+
+    public class OnInteractionCompleteEvent
+    {
+        public InteractableType InteractableType { get; private set; }
+        public Transform InteractableTransform { get; private set; }
+        
+        public OnInteractionCompleteEvent(InteractableType interactableType, Transform interactableTransform)
+        {
+            InteractableType = interactableType;
+            InteractableTransform = interactableTransform;
         }
     }
 }
