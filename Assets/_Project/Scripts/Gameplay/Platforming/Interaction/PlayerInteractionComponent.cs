@@ -5,6 +5,7 @@ using R3.Triggers;
 using TMPro;
 using UnityEngine;
 using Utils;
+using Utils._Project.Utils;
 using VContainer;
 
 namespace _Project.Gameplay.Platforming.Interaction

@@ -103,6 +103,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  _initialGameSaveData: {fileID: 11400000, guid: 39ee4bb7b0ad5b745bcf40b1666c3488, type: 2}
   _audioSystem: {fileID: 1810944770694617472}
   _camera: {fileID: 886862873247117332}
 --- !u!1 &5520045268020107906

@@ -1,6 +1,6 @@
 ﻿using R3;
 using UnityEngine;
-using Utils.Extensions;
+using Utils._Project.Utils.Extensions;
 
 namespace _Project.Gameplay.Platforming.Movement
 {

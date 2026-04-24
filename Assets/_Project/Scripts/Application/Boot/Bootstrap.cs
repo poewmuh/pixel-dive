@@ -1,5 +1,6 @@
 using System;
 using _Project.Application.Audio;
+using _Project.Application.Persistence;
 using _Project.Application.Scene;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace _Project.Application.Boot
         [Inject] private ISceneSystem _sceneSystem;
         [Inject] private LogoView _logoView;
         [Inject] private IAudioSystem _audioSystem;
+        [Inject] private IGameSaveMediator _gameSaveMediator;
+        [Inject] private IGameSaveSystem _gameSaveSystem;
         
         private void Start()
         {
@@ -24,7 +27,17 @@ namespace _Project.Application.Boot
             await UniTask.Delay(TimeSpan.FromSeconds(1));
             _audioSystem.PlayMusic("mainmenu_theme");
             await _logoView.StartShowLogo();
-            await _sceneSystem.LoadScene(SceneType.PuzzlePlatforming, LoadSceneMode.Single, Color.black);
+
+            if (_gameSaveSystem.MetaData.Saves.Count > 0)
+            {
+                _gameSaveSystem.LoadSave(_gameSaveSystem.MetaData.Saves[0]);
+            }
+            else
+            {
+                _gameSaveSystem.CreateNewSave();
+            }
+            var savedScene = _gameSaveMediator.GetLevelSaveData().SceneType;
+            await _sceneSystem.LoadScene(savedScene, LoadSceneMode.Single, Color.black);
         }
     }
 }

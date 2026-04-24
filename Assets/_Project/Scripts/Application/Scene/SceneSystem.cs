@@ -1,6 +1,7 @@
 using _Project.Application.Asset;
 using _Project.Application.GUI.WindowsSystem;
 using _Project.Application.Messages;
+using _Project.Application.Persistence;
 using _Project.Windows.Loading;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
@@ -15,6 +16,7 @@ namespace _Project.Application.Scene
         [Inject] private IAssetLoader _assetLoader;
         [Inject] private IPublisher<SceneChangeEvent> _sceneChangePub;
         [Inject] private IWindowSystem _windowSystem;
+        [Inject] private IGameSaveMediator _gameSaveMediator;
         
         private string _currentSceneKey = string.Empty;
         
@@ -27,6 +29,8 @@ namespace _Project.Application.Scene
             await _assetLoader.LoadSceneAsync(sceneKey, sceneMode);
             if (scene is not SceneType.Bootstrap)
             {
+                _gameSaveMediator.GetLevelSaveData().SetSceneType(scene);
+                _gameSaveMediator.Save();
                 await loadingWindow.StartHideAnimation();
             }
 

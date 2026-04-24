@@ -2,7 +2,7 @@ using System.Threading;
 using R3;
 using UnityEngine.InputSystem;
 
-namespace Utils
+namespace Utils._Project.Utils.Extensions
 {
     public static class ReactiveExtension
     {

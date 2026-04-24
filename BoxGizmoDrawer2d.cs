@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Utils
+namespace Utils._Project.Utils
 {
     [RequireComponent(typeof(BoxCollider2D))]
     public class BoxGizmoDrawer2d : MonoBehaviour

@@ -4,6 +4,8 @@ using _Project.Application.Localization;
 using _Project.Application.Persistence;
 using R3;
 using UnityEngine;
+using Utils._Project.Utils;
+using Utils._Project.Utils.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -11,9 +13,8 @@ namespace _Project.Application.Settings
 {
     public class SettingsService : ISettingsService, IInitializable, IDisposable
     {
-        private const string SettingsKey = "Settings";
-
-        [Inject] private IStorageProvider _storage;
+        private const string SettingsSaveName = "Settings.dat";
+        
         [Inject] private IAudioSystem _audioSystem;
 
         public ReactiveProperty<AudioSettingsData> Audio { get; } = new();
@@ -22,9 +23,13 @@ namespace _Project.Application.Settings
 
         private readonly CompositeDisposable _disposables = new();
         private SettingsData _currentSettings;
+        private FileSystem _fileSystem;
+        private ISerializeContract _serializeContract;
 
         void IInitializable.Initialize()
         {
+            _fileSystem = new FileSystem();
+            _serializeContract = new JSONSerialize();
             Load();
             SubscribeToChanges();
             
@@ -35,7 +40,17 @@ namespace _Project.Application.Settings
 
         private void Load()
         {
-            _currentSettings = _storage.Load<SettingsData>(SettingsKey);
+            if (!_fileSystem.FileExists(SettingsSaveName))
+            {
+                _currentSettings = new SettingsData();
+                Audio.Value = _currentSettings.Audio;
+                Video.Value = _currentSettings.Video;
+                Game.Value = _currentSettings.Game;
+                return;
+            }
+            
+            var settingsText = _fileSystem.LoadTextFromFile(SettingsSaveName);
+            _currentSettings = _serializeContract.Deserialize<SettingsData>(settingsText);
             
             Audio.Value = _currentSettings.Audio;
             Video.Value = _currentSettings.Video;
@@ -48,7 +63,7 @@ namespace _Project.Application.Settings
             _currentSettings.Video = Video.Value;
             _currentSettings.Game = Game.Value;
             
-            _storage.Save(SettingsKey, _currentSettings);
+            _fileSystem.SaveToFile(SettingsSaveName, _serializeContract.Serialize(_currentSettings));
         }
 
         private void SubscribeToChanges()

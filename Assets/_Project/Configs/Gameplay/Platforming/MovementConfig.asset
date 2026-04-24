@@ -15,9 +15,9 @@ MonoBehaviour:
   <MoveSpeed>k__BackingField: 10
   <Acceleration>k__BackingField: 20
   <Deceleration>k__BackingField: 20
-  <MaxJumpForce>k__BackingField: 20
+  <MaxJumpForce>k__BackingField: 14
   <MinJumpForce>k__BackingField: 7
-  <ChargeTime>k__BackingField: 4
+  <ChargeTime>k__BackingField: 1
   <AirAcceleration>k__BackingField: 20
   <AirDeceleration>k__BackingField: 20
   <GroundLayer>k__BackingField:

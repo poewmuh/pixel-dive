@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Utils;
+using Utils._Project.Utils.Extensions;
 using VContainer.Unity;
 
 namespace _Project.Application.Input

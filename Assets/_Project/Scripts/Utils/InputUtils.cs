@@ -1,9 +1,4 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.DualShock;
-using UnityEngine.InputSystem.XInput;
-
-namespace Utils
+namespace Utils._Project.Utils
 {
     public static class InputUtils
     {

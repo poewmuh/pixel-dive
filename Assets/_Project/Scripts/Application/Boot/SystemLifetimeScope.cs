@@ -4,6 +4,7 @@ using _Project.Application.GUI;
 using _Project.Application.GUI.WindowsSystem;
 using _Project.Application.Input;
 using _Project.Application.Persistence;
+using _Project.Application.Persistence.Data;
 using _Project.Application.Scene;
 using _Project.Application.Settings;
 using _Project.Gameplay.Dialogs;
@@ -16,6 +17,7 @@ namespace _Project.Application.Boot
 {
     public class SystemLifetimeScope : LifetimeScope
     {
+        [SerializeField] private InitialGameSaveData _initialGameSaveData;
         [SerializeField] private GameObject _audioSystem;
         [SerializeField] private Camera _camera;
         
@@ -35,13 +37,14 @@ namespace _Project.Application.Boot
 
         private void RegisterPersistence(IContainerBuilder builder)
         {
-            builder.Register<JsonFileStorageProvider>(Lifetime.Singleton)
-                .As<IStorageProvider>();
+            builder.Register<GameSaveSystem>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GameSaveMediator>(Lifetime.Singleton).AsImplementedInterfaces();
         }
 
         private void RegisterCoreSystems(IContainerBuilder builder)
         {
             Cursor.visible = false;
+            builder.RegisterInstance(_initialGameSaveData);
             builder.RegisterInstance(_audioSystem.GetComponent<IAudioSystem>());
             builder.RegisterInstance(_camera);
             
