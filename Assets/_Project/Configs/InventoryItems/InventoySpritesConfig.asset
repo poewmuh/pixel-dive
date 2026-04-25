@@ -14,5 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.TruePuzzle.Inventory.InventoySpritesConfig
   _inventoryItemSprites:
     _serializedList:
+    - Key: 28
+      Value: {fileID: 21300000, guid: 19f6b82a9c09fa641b647b2c67c12ae1, type: 3}
+    - Key: 27
+      Value: {fileID: 21300000, guid: 606d16abf164b38438090ba3c32cec28, type: 3}
+    - Key: 26
+      Value: {fileID: 21300000, guid: 567950a14fefbdd4385308e49354fb5b, type: 3}
+    - Key: 25
+      Value: {fileID: 21300000, guid: 8154809342c83434f975575f20ea52ea, type: 3}
+    - Key: 24
+      Value: {fileID: 21300000, guid: c13d5c7a2678ecf40a5d9ecb5516fe22, type: 3}
+    - Key: 23
+      Value: {fileID: 21300000, guid: f6ed8b290ac172e459e66ccc8552256c, type: 3}
+    - Key: 22
+      Value: {fileID: 21300000, guid: 65b30a7bb01ed1c4290c265b3d8172b0, type: 3}
+    - Key: 21
+      Value: {fileID: 21300000, guid: 9e3c8ab67aa700b40920d514df644882, type: 3}
+    - Key: 20
+      Value: {fileID: 21300000, guid: 81c51d78d3c3f974e88c13c8643920f4, type: 3}
+    - Key: 19
+      Value: {fileID: 21300000, guid: 9dd232ba5e6885f4fa42eb89797da15b, type: 3}
+    - Key: 18
+      Value: {fileID: 21300000, guid: aa1d3ea07fdaa684b8506d59f13d8475, type: 3}
     - Key: 8
       Value: {fileID: 21300000, guid: 93a1fa08887ef5348abc7fb028377d27, type: 3}
+    - Key: 14
+      Value: {fileID: 21300000, guid: 62ef3a9d94f803741852f8d7735345af, type: 3}
+    - Key: 15
+      Value: {fileID: 21300000, guid: 2914e39fe388109459e8a24e934a3173, type: 3}
+    - Key: 16
+      Value: {fileID: 21300000, guid: b0021e0b006553a41974695966ee882b, type: 3}
+    - Key: 17
+      Value: {fileID: 21300000, guid: 6632e34f5991d84418618f7e6ed9bee0, type: 3}
