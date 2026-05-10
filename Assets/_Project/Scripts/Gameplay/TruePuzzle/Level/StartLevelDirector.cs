@@ -6,6 +6,7 @@ using _Project.Gameplay.Platforming.Stage;
 using _Project.Gameplay.TruePuzzle.Interactable;
 using _Project.Gameplay.TruePuzzle.Inventory;
 using _Project.Gameplay.TruePuzzle.Player;
+using _Project.GUI;
 using AYellowpaper.SerializedCollections;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
@@ -20,9 +21,11 @@ namespace _Project.Gameplay.TruePuzzle.Level
     {
         [Inject] private IPublisher<FadeMessageEvent> _fadeMessagePub;
         [Inject] private ISubscriber<DragFailedMessage> _dragFailedSub;
+        [Inject] private IPublisher<OilOverlayEventMessage> _oilOverlayMessagePub;
         
         [SerializeField] private SerializedDictionary<CurrentLevelType, GameObject[]> _levelObjects;
         [SerializeField] private DepthScalerComponent _depthScalerComponent;
+        [SerializeField] private SerializedDictionary<CurrentLevelType, GameObject[]> _redScenesObjects;
 
         private void Start()
         {
@@ -47,6 +50,11 @@ namespace _Project.Gameplay.TruePuzzle.Level
             }
         }
 
+        public void ActiveOilEffect(bool isActive)
+        {
+            _oilOverlayMessagePub.Publish(new OilOverlayEventMessage(isActive));
+        }
+
         public void RecalculateGraph()
         {
             AstarPath.active.Scan();
@@ -66,6 +74,20 @@ namespace _Project.Gameplay.TruePuzzle.Level
 
             _depthScalerComponent.SetLevel(levelType);
         }
+        
+        public void LoadRedSceneLevel(CurrentLevelType levelType)
+        {
+            Debug.Log($"[LEVEL DIRECTOR] Loading red scene level: {levelType}");
+            foreach (var levelObject in _redScenesObjects.Values.SelectMany(levelObjects => levelObjects))
+            {
+                levelObject.SetActive(false);
+            }
+
+            foreach (var levelObject in _redScenesObjects[levelType])
+            {
+                levelObject.SetActive(true);
+            }
+        }
 
         [Button]
         public void LoadStartLevel()
@@ -84,12 +106,25 @@ namespace _Project.Gameplay.TruePuzzle.Level
         {
             LoadLevel(CurrentLevelType.GreenLevel);
         }
+        
+        [Button]
+        public void LoadRedLevel()
+        {
+            LoadLevel(CurrentLevelType.RedLevel);
+        }
     }
 
     public enum CurrentLevelType
     {
         StartLevel,
         FirstKeyLevel,
-        GreenLevel
+        GreenLevel,
+        RedLevel,
+        Scene1,
+        Scene2,
+        Scene3,
+        Scene4,
+        Scene5,
+        Scene6,
     }
 }

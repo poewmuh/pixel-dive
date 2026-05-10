@@ -38,6 +38,13 @@
         FishBottleCigarette,
         PaketBottleCigarette,
         
-        TubeKey
+        TubeKey,
+        
+        GoToScene1,
+        GoToScene2,
+        GoToScene3,
+        GoToScene4,
+        GoToScene5,
+        GoToLastScene
     }
 }

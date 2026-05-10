@@ -37,6 +37,7 @@ namespace _Project.Application.GUI
         DialogGUI,
         CursorGUI,
         InventoryGUI,
-        FadeGUI
+        FadeGUI,
+        OilGUI
     }
 }

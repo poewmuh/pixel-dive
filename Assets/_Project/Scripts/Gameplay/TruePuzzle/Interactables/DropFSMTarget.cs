@@ -24,16 +24,15 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
         {
             if (!_isActive) return false;
             
-            if (draggable.InteractableType is InteractableType.GreenKey)
+            switch (draggable.InteractableType)
             {
-                if (_interactable.InteractableType is InteractableType.GreenDoor)
-                {
+                case InteractableType.GreenKey when _interactable.InteractableType is InteractableType.GreenDoor:
+                case InteractableType.TubeKey when _interactable.InteractableType is InteractableType.RedDoor:
                     return true;
-                }
+                default:
+                    _fsmOwner.SendEvent("ItemIncorrect");
+                    return false;
             }
-
-            _fsmOwner.SendEvent("ItemIncorrect");
-            return false;
         }
 
         public void OnDrop(IDraggable draggable)
