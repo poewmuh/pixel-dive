@@ -28,6 +28,7 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
             {
                 case InteractableType.GreenKey when _interactable.InteractableType is InteractableType.GreenDoor:
                 case InteractableType.TubeKey when _interactable.InteractableType is InteractableType.RedDoor:
+                case InteractableType.DiamondKey when _interactable.InteractableType is InteractableType.MiddleDoor:
                     return true;
                 default:
                     _fsmOwner.SendEvent("ItemIncorrect");
@@ -39,7 +40,15 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
         {
             _fsmOwner.SendEvent("ItemActivate");
             _interactable.OnClick();
-            Destroy(draggable.Transform.gameObject);
+            if (!draggable.IsMultipleUse)
+            {
+                Destroy(draggable.Transform.gameObject);
+            }
+            else
+            {
+                draggable.ReturnToSlot();
+            }
+
             _isActive = false;
         }
     }

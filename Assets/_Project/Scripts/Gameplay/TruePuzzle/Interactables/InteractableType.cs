@@ -45,6 +45,10 @@
         GoToScene3,
         GoToScene4,
         GoToScene5,
-        GoToLastScene
+        GoToLastScene,
+        
+        StartTubeGame,
+        
+        DiamondKey,
     }
 }

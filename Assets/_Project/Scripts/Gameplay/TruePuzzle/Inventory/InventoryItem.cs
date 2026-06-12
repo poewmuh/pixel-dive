@@ -15,6 +15,9 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
 
         private InventorySlot _currentSlot;
 
+        bool IDraggable.IsMultipleUse =>
+            InteractableType is InteractableType.GreenKey or InteractableType.TubeKey;
+
         public void Setup(InteractableType interactableType, Sprite icon, DragDropController dragDropController, InventorySlot slot)
         {
             InteractableType = interactableType;
@@ -43,6 +46,7 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
 
         public void ReturnToSlot()
         {
+            _currentSlot.SetItem(this);
             transform.SetParent(_currentSlot.transform);
             transform.localPosition = Vector3.zero;
         }
@@ -60,6 +64,7 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
         Transform Transform { get; }
         void ReturnToSlot();
         void SetNewSlot(InventorySlot newSlot);
+        bool IsMultipleUse { get; }
     }
 
     public interface IDropTarget

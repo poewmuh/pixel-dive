@@ -22,6 +22,7 @@ namespace _Project.Gameplay.TruePuzzle.Level
         [Inject] private IPublisher<FadeMessageEvent> _fadeMessagePub;
         [Inject] private ISubscriber<DragFailedMessage> _dragFailedSub;
         [Inject] private IPublisher<OilOverlayEventMessage> _oilOverlayMessagePub;
+        [Inject] private IPublisher<FinalKeyEvent> _onFinalKeyPub;
         
         [SerializeField] private SerializedDictionary<CurrentLevelType, GameObject[]> _levelObjects;
         [SerializeField] private DepthScalerComponent _depthScalerComponent;
@@ -53,6 +54,11 @@ namespace _Project.Gameplay.TruePuzzle.Level
         public void ActiveOilEffect(bool isActive)
         {
             _oilOverlayMessagePub.Publish(new OilOverlayEventMessage(isActive));
+        }
+
+        public void StartFinalKey()
+        {
+            _onFinalKeyPub.Publish(new FinalKeyEvent());
         }
 
         public void RecalculateGraph()

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.TruePuzzle.Inventory.InventoySpritesConfig
   _inventoryItemSprites:
     _serializedList:
+    - Key: 36
+      Value: {fileID: 21300000, guid: c1223aff134fc6c40817e9251323a75e, type: 3}
     - Key: 28
       Value: {fileID: 21300000, guid: 19f6b82a9c09fa641b647b2c67c12ae1, type: 3}
     - Key: 27

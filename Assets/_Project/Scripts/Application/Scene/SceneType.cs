@@ -7,6 +7,7 @@ namespace _Project.Application.Scene
         TrainingLocation,
         PuzzlePlatforming,
         TruePuzzle,
-        ToBeContinued
+        ToBeContinued,
+        PuzzlePlatformingTrue
     }
 }

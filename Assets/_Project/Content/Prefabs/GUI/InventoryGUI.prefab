@@ -306,6 +306,7 @@ MonoBehaviour:
   - {fileID: 8547702105148344068}
   - {fileID: 1826040473489363396}
   _dragDropController: {fileID: 4497089205516306892}
+  _diamondKey: {fileID: 2668287516401473866, guid: db67b870162eec04e834decf045b50ed, type: 3}
 --- !u!114 &4497089205516306892
 MonoBehaviour:
   m_ObjectHideFlags: 0

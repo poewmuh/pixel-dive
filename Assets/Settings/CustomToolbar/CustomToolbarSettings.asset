@@ -18,14 +18,14 @@ MonoBehaviour:
     elements:
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarGitStatus, CustomToolbar,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     isEnabled: 1
   - groupName: Utilities
     side: 0
     elements:
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarScreenshot, CustomToolbar,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarClearPlayerPrefs,
         CustomToolbar, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       isEnabled: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
       isEnabled: 1
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.SceneBookmarks.ToolbarSceneBookmarks,
         CustomToolbar, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     isEnabled: 1
   - groupName: Scenes
     side: 0
@@ -50,20 +50,20 @@ MonoBehaviour:
       isEnabled: 1
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarReloadScene, CustomToolbar,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarLayerVisibility,
         CustomToolbar, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     isEnabled: 1
   - groupName: Controls
     side: 1
     elements:
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarFpsSlider, CustomToolbar,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarTimeSlider, CustomToolbar,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     isEnabled: 1
   - groupName: Debugging
     side: 1
@@ -76,16 +76,16 @@ MonoBehaviour:
       isEnabled: 1
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarReserializeAll,
         CustomToolbar, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     isEnabled: 1
   - groupName: Toolbox
     side: 1
     elements:
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarToolbox, CustomToolbar,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.Favorites.ToolbarFavorites,
         CustomToolbar, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     isEnabled: 1
   toolboxShortcuts: []
