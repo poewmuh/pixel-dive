@@ -31,19 +31,33 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
 
         private void OnInteractionComplete(OnInteractionCompleteEvent msg)
         {
-            var interactableScreenPos = _camera.WorldToScreenPoint(msg.InteractableTransform.position);
             var freeSlot = _slots.Find(slot => slot.IsFree);
-            var intenrotyItem = _objectResolver.Instantiate(_inventoryPrefab, freeSlot.transform);
-            intenrotyItem.Setup(msg.InteractableType, _spritesConfig.GetInventoryItemSprite(msg.InteractableType), _dragDropController, freeSlot);
-            intenrotyItem.transform.position = interactableScreenPos;
-            intenrotyItem.transform.DOLocalMove(Vector3.zero, 1f);
-            freeSlot.SetItem(intenrotyItem);
+            if (!freeSlot)
+            {
+                Debug.LogError($"[InventoryManager] No free slot for {msg.InteractableType}.");
+                return;
+            }
+
+            var interactableScreenPosition = _camera.WorldToScreenPoint(msg.InteractableTransform.position);
+            var inventoryItem = _objectResolver.Instantiate(_inventoryPrefab, freeSlot.transform);
+            inventoryItem.Setup(
+                msg.InteractableType,
+                _spritesConfig.GetInventoryItemSprite(msg.InteractableType),
+                _dragDropController,
+                freeSlot);
+            inventoryItem.transform.position = interactableScreenPosition;
+            inventoryItem.transform.DOLocalMove(Vector3.zero, 1f);
         }
 
-        private void OnFinalKeyAnimation(FinalKeyEvent msg)
+        private void OnFinalKeyAnimation(FinalKeyEvent _)
         {
-            var firstSlot = _slots.Find(slot => slot.Item.InteractableType == InteractableType.GreenKey);
-            var secondSlot = _slots.Find(slot => slot.Item.InteractableType == InteractableType.TubeKey);
+            var firstSlot = FindSlotWith(InteractableType.GreenKey);
+            var secondSlot = FindSlotWith(InteractableType.TubeKey);
+            if (!firstSlot || !secondSlot)
+            {
+                Debug.LogError("[InventoryManager] Cannot create final key: required keys are missing.");
+                return;
+            }
             
             var sequence = DOTween.Sequence();
             var mergePosition = new Vector3(Screen.width / 2, Screen.height / 2, 0);
@@ -58,6 +72,12 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
                     secondSlot.RemoveItem();
                     CreateDiamondKey(mergePosition);
                 });
+        }
+
+        private InventorySlot FindSlotWith(InteractableType interactableType)
+        {
+            return _slots.Find(slot =>
+                slot.Item && slot.Item.InteractableType == interactableType);
         }
 
         private void CreateDiamondKey(Vector3 mergePoint)

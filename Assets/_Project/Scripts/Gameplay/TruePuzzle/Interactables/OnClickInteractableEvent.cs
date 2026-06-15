@@ -1,26 +1,26 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace _Project.Gameplay.TruePuzzle.Interactable
 {
-    public class OnClickInteractableEvent
+    public sealed class OnClickInteractableEvent
     {
-        public InteractableType InteractableType { get; }
+        public IInteractable Interactable { get; }
         public Transform DestinationPoint { get; }
 
-        public OnClickInteractableEvent(InteractableType interactableType, Transform destinationPoint)
+        public OnClickInteractableEvent(IInteractable interactable, Transform destinationPoint)
         {
-            InteractableType = interactableType;
+            Interactable = interactable;
             DestinationPoint = destinationPoint;
         }
     }
 
-    public class ReachedInteractableEvent
+    public sealed class ReachedInteractableEvent
     {
-        public InteractableType InteractableType { get; }
+        public IInteractable Interactable { get; }
 
-        public ReachedInteractableEvent(InteractableType interactableType)
+        public ReachedInteractableEvent(IInteractable interactable)
         {
-            InteractableType = interactableType;
+            Interactable = interactable;
         }
     }
 }

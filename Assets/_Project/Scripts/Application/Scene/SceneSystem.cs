@@ -19,24 +19,43 @@ namespace _Project.Application.Scene
         [Inject] private IGameSaveMediator _gameSaveMediator;
         
         private string _currentSceneKey = string.Empty;
+        private bool _isSceneLoading;
         
         async UniTask ISceneSystem.LoadScene(SceneType scene, LoadSceneMode sceneMode, Color fadeColor)
         {
-            _sceneChangePub?.Publish(new SceneChangeEvent(scene));
-            var sceneKey = scene.ToString();
-            var loadingWindow = _windowSystem.Show<LoadingWindow>();
-            await loadingWindow.StartShowAnimation(fadeColor);
-            await _assetLoader.LoadSceneAsync(sceneKey, sceneMode);
-            if (scene is not SceneType.Bootstrap)
-            {
-                _gameSaveMediator.GetLevelSaveData().SetSceneType(scene);
-                _gameSaveMediator.Save();
-                await loadingWindow.StartHideAnimation();
-            }
+            if (_isSceneLoading) return;
 
-            _windowSystem.Close(loadingWindow);
-            _assetLoader.Release(_currentSceneKey);
-            _currentSceneKey = sceneKey;
+            _isSceneLoading = true;
+            LoadingWindow loadingWindow = null;
+
+            try
+            {
+                _sceneChangePub?.Publish(new SceneChangeEvent(scene));
+                var sceneKey = scene.ToString();
+                loadingWindow = _windowSystem.Show<LoadingWindow>();
+
+                await loadingWindow.StartShowAnimation(fadeColor);
+                await _assetLoader.LoadSceneAsync(sceneKey, sceneMode);
+
+                if (scene is not SceneType.Bootstrap)
+                {
+                    _gameSaveMediator.GetLevelSaveData().SetSceneType(scene);
+                    _gameSaveMediator.Save();
+                    await loadingWindow.StartHideAnimation();
+                }
+
+                _assetLoader.Release(_currentSceneKey);
+                _currentSceneKey = sceneKey;
+            }
+            finally
+            {
+                if (loadingWindow != null)
+                {
+                    _windowSystem.Close(loadingWindow);
+                }
+
+                _isSceneLoading = false;
+            }
         }
     }
 }

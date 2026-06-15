@@ -1,4 +1,3 @@
-﻿using System;
 using MessagePipe;
 using R3;
 using UnityEngine;
@@ -7,17 +6,18 @@ using VContainer;
 
 namespace _Project.Gameplay.TruePuzzle.Inventory
 {
-    public class InventorySlot : MonoBehaviour, IDropTarget
+    public sealed class InventorySlot : MonoBehaviour, IDropTarget
     {
         [Inject] private ISubscriber<DragEventMessage> _dragEventSubscriber;
-        public bool IsFree => Item is null;
+
+        public bool IsFree => Item == null;
         public InventoryItem Item { get; private set; }
 
         private Image _raycastImage;
 
         private void Awake()
         {
-            TryGetComponent(out _raycastImage);
+            _raycastImage = GetComponent<Image>();
             _raycastImage.enabled = false;
             _dragEventSubscriber.Subscribe(OnDragChanged).AddTo(this);
         }
@@ -26,28 +26,31 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
         {
             Item = item;
         }
-        
+
+        public void RemoveItem(InventoryItem item)
+        {
+            if (Item == item)
+            {
+                Item = null;
+            }
+        }
+
         public void RemoveItem()
         {
             Item = null;
         }
 
-        private void OnDragChanged(DragEventMessage msg)
+        private void OnDragChanged(DragEventMessage message)
         {
-            if (IsFree)
-            {
-                _raycastImage.enabled = msg.IsStarted;
-            }
+            _raycastImage.enabled = message.IsStarted && IsFree;
         }
 
-        public void OnDrop(IDraggable draggable)
+        bool IDropTarget.TryDrop(IDraggable draggable)
         {
-            SetItem(draggable as InventoryItem);
-        }
+            if (!IsFree || draggable is not InventoryItem item) return false;
 
-        public bool CanDrop(IDraggable draggable)
-        {
-            return IsFree && draggable is InventoryItem;
+            item.MoveToSlot(this);
+            return true;
         }
     }
 }

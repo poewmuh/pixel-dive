@@ -1,4 +1,4 @@
-﻿using _Project.Application.Input;
+using _Project.Application.Input;
 using _Project.Gameplay.TruePuzzle.Interactable;
 using MessagePipe;
 using Pathfinding;
@@ -9,137 +9,198 @@ using VContainer;
 
 namespace _Project.Gameplay.TruePuzzle.Player
 {
-    public class AStarMoverComponent : MonoBehaviour, IComponent
+    public sealed class AStarMoverComponent : MonoBehaviour, IComponent
     {
-        private const float DOUBLE_CLICK_TIME = .2f;
-        
+        private const float DoubleClickTime = 0.2f;
+        private const float MovementThreshold = 0.01f;
+
         [SerializeField] private Transform _target;
         [SerializeField] private LayerMask _moveMask;
-        
+
         [Inject] private IInputSystem _inputSystem;
         [Inject] private Camera _camera;
-        [Inject] private ISubscriber<OnClickInteractableEvent> _onClickInteractableSub;
-        [Inject] private IPublisher<ReachedInteractableEvent> _onReachedInteractablePub;
-        
+        [Inject] private ISubscriber<OnClickInteractableEvent> _interactableClickSubscriber;
+        [Inject] private IPublisher<ReachedInteractableEvent> _reachedInteractablePublisher;
+
         private IAstarAI _astarAI;
-        private bool _isBlocked;
+        private MovementState _state;
+        private IInteractable _targetInteractable;
         private float _lastClickTime;
-        private bool _isClickInteractable;
-        private InteractableType _interactableType;
-        private bool _isMoving;
-        private bool _isMoved;
-        
+        private bool _hasStartedMoving;
+
         void IComponent.Init()
         {
             _astarAI = GetComponent<IAstarAI>();
-            _astarAI.onSearchPath += SetDestination;
-            
-            _inputSystem.OnPuzzleMouseClick.DelayFrame(1).Subscribe(SetTarget).AddTo(this);
-            _onClickInteractableSub.Subscribe(OnClickInteractable).AddTo(this);
+            _astarAI.onSearchPath += UpdateDestination;
             _astarAI.canSearch = false;
+
+            _inputSystem.OnPuzzleMouseClick
+                .DelayFrame(1)
+                .Subscribe(OnMovementClick)
+                .AddTo(this);
+            _interactableClickSubscriber
+                .Subscribe(OnInteractableClick)
+                .AddTo(this);
         }
 
-        private void SetTarget(InputVectorActionData data)
+        private void OnMovementClick(InputVectorActionData input)
         {
-            if (data.Phase is not InputActionPhase.Performed) return;
-            
-            if (Time.time - _lastClickTime <= DOUBLE_CLICK_TIME && _isBlocked)
-            {
-                _hasStartedMoving = true;
-                TeleportToPos(_target);
-            }
-            _lastClickTime = Time.time;
-            if (_isBlocked) return;
-            
-            var screenPos = data.Vector;
-            var ray = _camera.ScreenPointToRay(screenPos);
+            if (input.Phase is not InputActionPhase.Performed) return;
 
-            var hit = Physics2D.GetRayIntersection(ray, 100, _moveMask);
-            if (hit.collider != null)
+            var isDoubleClick = _lastClickTime > 0f &&
+                                Time.time - _lastClickTime <= DoubleClickTime;
+            _lastClickTime = Time.time;
+
+            if (IsMoving())
             {
-                _target.position = new Vector3(hit.point.x, hit.point.y, 0);
-                _astarAI.SearchPath();
-                _isBlocked = true;
-                _isClickInteractable = false;
-                _astarAI.isStopped = false;
+                if (isDoubleClick)
+                {
+                    TeleportToCurrentDestination();
+                }
+
+                return;
             }
+
+            if (_state is MovementState.Blocked) return;
+
+            var ray = _camera.ScreenPointToRay(input.Vector);
+            var hit = Physics2D.GetRayIntersection(ray, 100f, _moveMask);
+            if (hit.collider)
+            {
+                StartMovement(hit.point, null);
+            }
+        }
+
+        private void OnInteractableClick(OnClickInteractableEvent message)
+        {
+            if (_state is not MovementState.Idle) return;
+
+            StartMovement(message.DestinationPoint.position, message.Interactable);
+        }
+
+        private void StartMovement(Vector3 destination, IInteractable interactable)
+        {
+            _target.position = new Vector3(destination.x, destination.y, 0f);
+            _targetInteractable = interactable;
+            _hasStartedMoving = false;
+            _state = interactable == null
+                ? MovementState.MovingToPoint
+                : MovementState.MovingToInteractable;
+
+            _astarAI.isStopped = false;
+            UpdateDestination();
+            _astarAI.SearchPath();
+        }
+
+        private void Update()
+        {
+            if (!IsMoving()) return;
+
+            if (!_hasStartedMoving)
+            {
+                if (_astarAI.pathPending) return;
+
+                if (_astarAI.reachedEndOfPath)
+                {
+                    CompleteMovement();
+                    return;
+                }
+
+                if (_astarAI.velocity.sqrMagnitude > MovementThreshold)
+                {
+                    _hasStartedMoving = true;
+                    return;
+                }
+
+                if (!_astarAI.hasPath)
+                {
+                    CompleteMovement();
+                }
+
+                return;
+            }
+
+            if (_astarAI.reachedEndOfPath && !_astarAI.pathPending)
+            {
+                CompleteMovement();
+            }
+        }
+
+        private bool IsMoving()
+        {
+            return _state is MovementState.MovingToPoint or MovementState.MovingToInteractable;
+        }
+
+        private void TeleportToCurrentDestination()
+        {
+            _astarAI.Teleport(_target.position);
+            CompleteMovement();
+        }
+
+        private void CompleteMovement()
+        {
+            var reachedInteractable = _targetInteractable;
+
+            _astarAI.isStopped = true;
+            _targetInteractable = null;
+            _hasStartedMoving = false;
+            _state = MovementState.Idle;
+
+            if (reachedInteractable != null)
+            {
+                _reachedInteractablePublisher.Publish(new ReachedInteractableEvent(reachedInteractable));
+            }
+        }
+
+        private void UpdateDestination()
+        {
+            _astarAI.destination = _target.position;
         }
 
         public void TeleportToPos(Transform target)
         {
             _target.position = target.position;
             _astarAI.Teleport(target.position);
-        }
-
-        private void OnClickInteractable(OnClickInteractableEvent msg)
-        {
-            if (_isBlocked) return;
-
-            _isBlocked = true;
-            if (Vector3.Distance(_target.position, msg.DestinationPoint.position) <= 0.1f)
-            {
-                _hasStartedMoving = true;
-            }
-            _target.position = msg.DestinationPoint.position;
-            _astarAI.SearchPath();
-            _isClickInteractable = true;
-            _interactableType = msg.InteractableType;
-            _astarAI.isStopped = false;
+            ResetMovement();
         }
 
         public void BlockMovement(bool isBlocked)
         {
-            _isBlocked = isBlocked;
+            if (isBlocked)
+            {
+                _astarAI.isStopped = true;
+                _targetInteractable = null;
+                _hasStartedMoving = false;
+                _state = MovementState.Blocked;
+            }
+            else if (_state is MovementState.Blocked)
+            {
+                _state = MovementState.Idle;
+            }
         }
-        
-        private bool _hasStartedMoving;
-        
-        private void Update ()
-        {
-            if (!_target || _astarAI == null)
-                return;
-            SetDestination();
 
-            if (!_hasStartedMoving)
-            {
-                if (!_astarAI.pathPending && _astarAI.velocity.sqrMagnitude > 0.01f)
-                {
-                    _hasStartedMoving = true;
-                }
-                else if (!_astarAI.pathPending && !_astarAI.hasPath)
-                {
-                    OnArrived();
-                }
-                return;
-            }
-            
-            if (_astarAI.reachedEndOfPath && !_astarAI.pathPending)
-            {
-                OnArrived();
-            }
-        }
-        
-        private void OnArrived()
+        private void ResetMovement()
         {
-            _hasStartedMoving = false;
             _astarAI.isStopped = true;
-            _isBlocked = false;
-
-            if (_isClickInteractable)
-            {
-                _onReachedInteractablePub.Publish(new ReachedInteractableEvent(_interactableType));
-                _isClickInteractable = false;
-            }
-        }
-
-        private void SetDestination()
-        {
-            _astarAI.destination = _target.position;
+            _targetInteractable = null;
+            _hasStartedMoving = false;
+            _state = MovementState.Idle;
         }
 
         private void OnDestroy()
         {
-            _astarAI.onSearchPath -= SetDestination;
+            if (_astarAI != null)
+            {
+                _astarAI.onSearchPath -= UpdateDestination;
+            }
+        }
+
+        private enum MovementState
+        {
+            Idle,
+            MovingToPoint,
+            MovingToInteractable,
+            Blocked
         }
     }
 }

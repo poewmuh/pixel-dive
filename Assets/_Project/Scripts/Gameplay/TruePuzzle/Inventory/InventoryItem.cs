@@ -1,60 +1,70 @@
-﻿using _Project.Gameplay.TruePuzzle.Interactable;
+using _Project.Gameplay.TruePuzzle.Interactable;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _Project.Gameplay.TruePuzzle.Inventory
 {
-    public class InventoryItem : MonoBehaviour, IDraggable
+    public sealed class InventoryItem : MonoBehaviour, IDraggable
     {
         [SerializeField] private Image _image;
+
         public InteractableType InteractableType { get; private set; }
-
-        private DragDropController _dragDropController;
         public Transform Transform => transform;
-
-        private InventorySlot _currentSlot;
 
         bool IDraggable.IsMultipleUse =>
             InteractableType is InteractableType.GreenKey or InteractableType.TubeKey;
 
-        public void Setup(InteractableType interactableType, Sprite icon, DragDropController dragDropController, InventorySlot slot)
+        private DragDropController _dragDropController;
+        private InventorySlot _currentSlot;
+
+        public void Setup(
+            InteractableType interactableType,
+            Sprite icon,
+            DragDropController dragDropController,
+            InventorySlot slot)
         {
             InteractableType = interactableType;
             _image.sprite = icon;
             _dragDropController = dragDropController;
-            SetNewSlot(slot);
+            MoveToSlot(slot);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            _currentSlot.RemoveItem(this);
+
+            if (!_dragDropController.BeginDrag(this, eventData))
+            {
+                ReturnToSlot();
+                return;
+            }
+
             _image.raycastTarget = false;
-            _currentSlot.RemoveItem();
-            _dragDropController.BeginDrag(this, eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            _dragDropController.UpdateDrag(eventData);
+            _dragDropController.UpdateDrag(this, eventData);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             _image.raycastTarget = true;
-            _dragDropController.EndDrag(eventData);
+            _dragDropController.EndDrag(this, eventData);
         }
 
         public void ReturnToSlot()
         {
+            MoveToSlot(_currentSlot);
+        }
+
+        public void MoveToSlot(InventorySlot slot)
+        {
+            _currentSlot = slot;
             _currentSlot.SetItem(this);
             transform.SetParent(_currentSlot.transform);
             transform.localPosition = Vector3.zero;
-        }
-
-        public void SetNewSlot(InventorySlot newSlot)
-        {
-            _currentSlot = newSlot;
-            ReturnToSlot();
         }
     }
 
@@ -62,14 +72,12 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
     {
         InteractableType InteractableType { get; }
         Transform Transform { get; }
-        void ReturnToSlot();
-        void SetNewSlot(InventorySlot newSlot);
         bool IsMultipleUse { get; }
+        void ReturnToSlot();
     }
 
     public interface IDropTarget
     {
-        void OnDrop(IDraggable draggable);
-        bool CanDrop(IDraggable draggable);
+        bool TryDrop(IDraggable draggable);
     }
 }

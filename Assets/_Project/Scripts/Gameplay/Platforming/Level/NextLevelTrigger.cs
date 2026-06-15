@@ -1,5 +1,5 @@
-using System;
 using _Project.Application.Scene;
+using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
 using UnityEngine;
@@ -17,6 +17,7 @@ namespace _Project.Gameplay.Platforming.Level
         [Inject] private ISceneSystem _sceneSystem;
         
         private Collider2D _collider;
+        private bool _isTriggered;
 
         private void Awake()
         {
@@ -26,10 +27,16 @@ namespace _Project.Gameplay.Platforming.Level
 
         private void OnEnter(Collider2D collider)
         {
-            if (collider.CompareTag("Player"))
-            {
-                _sceneSystem.LoadScene(_sceneType, LoadSceneMode.Single, _fadeColor);
-            }
+            if (_isTriggered || !collider.CompareTag("Player")) return;
+
+            _isTriggered = true;
+            _collider.enabled = false;
+            LoadNextLevel().Forget();
+        }
+
+        private async UniTaskVoid LoadNextLevel()
+        {
+            await _sceneSystem.LoadScene(_sceneType, LoadSceneMode.Single, _fadeColor);
         }
     }
 }

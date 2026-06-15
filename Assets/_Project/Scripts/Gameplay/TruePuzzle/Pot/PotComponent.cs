@@ -23,15 +23,20 @@ namespace _Project.Gameplay.TruePuzzle.Pot
         private GarbageFlags _accumulated = GarbageFlags.None;
         private int _potCapacity;
         
-        void IDropTarget.OnDrop(IDraggable draggable)
+        bool IDropTarget.TryDrop(IDraggable draggable)
         {
+            if (!_toFlags.TryGetValue(draggable.InteractableType, out var droppedFlags))
+            {
+                return false;
+            }
+
             _potMassSprite.color = Color.darkGreen;
             
-            _accumulated |= _toFlags[draggable.InteractableType];
+            _accumulated |= droppedFlags;
             _potCapacity++;
             Destroy(draggable.Transform.gameObject);
 
-            if (_potCapacity < 2) return;
+            if (_potCapacity < 2) return true;
             
             _potMassSprite.color = Color.skyBlue;
             var combined = _toType[_accumulated];
@@ -41,11 +46,7 @@ namespace _Project.Gameplay.TruePuzzle.Pot
             
             _accumulated = GarbageFlags.None;
             _potCapacity = 0;
-        }
-
-        bool IDropTarget.CanDrop(IDraggable draggable)
-        {
-            return _toFlags.ContainsKey(draggable.InteractableType);
+            return true;
         }
         
         [Flags]

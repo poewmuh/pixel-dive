@@ -6,8 +6,6 @@ namespace _Project.Application.Persistence
     public class GameSaveMediator : IGameSaveMediator
     {
         [Inject] private IGameSaveSystem _gameSaveSystem;
-        
-        private GameSaveData gameSaveData;
 
         GameSaveData IGameSaveMediator.GameSaveData => _gameSaveSystem.CurrentSaveData;
 

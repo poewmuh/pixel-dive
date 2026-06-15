@@ -1,4 +1,3 @@
-using System;
 using _Project.Application.GUI.WindowsSystem;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -17,22 +16,40 @@ namespace _Project.Windows.Loading
 
         public async UniTask StartShowAnimation(Color fadeColor)
         {
-            _currentTween?.Kill();
+            KillCurrentTween();
             _background.color = fadeColor;
-            _currentTween = _background.DOFade(1, _animationDuration);
-            await UniTask.Delay(TimeSpan.FromSeconds(_animationDuration));
+            var transparentColor = _background.color;
+            transparentColor.a = 0f;
+            _background.color = transparentColor;
+            _currentTween = _background
+                .DOFade(1f, _animationDuration)
+                .SetUpdate(isIndependentUpdate: true);
+            await _currentTween.AsyncWaitForCompletion();
         }
 
         public async UniTask StartHideAnimation()
         {
-            _currentTween?.Kill();
-            _currentTween = _background.DOFade(0, _animationDuration);
-            await UniTask.Delay(TimeSpan.FromSeconds(_animationDuration));
+            KillCurrentTween();
+            _currentTween = _background
+                .DOFade(0f, _animationDuration)
+                .SetUpdate(isIndependentUpdate: true);
+            await _currentTween.AsyncWaitForCompletion();
         }
 
         protected override void OnDestroy()
         {
-            _currentTween?.Kill();
+            KillCurrentTween();
+            base.OnDestroy();
+        }
+
+        private void KillCurrentTween()
+        {
+            if (_currentTween is { active: true })
+            {
+                _currentTween.Kill();
+            }
+
+            _currentTween = null;
         }
     }
 }

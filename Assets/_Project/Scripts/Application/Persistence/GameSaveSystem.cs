@@ -23,7 +23,7 @@ namespace _Project.Application.Persistence
         private SavesMetaData _metadata;
         private ISerializeContract _serializeContract;
 
-        GameSaveData IGameSaveSystem.CurrentSaveData => _currentGameSaveData;
+        GameSaveData IGameSaveSystem.CurrentSaveData => EnsureCurrentSaveData();
         SavesMetaData IGameSaveSystem.MetaData => _metadata;
         
         void IInitializable.Initialize()
@@ -38,21 +38,14 @@ namespace _Project.Application.Persistence
                 var loadedMetaData = _fileSystem.LoadTextFromFile(MetadataFileName);
                 _metadata = _serializeContract.Deserialize<SavesMetaData>(loadedMetaData);
             }
-            else
-            {
-                _metadata = new SavesMetaData();
-            }
+
+            _metadata ??= new SavesMetaData();
+            _metadata.Saves ??= new();
         }
         
         GameSaveData IGameSaveSystem.CreateNewSave()
         {
-            var saveIndex = _metadata.Saves.Count;
-            return CreateNewSave(new SaveReferenceData()
-            {
-                Filename = $"Save_{saveIndex}.dat",
-                DisplayName = $"Save_{saveIndex}",
-                LastSaveDateTime = DateTime.Now,
-            });
+            return CreateNewSave(CreateSaveReference());
         }
 
         GameSaveData IGameSaveSystem.LoadSave(SaveReferenceData saveReference)
@@ -62,12 +55,14 @@ namespace _Project.Application.Persistence
 
         GameSaveData IGameSaveSystem.CreateNewOrLoad(SaveReferenceData saveReference)
         {
-            return saveReference != null && _fileSystem.FileExists(saveReference.Filename) ?
-                Load(saveReference) : CreateNewSave(saveReference);
+            return saveReference != null && _fileSystem.FileExists(saveReference.Filename)
+                ? Load(saveReference)
+                : CreateNewSave(CreateSaveReference());
         }
 
         void IGameSaveSystem.Save()
         {
+            EnsureCurrentSaveData();
             _currentSaveReference.Value.LastSaveDateTime = DateTime.Now;
             _fileSystem.SaveToFile(MetadataFileName, _serializeContract.Serialize(_metadata));
             _fileSystem.SaveToFile(_currentSaveReference.CurrentValue.Filename, _serializeContract.Serialize(_currentGameSaveData));
@@ -83,6 +78,7 @@ namespace _Project.Application.Persistence
             {
                 GameplaySaveData = Object.Instantiate(_initialGameSaveData).GameplaySaveData,
             };
+            _currentGameSaveData.EnsureInitialized();
             
             Debug.Log($"[SaveLoadSystem] Creating new save >> {_currentSaveReference.Value.Filename}");
             return _currentGameSaveData;
@@ -93,9 +89,33 @@ namespace _Project.Application.Persistence
             _currentSaveReference.Value = saveReference;
             var loadedSave = _fileSystem.LoadTextFromFile(saveReference.Filename);
             _currentGameSaveData = _serializeContract.Deserialize<GameSaveData>(loadedSave);
+            _currentGameSaveData ??= new GameSaveData();
+            _currentGameSaveData.EnsureInitialized();
             
             Debug.Log($"[SaveLoadSystem] Loading save >> {_currentSaveReference.Value.Filename}");
             return _currentGameSaveData;
+        }
+
+        private GameSaveData EnsureCurrentSaveData()
+        {
+            if (_currentGameSaveData == null)
+            {
+                CreateNewSave(CreateSaveReference());
+            }
+
+            _currentGameSaveData.EnsureInitialized();
+            return _currentGameSaveData;
+        }
+
+        private SaveReferenceData CreateSaveReference()
+        {
+            var saveIndex = _metadata.Saves.Count;
+            return new SaveReferenceData
+            {
+                Filename = $"Save_{saveIndex}.dat",
+                DisplayName = $"Save_{saveIndex}",
+                LastSaveDateTime = DateTime.Now,
+            };
         }
     }
 }

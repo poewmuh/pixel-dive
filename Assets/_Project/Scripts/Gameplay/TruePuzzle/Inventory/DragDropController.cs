@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using MessagePipe;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,109 +6,104 @@ using VContainer;
 
 namespace _Project.Gameplay.TruePuzzle.Inventory
 {
-    public class DragDropController : MonoBehaviour
+    public sealed class DragDropController : MonoBehaviour
     {
         [Inject] private IPublisher<DragEventMessage> _dragEventPublisher;
         [Inject] private IPublisher<DragFailedMessage> _dragFailedPublisher;
         [Inject] private Camera _camera;
-        
+
+        private readonly List<RaycastResult> _raycastResults = new();
+
         private IDraggable _currentDraggable;
         private Vector2 _dragOffset;
-        
-        public void BeginDrag(IDraggable draggable, PointerEventData eventData)
+
+        public bool BeginDrag(IDraggable draggable, PointerEventData eventData)
         {
+            if (_currentDraggable != null) return false;
+
             _currentDraggable = draggable;
-            _dragOffset = (Vector2)_currentDraggable.Transform.position - eventData.position;
-            _dragEventPublisher.Publish(new DragEventMessage(_currentDraggable, true));
+            _dragOffset = (Vector2)draggable.Transform.position - eventData.position;
+            _dragEventPublisher.Publish(new DragEventMessage(draggable, true));
+            return true;
         }
 
-        public void UpdateDrag(PointerEventData eventData)
+        public void UpdateDrag(IDraggable draggable, PointerEventData eventData)
         {
-            if (_currentDraggable == null) return;
-            _currentDraggable.Transform.position = eventData.position + _dragOffset;
+            if (!ReferenceEquals(_currentDraggable, draggable)) return;
+
+            draggable.Transform.position = eventData.position + _dragOffset;
         }
 
-        public void EndDrag(PointerEventData eventData)
+        public void EndDrag(IDraggable draggable, PointerEventData eventData)
         {
-            if (_currentDraggable == null) return;
+            if (!ReferenceEquals(_currentDraggable, draggable)) return;
 
             var target = FindDropTarget(eventData);
+            var wasAccepted = target != null && target.TryDrop(draggable);
 
-            if (target != null && target.CanDrop(_currentDraggable))
+            if (!wasAccepted)
             {
-                target.OnDrop(_currentDraggable);
-                if (target is InventorySlot slot)
-                {
-                    _currentDraggable.SetNewSlot(slot);
-                }
-            }
-            else
-            {
-                var reason = DragFailedReason.MissingTarget;
-                if (target != null)
-                {
-                    reason = DragFailedReason.InvalidTarget;
-                }
-                _currentDraggable.ReturnToSlot();
-                
+                draggable.ReturnToSlot();
+                var reason = target == null
+                    ? DragFailedReason.MissingTarget
+                    : DragFailedReason.InvalidTarget;
                 _dragFailedPublisher.Publish(new DragFailedMessage(reason));
             }
 
-            _dragEventPublisher.Publish(new DragEventMessage(_currentDraggable, false));
+            _dragEventPublisher.Publish(new DragEventMessage(draggable, false));
             _currentDraggable = null;
         }
-        
+
         private IDropTarget FindDropTarget(PointerEventData eventData)
         {
-            var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, results);
+            _raycastResults.Clear();
+            EventSystem.current.RaycastAll(eventData, _raycastResults);
 
-            foreach (var result in results)
+            foreach (var result in _raycastResults)
             {
                 if (result.gameObject == _currentDraggable.Transform.gameObject) continue;
-                if (result.gameObject.TryGetComponent<IDropTarget>(out var target))
-                    return target;
-            }
-
-            var ray = _camera.ScreenPointToRay(eventData.position);
-            var hit = Physics2D.GetRayIntersection(ray, 100, LayerMask.GetMask("Interactable"));
-            if (hit.collider != null)
-            {
-                if (hit.collider.TryGetComponent(out IDropTarget target))
+                if (result.gameObject.TryGetComponent(out IDropTarget target))
                 {
                     return target;
                 }
             }
-            
+
+            var ray = _camera.ScreenPointToRay(eventData.position);
+            var hit = Physics2D.GetRayIntersection(ray, 100f, LayerMask.GetMask("Interactable"));
+            if (hit.collider && hit.collider.TryGetComponent(out IDropTarget worldTarget))
+            {
+                return worldTarget;
+            }
+
             return null;
         }
     }
 
-    public class DragEventMessage
+    public sealed class DragEventMessage
     {
+        public IDraggable Draggable { get; }
+        public bool IsStarted { get; }
+
         public DragEventMessage(IDraggable draggable, bool isStarted)
         {
             Draggable = draggable;
             IsStarted = isStarted;
         }
-        
-        public IDraggable Draggable { get; }
-        public bool IsStarted { get; }
     }
-    
-    public class DragFailedMessage
+
+    public sealed class DragFailedMessage
     {
+        public DragFailedReason Reason { get; }
+
         public DragFailedMessage(DragFailedReason reason)
         {
             Reason = reason;
         }
-        
-        public DragFailedReason Reason { get; }
     }
-    
+
     public enum DragFailedReason
     {
         MissingTarget,
-        InvalidTarget,
+        InvalidTarget
     }
 }

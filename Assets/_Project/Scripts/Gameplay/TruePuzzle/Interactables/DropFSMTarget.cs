@@ -20,7 +20,7 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
             _isActive = true;
         }
 
-        public bool CanDrop(IDraggable draggable)
+        public bool TryDrop(IDraggable draggable)
         {
             if (!_isActive) return false;
             
@@ -29,6 +29,7 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
                 case InteractableType.GreenKey when _interactable.InteractableType is InteractableType.GreenDoor:
                 case InteractableType.TubeKey when _interactable.InteractableType is InteractableType.RedDoor:
                 case InteractableType.DiamondKey when _interactable.InteractableType is InteractableType.MiddleDoor:
+                    ApplyDrop(draggable);
                     return true;
                 default:
                     _fsmOwner.SendEvent("ItemIncorrect");
@@ -36,7 +37,7 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
             }
         }
 
-        public void OnDrop(IDraggable draggable)
+        private void ApplyDrop(IDraggable draggable)
         {
             _fsmOwner.SendEvent("ItemActivate");
             _interactable.OnClick();

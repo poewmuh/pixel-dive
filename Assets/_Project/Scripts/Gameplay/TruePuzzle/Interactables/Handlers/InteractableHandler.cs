@@ -1,4 +1,5 @@
-﻿using MessagePipe;
+using System;
+using MessagePipe;
 using NodeCanvas.Framework;
 using NodeCanvas.StateMachines;
 using R3;
@@ -12,49 +13,52 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
     {
         [SerializeField] private UnityEvent _onInteract;
         [SerializeField] private UnityEvent _onCompleteInteraction;
-        [Inject] private ISubscriber<ReachedInteractableEvent> _onReachedInteractableSub;
-        [Inject] private IPublisher<OnInteractionCompleteEvent> _onInteractionCompletePub;
-        
+
+        [Inject] private ISubscriber<ReachedInteractableEvent> _reachedInteractableSubscriber;
+        [Inject] private IPublisher<OnInteractionCompleteEvent> _interactionCompletePublisher;
+
         protected FSMOwner _fsmOwner;
         protected Blackboard _blackboard;
+
+        private IInteractable _interactable;
         private InteractableType _interactableType;
-        
+
         public void Start()
         {
             _fsmOwner = GetComponent<FSMOwner>();
             _blackboard = GetComponent<Blackboard>();
-            _onReachedInteractableSub.Subscribe(OnReachedInteractable).AddTo(this);
+            _reachedInteractableSubscriber.Subscribe(OnReachedInteractable).AddTo(this);
 
-            if (TryGetComponent(out IInteractable interactable))
+            if (TryGetComponent(out _interactable))
             {
-                _interactableType = interactable.InteractableType;
+                _interactableType = _interactable.InteractableType;
             }
 
             Init();
         }
-        
+
         protected virtual void Init() { }
-        
-        private void OnReachedInteractable(ReachedInteractableEvent msg)
+
+        private void OnReachedInteractable(ReachedInteractableEvent message)
         {
-            if (msg.InteractableType != _interactableType) return;
-            
+            if (!ReferenceEquals(message.Interactable, _interactable)) return;
+
             _onInteract?.Invoke();
             _fsmOwner?.SendEvent("OnHandle");
         }
-        
+
         public void SendCompleteInteraction()
         {
             _onCompleteInteraction?.Invoke();
-            _onInteractionCompletePub.Publish(new OnInteractionCompleteEvent(_interactableType, transform));
+            _interactionCompletePublisher.Publish(new OnInteractionCompleteEvent(_interactableType, transform));
         }
     }
 
-    public class OnInteractionCompleteEvent
+    public sealed class OnInteractionCompleteEvent
     {
-        public InteractableType InteractableType { get; private set; }
-        public Transform InteractableTransform { get; private set; }
-        
+        public InteractableType InteractableType { get; }
+        public Transform InteractableTransform { get; }
+
         public OnInteractionCompleteEvent(InteractableType interactableType, Transform interactableTransform)
         {
             InteractableType = interactableType;
