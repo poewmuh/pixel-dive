@@ -39,8 +39,7 @@ namespace _Project.Application.Scene
 
                 if (scene is not SceneType.Bootstrap)
                 {
-                    _gameSaveMediator.GetLevelSaveData().SetSceneType(scene);
-                    _gameSaveMediator.Save();
+                    _gameSaveMediator.SaveScene(scene);
                     await loadingWindow.StartHideAnimation();
                 }
 

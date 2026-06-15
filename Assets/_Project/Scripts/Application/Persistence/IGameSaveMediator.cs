@@ -1,14 +1,14 @@
-﻿using _Project.Application.Persistence.Data;
+using _Project.Application.Persistence.Data;
+using _Project.Application.Scene;
 
 namespace _Project.Application.Persistence
 {
     public interface IGameSaveMediator
     {
-        GameSaveData GameSaveData { get; }
-        
         PlayerSaveData GetPlayerSaveData();
-        LevelSaveData GetLevelSaveData();
+        SceneType GetSavedScene();
 
+        void SaveScene(SceneType sceneType);
         void Save();
     }
 }

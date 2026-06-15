@@ -36,7 +36,7 @@ namespace _Project.Application.Boot
             {
                 _gameSaveSystem.CreateNewSave();
             }
-            var savedScene = _gameSaveMediator.GetLevelSaveData().SceneType;
+            var savedScene = _gameSaveMediator.GetSavedScene();
             await _sceneSystem.LoadScene(savedScene, LoadSceneMode.Single, Color.black);
         }
     }

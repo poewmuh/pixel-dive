@@ -1,4 +1,5 @@
-﻿using _Project.Application.Persistence.Data;
+using _Project.Application.Persistence.Data;
+using _Project.Application.Scene;
 using VContainer;
 
 namespace _Project.Application.Persistence
@@ -7,21 +8,30 @@ namespace _Project.Application.Persistence
     {
         [Inject] private IGameSaveSystem _gameSaveSystem;
 
-        GameSaveData IGameSaveMediator.GameSaveData => _gameSaveSystem.CurrentSaveData;
-
         PlayerSaveData IGameSaveMediator.GetPlayerSaveData()
         {
             return _gameSaveSystem.CurrentSaveData.GameplaySaveData.PlayerSaveData;
         }
 
-        LevelSaveData IGameSaveMediator.GetLevelSaveData()
+        SceneType IGameSaveMediator.GetSavedScene()
         {
-            return _gameSaveSystem.CurrentSaveData.GameplaySaveData.LevelSaveData;
+            return GetLevelSaveData().SceneType;
+        }
+
+        void IGameSaveMediator.SaveScene(SceneType sceneType)
+        {
+            GetLevelSaveData().SetSceneType(sceneType);
+            _gameSaveSystem.Save();
         }
 
         void IGameSaveMediator.Save()
         {
             _gameSaveSystem.Save();
+        }
+
+        private LevelSaveData GetLevelSaveData()
+        {
+            return _gameSaveSystem.CurrentSaveData.GameplaySaveData.LevelSaveData;
         }
     }
 }
