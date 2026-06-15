@@ -1,56 +1,67 @@
-﻿using R3;
+using System;
+using R3;
 using UnityEngine;
 using Utils._Project.Utils.Extensions;
 
 namespace _Project.Gameplay.Platforming.Movement
 {
-    public class MoveHandler
+    public sealed class MoveHandler : IDisposable
     {
-        public ReactiveProperty<bool> IsMoving { get; private set; } = new ();
-        
+        public ReactiveProperty<bool> IsMoving { get; } = new();
+
         private readonly Rigidbody2D _rb;
         private readonly CollisionChecker _collisionChecker;
-        
-        private Vector2 _currentVelocity;
-        private MovementConfig _config;
-        private bool _isCanMove = true;
-        private float currentAcceleration => _collisionChecker.isGrounded.Value ? _config.Acceleration : _config.AirAcceleration;
-        private float currentDeceleration => _collisionChecker.isGrounded.Value ? _config.Acceleration : _config.AirDeceleration;
-        
+        private readonly MovementConfig _config;
+
+        private bool _isMovementEnabled = true;
+
+        private float CurrentAcceleration =>
+            _collisionChecker.IsGrounded.Value ? _config.Acceleration : _config.AirAcceleration;
+
+        private float CurrentDeceleration =>
+            _collisionChecker.IsGrounded.Value ? _config.Deceleration : _config.AirDeceleration;
+
         public MoveHandler(Rigidbody2D rb, MovementConfig config, CollisionChecker collisionChecker)
         {
-            _config = config;
             _rb = rb;
+            _config = config;
             _collisionChecker = collisionChecker;
         }
 
         public void UpdateMove(float horizontalInput)
         {
-            if (!_isCanMove) horizontalInput = 0;
-            
-            _currentVelocity = GetNewVelocity(horizontalInput);
-            _rb.linearVelocity = new Vector2(_currentVelocity.x, _rb.linearVelocity.y);
+            if (!_isMovementEnabled)
+            {
+                horizontalInput = 0f;
+            }
+
+            var horizontalVelocity = GetHorizontalVelocity(horizontalInput);
+            _rb.linearVelocity = new Vector2(horizontalVelocity, _rb.linearVelocity.y);
         }
 
-        public void SetEnableMovement(bool enable)
+        public void SetMovementEnabled(bool isEnabled)
         {
-            _isCanMove = enable;
+            _isMovementEnabled = isEnabled;
         }
-        
-        private Vector2 GetNewVelocity(float horizontalInput)
+
+        private float GetHorizontalVelocity(float horizontalInput)
         {
+            var currentVelocity = _rb.linearVelocity.x;
+
             if (horizontalInput.ApproxZero())
             {
                 IsMoving.Value = false;
-                return Vector2.Lerp(_currentVelocity, Vector2.zero, currentDeceleration * Time.fixedDeltaTime);
-                
+                return Mathf.Lerp(currentVelocity, 0f, CurrentDeceleration * Time.fixedDeltaTime);
             }
-            else
-            {
-                IsMoving.Value = true;
-                var targetVelocity = new Vector2(horizontalInput, 0) * _config.MoveSpeed;
-                return Vector2.Lerp(_currentVelocity, targetVelocity, currentAcceleration * Time.fixedDeltaTime);
-            }
+
+            IsMoving.Value = true;
+            var targetVelocity = horizontalInput * _config.MoveSpeed;
+            return Mathf.Lerp(currentVelocity, targetVelocity, CurrentAcceleration * Time.fixedDeltaTime);
+        }
+
+        public void Dispose()
+        {
+            IsMoving.Dispose();
         }
     }
 }

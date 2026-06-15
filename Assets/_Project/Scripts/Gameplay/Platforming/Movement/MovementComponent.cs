@@ -47,11 +47,11 @@ namespace _Project.Gameplay.Platforming.Movement
             if (performed)
             {
                 JumpHandler.JumpPressed();
-                MoveHandler.SetEnableMovement(false);
+                MoveHandler.SetMovementEnabled(false);
             }
             else
             {
-                MoveHandler.SetEnableMovement(true);
+                MoveHandler.SetMovementEnabled(true);
                 JumpHandler.JumpReleased();
             }
         }
@@ -66,6 +66,7 @@ namespace _Project.Gameplay.Platforming.Movement
         {
             CollisionChecker.Dispose();
             JumpHandler.Dispose();
+            MoveHandler.Dispose();
         }
     }
 }

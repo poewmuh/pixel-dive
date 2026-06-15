@@ -20,7 +20,7 @@ namespace _Project.Gameplay.Platforming.PlayerView
         {
             _movementComponent.MoveHandler.IsMoving.Subscribe(OnMoving).AddTo(this);
             _movementComponent.JumpHandler.State.Subscribe(JumpStateChange).AddTo(this);
-            _movementComponent.CollisionChecker.isGrounded.Subscribe(OnGroundedChange).AddTo(this);
+            _movementComponent.CollisionChecker.IsGrounded.Subscribe(OnGroundedChange).AddTo(this);
         }
 
         private void OnMoving(bool isMoving)
