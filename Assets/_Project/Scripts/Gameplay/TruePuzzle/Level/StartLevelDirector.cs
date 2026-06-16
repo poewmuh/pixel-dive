@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
 using _Project.Gameplay.FadeGUI;
 using _Project.Gameplay.Platforming.Stage;
 using _Project.Gameplay.TruePuzzle.Interactable;
@@ -68,15 +67,8 @@ namespace _Project.Gameplay.TruePuzzle.Level
 
         public void LoadLevel(CurrentLevelType levelType)
         {
-            foreach (var levelObject in _levelObjects.Values.SelectMany(levelObjects => levelObjects))
-            {
-                levelObject.SetActive(false);
-            }
-
-            foreach (var levelObject in _levelObjects[levelType])
-            {
-                levelObject.SetActive(true);
-            }
+            DisableAllObjects(_levelObjects);
+            EnableObjectsForLevel(_levelObjects, levelType);
 
             _depthScalerComponent.SetLevel(levelType);
         }
@@ -84,14 +76,41 @@ namespace _Project.Gameplay.TruePuzzle.Level
         public void LoadRedSceneLevel(CurrentLevelType levelType)
         {
             Debug.Log($"[LEVEL DIRECTOR] Loading red scene level: {levelType}");
-            foreach (var levelObject in _redScenesObjects.Values.SelectMany(levelObjects => levelObjects))
+            DisableAllObjects(_redScenesObjects);
+            EnableObjectsForLevel(_redScenesObjects, levelType);
+        }
+        
+        private void DisableAllObjects(SerializedDictionary<CurrentLevelType, GameObject[]> levelObjects)
+        {
+            foreach (var objects in levelObjects.Values)
             {
-                levelObject.SetActive(false);
+                SetObjectsActive(objects, false);
             }
+        }
 
-            foreach (var levelObject in _redScenesObjects[levelType])
+        private void EnableObjectsForLevel(
+            SerializedDictionary<CurrentLevelType, GameObject[]> levelObjects,
+            CurrentLevelType levelType)
+        {
+            if (levelObjects.TryGetValue(levelType, out var objects))
             {
-                levelObject.SetActive(true);
+                SetObjectsActive(objects, true);
+                return;
+            }
+            
+            Debug.LogWarning($"{nameof(StartLevelDirector)} has no objects configured for level {levelType}.", this);
+        }
+
+        private static void SetObjectsActive(GameObject[] objects, bool isActive)
+        {
+            if (objects == null) return;
+            
+            foreach (var levelObject in objects)
+            {
+                if (levelObject != null)
+                {
+                    levelObject.SetActive(isActive);
+                }
             }
         }
 

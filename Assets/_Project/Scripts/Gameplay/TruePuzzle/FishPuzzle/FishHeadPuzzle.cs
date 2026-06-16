@@ -26,17 +26,27 @@ namespace _Project.Gameplay.TruePuzzle.FishPuzzle
         private float _puzzleFakeTime;
         private bool _fakeTimerStarted;
         private bool _delayTimerStarted;
-        private bool _timersComplete = false;
+        private bool _timersComplete;
         private bool _allPuzzleComplete;
+        private int _lastDisplayedTimerTenths = int.MinValue;
 
         public void Press(int index)
         {
+            if (index < 0 || index >= _puzzleRules.Length)
+            {
+                Debug.LogWarning($"{nameof(FishHeadPuzzle)} received invalid press index {index}.", this);
+                return;
+            }
+            
             fsmOwner.SendEvent("OnPressed");
             if (!_delayTimerStarted && !_fakeTimerStarted && !_timersComplete) _delayTimerStarted = true;
             
             foreach (var headIndex in _puzzleRules[index])
             {
-                _heads[headIndex].Toggle(_audioTimer);
+                if (TryGetHead(headIndex, out var head))
+                {
+                    head.Toggle(_audioTimer);
+                }
             }
 
             if (IsSolved() && !_allPuzzleComplete)
@@ -56,51 +66,75 @@ namespace _Project.Gameplay.TruePuzzle.FishPuzzle
 
         private void Update()
         {
-            _audioTimer += Time.deltaTime;
-            if (_audioTimer >= _heads[0].MaxAudioLength)
-            {
-                _audioTimer = 0;
-            }
+            var deltaTime = Time.deltaTime;
+            UpdateAudioTimer(deltaTime);
+            
             if (_allPuzzleComplete) return;
+            
             if (_delayTimerStarted)
             {
-                _puzzleFakeTime += Time.deltaTime;
-                
-                if (_puzzleFakeTime >= _timerStartDelay)
-                {
-                    _puzzleFakeTime = 0;
-                    fsmOwner.SendEvent("OnStartFakeTimer");
-                    _delayTimerStarted = false;
-                    foreach (var head in _heads)
-                    {
-                        head.SetOpen(_audioTimer);
-                    }
-                }
+                UpdateStartDelayTimer(deltaTime);
             }
 
             if (_fakeTimerStarted)
             {
-                _puzzleFakeTime += Time.deltaTime;
-                _timerText.text = (_timerTime - _puzzleFakeTime).ToString("F1");
-                if (_puzzleFakeTime >= _timerTime)
+                UpdateFakeTimer(deltaTime);
+            }
+        }
+
+        private void UpdateAudioTimer(float deltaTime)
+        {
+            if (_heads == null || _heads.Length == 0 || _heads[0] == null) return;
+            
+            _audioTimer += deltaTime;
+            if (_audioTimer >= _heads[0].MaxAudioLength)
+            {
+                _audioTimer = 0f;
+            }
+        }
+
+        private void UpdateStartDelayTimer(float deltaTime)
+        {
+            _puzzleFakeTime += deltaTime;
+            
+            if (_puzzleFakeTime < _timerStartDelay) return;
+            
+            _puzzleFakeTime = 0f;
+            fsmOwner.SendEvent("OnStartFakeTimer");
+            _delayTimerStarted = false;
+            
+            foreach (var head in _heads)
+            {
+                if (head != null)
                 {
-                    fsmOwner.SendEvent("OnFakeTimerEnd");
-                    HideFakeTimer();
-                    _fakeTimerStarted = false;
-                    _timersComplete = true;
+                    head.SetOpen(_audioTimer);
                 }
             }
+        }
+
+        private void UpdateFakeTimer(float deltaTime)
+        {
+            _puzzleFakeTime += deltaTime;
+            UpdateTimerText(_timerTime - _puzzleFakeTime);
+            
+            if (_puzzleFakeTime < _timerTime) return;
+            
+            fsmOwner.SendEvent("OnFakeTimerEnd");
+            HideFakeTimer();
+            _fakeTimerStarted = false;
+            _timersComplete = true;
         }
 
         public void StartGameTimer()
         {
             _puzzleFakeTime = 0f;
+            _lastDisplayedTimerTenths = int.MinValue;
             _fakeTimerStarted = true;
         }
 
         public void ShowFakeTimer()
         {
-            _timerText.text = _timerTime.ToString("F1");
+            UpdateTimerText(_timerTime);
             _timerGroup.SetActive(true);
         }
 
@@ -112,10 +146,30 @@ namespace _Project.Gameplay.TruePuzzle.FishPuzzle
         public bool IsSolved()
         {
             foreach (var h in _heads)
-                if (h.IsOpen)
+                if (h != null && h.IsOpen)
                     return false;
 
             return true;
+        }
+
+        private void UpdateTimerText(float remainingTime)
+        {
+            if (_timerText == null) return;
+            
+            var tenths = Mathf.Max(0, Mathf.RoundToInt(remainingTime * 10f));
+            if (_lastDisplayedTimerTenths == tenths) return;
+            
+            _lastDisplayedTimerTenths = tenths;
+            _timerText.text = (tenths / 10f).ToString("F1");
+        }
+
+        private bool TryGetHead(int index, out FishHead head)
+        {
+            head = null;
+            if (_heads == null || index < 0 || index >= _heads.Length) return false;
+            
+            head = _heads[index];
+            return head != null;
         }
     }
 }

@@ -28,12 +28,13 @@ namespace _Project.Gameplay.Dialogs
 
         private TextMeshProUGUI _textComponent;
         private readonly Dictionary<int, CharacterAnimation> _activeAnimations = new();
+        private readonly List<int> _completedAnimations = new();
+        private readonly List<Vector3[]> _baseVertices = new();
+        private readonly List<Color32[]> _baseColors = new();
         
         private struct CharacterAnimation
         {
             public float StartTime;
-            public Vector3[] OriginalVertices;
-            public Color32[] OriginalColors;
         }
 
         private void Awake()
@@ -50,10 +51,9 @@ namespace _Project.Gameplay.Dialogs
         {
             if (_activeAnimations.Count == 0) return;
             
-            _textComponent.ForceMeshUpdate();
             var textInfo = _textComponent.textInfo;
-            
-            var completedAnimations = new List<int>();
+            RestoreMeshState(textInfo);
+            _completedAnimations.Clear();
             
             foreach (var kvp in _activeAnimations)
             {
@@ -76,11 +76,11 @@ namespace _Project.Gameplay.Dialogs
                 
                 if (t >= 1f)
                 {
-                    completedAnimations.Add(charIndex);
+                    _completedAnimations.Add(charIndex);
                 }
             }
             
-            foreach (var index in completedAnimations)
+            foreach (var index in _completedAnimations)
             {
                 _activeAnimations.Remove(index);
             }
@@ -119,21 +119,9 @@ namespace _Project.Gameplay.Dialogs
         {
             _textComponent.ForceMeshUpdate();
             var textInfo = _textComponent.textInfo;
+            CaptureMeshState(textInfo);
             
-            if (charIndex < 0 || charIndex >= textInfo.characterCount) return;
-            if (!textInfo.characterInfo[charIndex].isVisible) return;
-            
-            var charInfo = textInfo.characterInfo[charIndex];
-            var meshInfo = textInfo.meshInfo[charInfo.materialReferenceIndex];
-            
-            var animation = new CharacterAnimation
-            {
-                StartTime = Time.time,
-                OriginalVertices = (Vector3[])meshInfo.vertices.Clone(),
-                OriginalColors = (Color32[])meshInfo.colors32.Clone()
-            };
-            
-            _activeAnimations[charIndex] = animation;
+            AddAnimation(textInfo, charIndex);
         }
 
         /// <summary>
@@ -143,13 +131,11 @@ namespace _Project.Gameplay.Dialogs
         {
             _textComponent.ForceMeshUpdate();
             var textInfo = _textComponent.textInfo;
+            CaptureMeshState(textInfo);
             
             for (var i = 0; i < textInfo.characterCount; i++)
             {
-                if (textInfo.characterInfo[i].isVisible)
-                {
-                    AnimateCharacter(i);
-                }
+                AddAnimation(textInfo, i);
             }
         }
 
@@ -159,6 +145,8 @@ namespace _Project.Gameplay.Dialogs
         public void ResetAnimations()
         {
             _activeAnimations.Clear();
+            _baseVertices.Clear();
+            _baseColors.Clear();
             _textComponent.ForceMeshUpdate();
         }
 
@@ -191,6 +179,78 @@ namespace _Project.Gameplay.Dialogs
                     colors[vertexIndex + i] = color;
                 }
             }
+        }
+
+        private void AddAnimation(TMP_TextInfo textInfo, int charIndex)
+        {
+            if (charIndex < 0 || charIndex >= textInfo.characterCount) return;
+            if (!textInfo.characterInfo[charIndex].isVisible) return;
+            
+            _activeAnimations[charIndex] = new CharacterAnimation
+            {
+                StartTime = Time.time
+            };
+        }
+
+        private void CaptureMeshState(TMP_TextInfo textInfo)
+        {
+            EnsureSnapshotCapacity(textInfo.meshInfo.Length);
+
+            for (var i = 0; i < textInfo.meshInfo.Length; i++)
+            {
+                var meshInfo = textInfo.meshInfo[i];
+                _baseVertices[i] = CopyArray(meshInfo.vertices, _baseVertices[i]);
+                
+                if (_enableFade)
+                {
+                    _baseColors[i] = CopyArray(meshInfo.colors32, _baseColors[i]);
+                }
+            }
+        }
+
+        private void RestoreMeshState(TMP_TextInfo textInfo)
+        {
+            if (_baseVertices.Count < textInfo.meshInfo.Length) return;
+            
+            for (var i = 0; i < textInfo.meshInfo.Length; i++)
+            {
+                var meshInfo = textInfo.meshInfo[i];
+                var vertices = _baseVertices[i];
+                if (vertices == null || vertices.Length != meshInfo.vertices.Length) return;
+                
+                vertices.CopyTo(meshInfo.vertices, 0);
+                
+                if (!_enableFade) continue;
+                
+                var colors = _baseColors[i];
+                if (colors == null || colors.Length != meshInfo.colors32.Length) return;
+                
+                colors.CopyTo(meshInfo.colors32, 0);
+            }
+        }
+
+        private void EnsureSnapshotCapacity(int meshCount)
+        {
+            while (_baseVertices.Count < meshCount)
+            {
+                _baseVertices.Add(null);
+            }
+            
+            while (_baseColors.Count < meshCount)
+            {
+                _baseColors.Add(null);
+            }
+        }
+
+        private static T[] CopyArray<T>(T[] source, T[] target)
+        {
+            if (target == null || target.Length != source.Length)
+            {
+                target = new T[source.Length];
+            }
+            
+            source.CopyTo(target, 0);
+            return target;
         }
 
         private void UpdateMeshes(TMP_TextInfo textInfo)

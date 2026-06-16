@@ -15,6 +15,15 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
         
         [Inject] private ICursorSystem _cursorSystem;
 
+        private RectTransform _cursorTransform;
+        private bool _isVisible;
+        private Vector3 _lastMousePosition;
+
+        private void Awake()
+        {
+            _cursorTransform = _cursorImage.rectTransform;
+        }
+
         private void Start()
         {
             _cursorSystem.CurrentState.Subscribe(OnCursorStateChanged).AddTo(this);
@@ -22,7 +31,9 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
         
         private void OnCursorStateChanged(CursorState state)
         {
-            _cursorImage.enabled = state is not CursorState.Disabled;
+            _isVisible = state is not CursorState.Disabled;
+            _cursorImage.enabled = _isVisible;
+            
             if (_cursorSprites.TryGetValue(state, out var sprite))
             {
                 _cursorImage.sprite = sprite;
@@ -31,7 +42,13 @@ namespace _Project.Gameplay.TruePuzzle.Cursor
 
         private void LateUpdate()
         {
-            _cursorImage.transform.position = Input.mousePosition;
+            if (!_isVisible) return;
+            
+            var mousePosition = Input.mousePosition;
+            if (_lastMousePosition == mousePosition) return;
+            
+            _lastMousePosition = mousePosition;
+            _cursorTransform.position = mousePosition;
         }
     }
 }
