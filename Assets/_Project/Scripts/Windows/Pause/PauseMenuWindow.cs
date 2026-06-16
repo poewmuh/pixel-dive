@@ -25,12 +25,12 @@ namespace _Project.Windows.Pause
         {
             _continueButton.OnClickAsObservable().Subscribe(_ => ((IWindow)this).Close()).AddTo(this);
             _settingsButton.OnClickAsObservable()
-                .Subscribe(_ => _windowSystem.Show<SettingsWindow>().Forget())
+                .Subscribe(_ => _windowSystem.ShowAndForget<SettingsWindow>())
                 .AddTo(this);
             _backToMainMenuButton.OnClickAsObservable().Subscribe(_ =>
             {
                 ((IWindow)this).Close();
-                _sceneSystem.LoadScene(SceneType.Bootstrap, LoadSceneMode.Single, Color.black);
+                _sceneSystem.LoadScene(SceneType.Bootstrap, LoadSceneMode.Single, Color.black).Forget();
             }).AddTo(this);
         }
 

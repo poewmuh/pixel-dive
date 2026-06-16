@@ -1,4 +1,3 @@
-using System;
 using MessagePipe;
 using NodeCanvas.Framework;
 using NodeCanvas.StateMachines;
@@ -11,6 +10,8 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
 {
     public class InteractableHandler : MonoBehaviour
     {
+        protected const string OnHandleEventName = "OnHandle";
+        
         [SerializeField] private UnityEvent _onInteract;
         [SerializeField] private UnityEvent _onCompleteInteraction;
 
@@ -23,17 +24,20 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
         private IInteractable _interactable;
         private InteractableType _interactableType;
 
-        public void Start()
+        private void Start()
         {
             _fsmOwner = GetComponent<FSMOwner>();
             _blackboard = GetComponent<Blackboard>();
             _reachedInteractableSubscriber.Subscribe(OnReachedInteractable).AddTo(this);
 
-            if (TryGetComponent(out _interactable))
+            if (!TryGetComponent(out _interactable))
             {
-                _interactableType = _interactable.InteractableType;
+                Debug.LogWarning($"{GetType().Name} requires an {nameof(IInteractable)} on the same GameObject.", this);
+                Init();
+                return;
             }
 
+            _interactableType = _interactable.InteractableType;
             Init();
         }
 
@@ -44,7 +48,7 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
             if (!ReferenceEquals(message.Interactable, _interactable)) return;
 
             _onInteract?.Invoke();
-            _fsmOwner?.SendEvent("OnHandle");
+            _fsmOwner?.SendEvent(OnHandleEventName);
         }
 
         public void SendCompleteInteraction()

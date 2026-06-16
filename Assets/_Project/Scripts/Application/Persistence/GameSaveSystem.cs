@@ -23,23 +23,12 @@ namespace _Project.Application.Persistence
         private ISerializeContract _serializeContract;
 
         GameSaveData IGameSaveSystem.CurrentSaveData => EnsureCurrentSaveData();
-        SavesMetaData IGameSaveSystem.MetaData => _metadata;
+        SavesMetaData IGameSaveSystem.MetaData => EnsureMetaData();
 
         void IInitializable.Initialize()
         {
-            var isDevelopment = UnityEngine.Application.isEditor || Debug.isDebugBuild;
-            var subFolder = isDevelopment ? "Development" : "Production";
-            _fileSystem = new FileSystem(subFolder);
-            _serializeContract = new JSONSerialize();
-
-            if (_fileSystem.FileExists(MetadataFileName))
-            {
-                var loadedMetaData = _fileSystem.LoadTextFromFile(MetadataFileName);
-                _metadata = _serializeContract.Deserialize<SavesMetaData>(loadedMetaData);
-            }
-
-            _metadata ??= new SavesMetaData();
-            _metadata.Saves ??= new();
+            InitializeStorage();
+            LoadMetaData();
         }
 
         GameSaveData IGameSaveSystem.CreateNewSave()
@@ -49,12 +38,18 @@ namespace _Project.Application.Persistence
 
         GameSaveData IGameSaveSystem.LoadSave(SaveReferenceData saveReference)
         {
-            return Load(saveReference);
+            if (CanLoad(saveReference))
+            {
+                return Load(saveReference);
+            }
+            
+            Debug.LogWarning("[SaveLoadSystem] Requested save is missing. Creating a new save instead.");
+            return CreateNewSave(CreateSaveReference());
         }
 
         GameSaveData IGameSaveSystem.CreateNewOrLoad(SaveReferenceData saveReference)
         {
-            return saveReference != null && _fileSystem.FileExists(saveReference.Filename)
+            return CanLoad(saveReference)
                 ? Load(saveReference)
                 : CreateNewSave(CreateSaveReference());
         }
@@ -73,13 +68,11 @@ namespace _Project.Application.Persistence
 
         private GameSaveData CreateNewSave(SaveReferenceData saveReference)
         {
+            EnsureMetaData();
+            
             _currentSaveReference = saveReference;
-            _metadata.Saves.Add(saveReference);
-            _currentGameSaveData = new GameSaveData
-            {
-                GameplaySaveData = Object.Instantiate(_initialGameSaveData).GameplaySaveData,
-            };
-            _currentGameSaveData.EnsureInitialized();
+            AddSaveReference(saveReference);
+            _currentGameSaveData = CreateSaveDataFromTemplate();
 
             Debug.Log($"[SaveLoadSystem] Creating new save >> {_currentSaveReference.Filename}");
             return _currentGameSaveData;
@@ -110,13 +103,95 @@ namespace _Project.Application.Persistence
 
         private SaveReferenceData CreateSaveReference()
         {
-            var saveIndex = _metadata.Saves.Count;
+            EnsureMetaData();
+            
+            var saveIndex = GetNextSaveIndex();
             return new SaveReferenceData
             {
                 Filename = $"Save_{saveIndex}.dat",
                 DisplayName = $"Save_{saveIndex}",
                 LastSaveDateTime = DateTime.Now,
             };
+        }
+
+        private void InitializeStorage()
+        {
+            var isDevelopment = UnityEngine.Application.isEditor || Debug.isDebugBuild;
+            var subFolder = isDevelopment ? "Development" : "Production";
+            _fileSystem = new FileSystem(subFolder);
+            _serializeContract = new JSONSerialize();
+        }
+
+        private void LoadMetaData()
+        {
+            if (_fileSystem.FileExists(MetadataFileName))
+            {
+                var loadedMetaData = _fileSystem.LoadTextFromFile(MetadataFileName);
+                _metadata = _serializeContract.Deserialize<SavesMetaData>(loadedMetaData);
+            }
+
+            EnsureMetaData();
+        }
+
+        private SavesMetaData EnsureMetaData()
+        {
+            _metadata ??= new SavesMetaData();
+            _metadata.EnsureInitialized();
+            return _metadata;
+        }
+
+        private GameSaveData CreateSaveDataFromTemplate()
+        {
+            var saveData = new GameSaveData
+            {
+                GameplaySaveData = _initialGameSaveData != null
+                    ? Object.Instantiate(_initialGameSaveData).GameplaySaveData
+                    : new GameplaySaveData()
+            };
+            
+            saveData.EnsureInitialized();
+            return saveData;
+        }
+
+        private bool CanLoad(SaveReferenceData saveReference)
+        {
+            return saveReference != null &&
+                   !string.IsNullOrWhiteSpace(saveReference.Filename) &&
+                   _fileSystem.FileExists(saveReference.Filename);
+        }
+
+        private void AddSaveReference(SaveReferenceData saveReference)
+        {
+            foreach (var save in _metadata.Saves)
+            {
+                if (save.Filename == saveReference.Filename) return;
+            }
+            
+            _metadata.Saves.Add(saveReference);
+        }
+
+        private int GetNextSaveIndex()
+        {
+            var saveIndex = _metadata.Saves.Count;
+            while (SaveReferenceExists($"Save_{saveIndex}.dat"))
+            {
+                saveIndex++;
+            }
+
+            return saveIndex;
+        }
+
+        private bool SaveReferenceExists(string filename)
+        {
+            foreach (var save in _metadata.Saves)
+            {
+                if (save.Filename == filename)
+                {
+                    return true;
+                }
+            }
+
+            return _fileSystem.FileExists(filename);
         }
     }
 }

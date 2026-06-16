@@ -1,10 +1,7 @@
-using _Project.Application.Scene;
 using _Project.Application.GUI.WindowsSystem;
-using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace _Project.Windows.MainMenu
 {
@@ -14,8 +11,6 @@ namespace _Project.Windows.MainMenu
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _exitGameButton;
         
-        [Inject] private ISceneSystem _sceneSystem;
-
         private void Start()
         {
             _startGameButton.OnClickAsObservable().Subscribe(OnStartGame).AddTo(this);
@@ -30,7 +25,7 @@ namespace _Project.Windows.MainMenu
 
         private void OnSettings(Unit _)
         {
-            WindowSystem.Show<SettingsWindow>().Forget();
+            WindowSystem.ShowAndForget<SettingsWindow>();
         }
 
         private void OnExitGame(Unit _)

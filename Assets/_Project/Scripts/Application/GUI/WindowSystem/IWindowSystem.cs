@@ -11,6 +11,7 @@ namespace _Project.Application.GUI.WindowsSystem
         int WindowsCount { get; }
 
         UniTask<T> Show<T>() where T : WindowBase;
+        void ShowAndForget<T>() where T : WindowBase;
         void Close(IWindow window);
         void Close<T>() where T : IWindow;
         void CloseAll();

@@ -14,34 +14,45 @@ namespace _Project.Gameplay.TruePuzzle.Pot
 {
     public class PotComponent : MonoBehaviour, IDropTarget
     {
+        private const int RequiredItemsCount = 2;
+        private const string CombinedVariableName = "Combined";
+        private const string PotGeneratedEventName = "PotGenerated";
+        
         [SerializeField] private FSMOwner _fsmOwner;
         [SerializeField] private Blackboard _blackboard;
         [SerializeField] private SpriteRenderer _potMassSprite;
 
-		[Inject] private IPublisher<OnInteractionCompleteEvent> _onInteractionCompletePub;
+        [Inject] private IPublisher<OnInteractionCompleteEvent> _onInteractionCompletePub;
 
         private GarbageFlags _accumulated = GarbageFlags.None;
         private int _potCapacity;
         
         bool IDropTarget.TryDrop(IDraggable draggable)
         {
-            if (!_toFlags.TryGetValue(draggable.InteractableType, out var droppedFlags))
+            if (draggable == null || !_toFlags.TryGetValue(draggable.InteractableType, out var droppedFlags))
             {
                 return false;
             }
 
-            _potMassSprite.color = Color.darkGreen;
+            if (_potMassSprite != null)
+            {
+                _potMassSprite.color = Color.darkGreen;
+            }
             
             _accumulated |= droppedFlags;
             _potCapacity++;
             Destroy(draggable.Transform.gameObject);
 
-            if (_potCapacity < 2) return true;
+            if (_potCapacity < RequiredItemsCount) return true;
             
-            _potMassSprite.color = Color.skyBlue;
+            if (_potMassSprite != null)
+            {
+                _potMassSprite.color = Color.skyBlue;
+            }
+            
             var combined = _toType[_accumulated];
-            _blackboard.SetVariableValue("Combined", combined);
-            _fsmOwner.SendEvent("PotGenerated");
+            _blackboard?.SetVariableValue(CombinedVariableName, combined);
+            _fsmOwner?.SendEvent(PotGeneratedEventName);
             _onInteractionCompletePub.Publish(new OnInteractionCompleteEvent(combined, transform));
             
             _accumulated = GarbageFlags.None;

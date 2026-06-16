@@ -2,6 +2,8 @@
 {
     public class DoorHandler : InteractableHandler
     {
+        private const string IsDoorOpenVariableName = "IsDoorOpen";
+        
         private bool _isDoorOpen;
 
         protected override void Init()
@@ -11,7 +13,7 @@
 
         private void UpdateDoorStatus()
         {
-            _blackboard.SetVariableValue("IsDoorOpen", _isDoorOpen);
+            _blackboard?.SetVariableValue(IsDoorOpenVariableName, _isDoorOpen);
         }
     }
 }

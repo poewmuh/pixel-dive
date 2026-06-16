@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Project.Application.Input;
+using _Project.Gameplay.TruePuzzle;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -15,11 +16,13 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
 
         private IInteractable _currentInteractable;
         private PointerEventData _pointerEventData;
+        private PointerHitTester _hitTester;
         private int _interactableMask;
 
         private void Start()
         {
             _pointerEventData = new PointerEventData(EventSystem.current);
+            _hitTester = new PointerHitTester(_camera, _raycastResults);
             _interactableMask = LayerMask.GetMask("Interactable");
         }
 
@@ -42,19 +45,18 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
 
         private IInteractable FindInteractable(Vector2 screenPosition)
         {
-            var uiObject = GetUIObjectUnderPointer(screenPosition);
-            if (uiObject)
+            _pointerEventData.position = screenPosition;
+            if (_hitTester.TryGetUIComponent(_pointerEventData, out IInteractable uiInteractable))
             {
-                uiObject.TryGetComponent(out IInteractable uiInteractable);
                 return uiInteractable;
             }
 
-            var ray = _camera.ScreenPointToRay(screenPosition);
-            var hit = Physics2D.GetRayIntersection(ray, 100f, _interactableMask);
-            if (!hit.collider) return null;
-
-            hit.collider.TryGetComponent(out IInteractable worldInteractable);
-            return worldInteractable;
+            return _hitTester.TryGetWorldComponent(
+                screenPosition,
+                _interactableMask,
+                out IInteractable worldInteractable)
+                ? worldInteractable
+                : null;
         }
 
         private void SetCurrentInteractable(IInteractable interactable)
@@ -64,15 +66,6 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
             _currentInteractable?.OnHoverExit();
             _currentInteractable = interactable;
             _currentInteractable?.OnHoverEnter();
-        }
-
-        private GameObject GetUIObjectUnderPointer(Vector2 screenPosition)
-        {
-            _raycastResults.Clear();
-            _pointerEventData.position = screenPosition;
-            EventSystem.current.RaycastAll(_pointerEventData, _raycastResults);
-
-            return _raycastResults.Count > 0 ? _raycastResults[0].gameObject : null;
         }
 
         private void OnDisable()

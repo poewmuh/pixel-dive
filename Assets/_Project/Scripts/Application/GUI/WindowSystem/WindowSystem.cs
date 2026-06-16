@@ -90,6 +90,11 @@ namespace _Project.Application.GUI.WindowsSystem
             }
         }
 
+        void IWindowSystem.ShowAndForget<T>()
+        {
+            ShowAndForget<T>().Forget();
+        }
+
         void IWindowSystem.Close(IWindow window)
         {
             Close(window);
@@ -117,6 +122,18 @@ namespace _Project.Application.GUI.WindowsSystem
         bool IWindowSystem.IsShowing<T>()
         {
             return _pendingWindowTypes.Contains(typeof(T)) || _windows.Any(window => window is T);
+        }
+
+        private async UniTaskVoid ShowAndForget<T>() where T : WindowBase
+        {
+            try
+            {
+                await ((IWindowSystem)this).Show<T>();
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception);
+            }
         }
 
         private async UniTask EnsureInitialized()

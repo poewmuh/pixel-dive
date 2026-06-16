@@ -48,28 +48,35 @@ namespace _Project.Gameplay.Dialogs
 
         private async UniTaskVoid StartShowingDialog(CancellationToken ct)
         {
-            _message.ForceMeshUpdate();
-            var totalCharacters = _message.textInfo.characterCount;
-            
-            _message.maxVisibleCharacters = 0;
-
-            for (var i = 0; i < totalCharacters; i++)
+            try
             {
-                if (ct.IsCancellationRequested) return;
+                _message.ForceMeshUpdate();
+                var totalCharacters = _message.textInfo.characterCount;
                 
-                _message.maxVisibleCharacters = i + 1;
-                _textAnimator?.AnimateCharacter(i);
+                _message.maxVisibleCharacters = 0;
 
-                var c = _message.textInfo.characterInfo[i].character;
-                
-                if (!char.IsWhiteSpace(c))
+                for (var i = 0; i < totalCharacters; i++)
                 {
-                    PlayTypingSound();
-                }
+                    if (ct.IsCancellationRequested) return;
+                    
+                    _message.maxVisibleCharacters = i + 1;
+                    _textAnimator?.AnimateCharacter(i);
 
-                var delay = IsPunctuation(c) ? _punctuationDelay : _characterDelay;
-                
-                await UniTask.Delay((int)(delay * 1000), cancellationToken: ct);
+                    var c = _message.textInfo.characterInfo[i].character;
+                    
+                    if (!char.IsWhiteSpace(c))
+                    {
+                        PlayTypingSound();
+                    }
+
+                    var delay = IsPunctuation(c) ? _punctuationDelay : _characterDelay;
+                    
+                    await UniTask.Delay((int)(delay * 1000), cancellationToken: ct);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // Cancellation is the expected path when the player skips the typewriter effect.
             }
         }
 
@@ -92,7 +99,9 @@ namespace _Project.Gameplay.Dialogs
         public void ShowAll()
         {
             _cts?.Cancel();
-            _message.maxVisibleCharacters = _message.textInfo.characterCount;
+            _message.maxVisibleCharacters = int.MaxValue;
+            _textAnimator?.ResetAnimations();
+            _message.ForceMeshUpdate();
         }
     }
 }

@@ -1,8 +1,67 @@
 using System.Collections.Generic;
+using _Project.Gameplay.TruePuzzle;
 using MessagePipe;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
+
+namespace _Project.Gameplay.TruePuzzle
+{
+    public sealed class PointerHitTester
+    {
+        private const float RayDistance = 100f;
+
+        private readonly Camera _camera;
+        private readonly List<RaycastResult> _raycastResults;
+
+        public PointerHitTester(Camera camera, List<RaycastResult> raycastResults)
+        {
+            _camera = camera;
+            _raycastResults = raycastResults;
+        }
+
+        public bool TryGetUIComponent<T>(
+            PointerEventData pointerEventData,
+            out T component,
+            GameObject ignoredObject = null)
+        {
+            component = default;
+            var eventSystem = EventSystem.current;
+            if (eventSystem == null) return false;
+
+            _raycastResults.Clear();
+            eventSystem.RaycastAll(pointerEventData, _raycastResults);
+
+            foreach (var result in _raycastResults)
+            {
+                var gameObject = result.gameObject;
+                if (gameObject == null || gameObject == ignoredObject) continue;
+                
+                if (gameObject.TryGetComponent(out component))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool TryGetWorldComponent<T>(
+            Vector2 screenPosition,
+            int layerMask,
+            out T component)
+        {
+            component = default;
+            if (_camera == null) return false;
+
+            var ray = _camera.ScreenPointToRay(screenPosition);
+            var hit = Physics2D.GetRayIntersection(ray, RayDistance, layerMask);
+            if (!hit.collider) return false;
+
+            return hit.collider.TryGetComponent(out component);
+        }
+    }
+}
 
 namespace _Project.Gameplay.TruePuzzle.Inventory
 {
@@ -15,6 +74,7 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
         private readonly List<RaycastResult> _raycastResults = new();
 
         private IDraggable _currentDraggable;
+        private PointerHitTester _hitTester;
         private Vector2 _dragOffset;
         private int _interactableMask;
 
@@ -62,26 +122,22 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
 
         private IDropTarget FindDropTarget(PointerEventData eventData)
         {
-            _raycastResults.Clear();
-            EventSystem.current.RaycastAll(eventData, _raycastResults);
-
-            foreach (var result in _raycastResults)
+            _hitTester ??= new PointerHitTester(_camera, _raycastResults);
+            
+            if (_hitTester.TryGetUIComponent(
+                    eventData,
+                    out IDropTarget uiTarget,
+                    _currentDraggable.Transform.gameObject))
             {
-                if (result.gameObject == _currentDraggable.Transform.gameObject) continue;
-                if (result.gameObject.TryGetComponent(out IDropTarget target))
-                {
-                    return target;
-                }
+                return uiTarget;
             }
 
-            var ray = _camera.ScreenPointToRay(eventData.position);
-            var hit = Physics2D.GetRayIntersection(ray, 100f, _interactableMask);
-            if (hit.collider && hit.collider.TryGetComponent(out IDropTarget worldTarget))
-            {
-                return worldTarget;
-            }
-
-            return null;
+            return _hitTester.TryGetWorldComponent(
+                eventData.position,
+                _interactableMask,
+                out IDropTarget worldTarget)
+                ? worldTarget
+                : null;
         }
     }
 

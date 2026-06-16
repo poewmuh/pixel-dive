@@ -10,12 +10,15 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
 {
     public class TubeInteractableHandler : InteractableHandler
     {
+        private const string IsCompletedVariableName = "IsCompleted";
+        
         [Inject] private IWindowSystem _windowSystem;
+        
         [SerializeField] private UnityEvent _onPuzzleSolve;
         
         protected override void Init()
         {
-            _blackboard.SetVariableValue("IsCompleted", false);
+            _blackboard?.SetVariableValue(IsCompletedVariableName, false);
         }
 
         public void GameStart()
@@ -25,8 +28,15 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
 
         private async UniTaskVoid ShowGameWindow()
         {
-            var window = await _windowSystem.Show<TubeGameWindow>();
-            window.OnComplete.Subscribe(OnGameComplete).AddTo(this);
+            try
+            {
+                var window = await _windowSystem.Show<TubeGameWindow>();
+                window.OnComplete.Subscribe(OnGameComplete).AddTo(this);
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogException(exception, this);
+            }
         }
 
         private void OnGameComplete(Unit _)

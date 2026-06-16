@@ -31,6 +31,8 @@ namespace _Project.Gameplay.Dialogs
         private readonly List<int> _completedAnimations = new();
         private readonly List<Vector3[]> _baseVertices = new();
         private readonly List<Color32[]> _baseColors = new();
+
+        public bool IsAnimating => _activeAnimations.Count > 0;
         
         private struct CharacterAnimation
         {

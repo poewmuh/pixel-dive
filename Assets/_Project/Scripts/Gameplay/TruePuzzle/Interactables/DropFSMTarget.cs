@@ -7,8 +7,10 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
 {
     public class DropFSMTarget : MonoBehaviour, IDropTarget
     {
+        private const string ItemActivateEventName = "ItemActivate";
+        private const string ItemIncorrectEventName = "ItemIncorrect";
+        
         private FSMOwner _fsmOwner;
-        private Blackboard _blackboard;
         private IInteractable _interactable;
         private bool _isActive;
         
@@ -16,13 +18,12 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
         {
             TryGetComponent(out _fsmOwner);
             TryGetComponent(out _interactable);
-            TryGetComponent(out _blackboard);
             _isActive = true;
         }
 
         public bool TryDrop(IDraggable draggable)
         {
-            if (!_isActive) return false;
+            if (!_isActive || draggable == null || _interactable == null) return false;
             
             switch (draggable.InteractableType)
             {
@@ -32,14 +33,14 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
                     ApplyDrop(draggable);
                     return true;
                 default:
-                    _fsmOwner.SendEvent("ItemIncorrect");
+                    _fsmOwner?.SendEvent(ItemIncorrectEventName);
                     return false;
             }
         }
 
         private void ApplyDrop(IDraggable draggable)
         {
-            _fsmOwner.SendEvent("ItemActivate");
+            _fsmOwner?.SendEvent(ItemActivateEventName);
             _interactable.OnClick();
             if (!draggable.IsMultipleUse)
             {

@@ -12,7 +12,7 @@ namespace _Project.Gameplay.TruePuzzle.Player
     public sealed class AStarMoverComponent : MonoBehaviour, IComponent
     {
         private const float DoubleClickTime = 0.2f;
-        private const float MovementThreshold = 0.01f;
+        private const float MovementSqrThreshold = 0.01f;
 
         [SerializeField] private Transform _target;
         [SerializeField] private LayerMask _moveMask;
@@ -47,13 +47,9 @@ namespace _Project.Gameplay.TruePuzzle.Player
         {
             if (input.Phase is not InputActionPhase.Performed) return;
 
-            var isDoubleClick = _lastClickTime > 0f &&
-                                Time.time - _lastClickTime <= DoubleClickTime;
-            _lastClickTime = Time.time;
-
             if (IsMoving())
             {
-                if (isDoubleClick)
+                if (ConsumeDoubleClick())
                 {
                     TeleportToCurrentDestination();
                 }
@@ -62,18 +58,19 @@ namespace _Project.Gameplay.TruePuzzle.Player
             }
 
             if (_state is MovementState.Blocked) return;
+            
+            ConsumeDoubleClick();
 
-            var ray = _camera.ScreenPointToRay(input.Vector);
-            var hit = Physics2D.GetRayIntersection(ray, 100f, _moveMask);
-            if (hit.collider)
+            if (TryGetMovementPoint(input.Vector, out var destination))
             {
-                StartMovement(hit.point, null);
+                StartMovement(destination, null);
             }
         }
 
         private void OnInteractableClick(OnClickInteractableEvent message)
         {
             if (_state is not MovementState.Idle) return;
+            if (message.DestinationPoint == null) return;
 
             StartMovement(message.DestinationPoint.position, message.Interactable);
         }
@@ -95,35 +92,52 @@ namespace _Project.Gameplay.TruePuzzle.Player
         private void Update()
         {
             if (!IsMoving()) return;
+            if (_astarAI.pathPending) return;
 
             if (!_hasStartedMoving)
             {
-                if (_astarAI.pathPending) return;
-
-                if (_astarAI.reachedEndOfPath)
-                {
-                    CompleteMovement();
-                    return;
-                }
-
-                if (_astarAI.velocity.sqrMagnitude > MovementThreshold)
-                {
-                    _hasStartedMoving = true;
-                    return;
-                }
-
-                if (!_astarAI.hasPath)
-                {
-                    CompleteMovement();
-                }
-
+                UpdateMovementStart();
                 return;
             }
 
-            if (_astarAI.reachedEndOfPath && !_astarAI.pathPending)
+            if (_astarAI.reachedEndOfPath)
             {
                 CompleteMovement();
             }
+        }
+
+        private void UpdateMovementStart()
+        {
+            if (_astarAI.reachedEndOfPath || !_astarAI.hasPath)
+            {
+                CompleteMovement();
+                return;
+            }
+
+            if (_astarAI.velocity.sqrMagnitude > MovementSqrThreshold)
+            {
+                _hasStartedMoving = true;
+            }
+        }
+
+        private bool TryGetMovementPoint(Vector2 screenPosition, out Vector3 destination)
+        {
+            destination = default;
+            var ray = _camera.ScreenPointToRay(screenPosition);
+            var hit = Physics2D.GetRayIntersection(ray, 100f, _moveMask);
+            if (!hit.collider) return false;
+
+            destination = hit.point;
+            return true;
+        }
+
+        private bool ConsumeDoubleClick()
+        {
+            var currentTime = Time.time;
+            var isDoubleClick = _lastClickTime > 0f &&
+                                currentTime - _lastClickTime <= DoubleClickTime;
+            _lastClickTime = currentTime;
+            return isDoubleClick;
         }
 
         private bool IsMoving()
@@ -141,10 +155,7 @@ namespace _Project.Gameplay.TruePuzzle.Player
         {
             var reachedInteractable = _targetInteractable;
 
-            _astarAI.isStopped = true;
-            _targetInteractable = null;
-            _hasStartedMoving = false;
-            _state = MovementState.Idle;
+            ResetMovement();
 
             if (reachedInteractable != null)
             {
@@ -168,9 +179,7 @@ namespace _Project.Gameplay.TruePuzzle.Player
         {
             if (isBlocked)
             {
-                _astarAI.isStopped = true;
-                _targetInteractable = null;
-                _hasStartedMoving = false;
+                StopCurrentMovement();
                 _state = MovementState.Blocked;
             }
             else if (_state is MovementState.Blocked)
@@ -181,10 +190,15 @@ namespace _Project.Gameplay.TruePuzzle.Player
 
         private void ResetMovement()
         {
+            StopCurrentMovement();
+            _state = MovementState.Idle;
+        }
+
+        private void StopCurrentMovement()
+        {
             _astarAI.isStopped = true;
             _targetInteractable = null;
             _hasStartedMoving = false;
-            _state = MovementState.Idle;
         }
 
         private void OnDestroy()
