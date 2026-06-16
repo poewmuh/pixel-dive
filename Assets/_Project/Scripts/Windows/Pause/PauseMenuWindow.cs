@@ -2,6 +2,7 @@ using _Project.Application.Audio;
 using _Project.Application.GUI.WindowsSystem;
 using _Project.Application.Scene;
 using _Project.Windows.MainMenu;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,7 +24,9 @@ namespace _Project.Windows.Pause
         private void Start()
         {
             _continueButton.OnClickAsObservable().Subscribe(_ => ((IWindow)this).Close()).AddTo(this);
-            _settingsButton.OnClickAsObservable().Subscribe(_ => _windowSystem.Show<SettingsWindow>());
+            _settingsButton.OnClickAsObservable()
+                .Subscribe(_ => _windowSystem.Show<SettingsWindow>().Forget())
+                .AddTo(this);
             _backToMainMenuButton.OnClickAsObservable().Subscribe(_ =>
             {
                 ((IWindow)this).Close();

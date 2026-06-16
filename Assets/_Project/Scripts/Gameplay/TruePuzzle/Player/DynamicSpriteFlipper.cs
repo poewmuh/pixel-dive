@@ -5,6 +5,8 @@ namespace _Project.Gameplay.TruePuzzle.Player
 {
     public class DynamicSpriteFlipper : MonoBehaviour, IComponent
     {
+        private const float PositionThreshold = 0.001f;
+
         [SerializeField] private SpriteRenderer _view;
         
         private Vector3 _lastPosition;
@@ -18,7 +20,7 @@ namespace _Project.Gameplay.TruePuzzle.Player
         {
             var delta = transform.position - _lastPosition;
         
-            if (Mathf.Abs(delta.x) > 0.001f)
+            if (Mathf.Abs(delta.x) > PositionThreshold)
             {
                 _view.flipX = delta.x < 0;
             }

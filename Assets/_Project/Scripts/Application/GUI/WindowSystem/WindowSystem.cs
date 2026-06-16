@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.Application.Asset;
 using _Project.Application.Input;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -11,136 +12,154 @@ using Object = UnityEngine.Object;
 
 namespace _Project.Application.GUI.WindowsSystem
 {
-    public class WindowSystem : IWindowSystem, IInitializable, IDisposable
+    public class WindowSystem : IWindowSystem, IDisposable
     {
         [Inject] private IGUISystem _guiSystem;
         [Inject] private IObjectResolver _objectResolver;
         [Inject] private IAssetLoader _assetLoader;
         [Inject] private IInputSwitcher _inputSwitcher;
-        
-        private readonly List<IWindow> _windowList = new();
-        private RectTransform _windowsContainer;
-        
-        int IWindowSystem.WindowsCount => _windowList.Count;
-        
-        public Subject<IWindow> OnWindowOpened { get; } = new();
-        public Subject<IWindow> OnWindowClosed { get; } = new();
-        
+
+        private readonly List<IWindow> _windows = new();
+        private readonly HashSet<Type> _pendingWindowTypes = new();
         private readonly CompositeDisposable _disposables = new();
 
-        void IInitializable.Initialize()
+        private RectTransform _windowsContainer;
+
+        int IWindowSystem.WindowsCount => _windows.Count;
+
+        public Subject<IWindow> OnWindowOpened { get; } = new();
+        public Subject<IWindow> OnWindowClosed { get; } = new();
+
+        public WindowSystem()
         {
-            _windowsContainer = _guiSystem.Canvas.CreateContainer("Windows");
-            
             OnWindowOpened.AddTo(_disposables);
             OnWindowClosed.AddTo(_disposables);
         }
 
-        T IWindowSystem.Show<T>()
+        async UniTask<T> IWindowSystem.Show<T>()
         {
-            _inputSwitcher.EnableInput(InputBlockMask.Windows, true);
-            var key = typeof(T).Name;
-            var instance = _assetLoader.LoadImmediate<GameObject>(key);
-            IWindow window = _objectResolver.Instantiate(instance, _windowsContainer).GetComponent<IWindow>();
-            window.Initialize(this);
-            window.OnClosed += HandleOnWindowClosed;
-            window.Show();
-
-            if (_windowList.Count > 0)
+            var windowType = typeof(T);
+            if (!_pendingWindowTypes.Add(windowType))
             {
-                var lastWindow = _windowList.Last();
-                lastWindow.SetHidden(true);
-            }
-            
-            _windowList.Add(window);
-            OnWindowOpened.OnNext(window);
-            return (T)window;
-        }
-        
-        void IWindowSystem.Close(IWindow window) => Close(window);
-
-        void IWindowSystem.SetHidden<T>(bool isHidden)
-        {
-            foreach (var window in _windowList)
-            {
-                if (window is T)
+                await UniTask.WaitUntil(() => !_pendingWindowTypes.Contains(windowType));
+                var existingWindow = _windows.LastOrDefault(window => window is T) as T;
+                if (existingWindow != null)
                 {
-                    window.SetHidden(isHidden);
-                    return;
+                    return existingWindow;
                 }
+
+                throw new InvalidOperationException($"Window '{windowType.Name}' failed to open.");
+            }
+
+            UpdateInputBlock();
+
+            try
+            {
+                await EnsureInitialized();
+
+                var key = windowType.Name;
+                var prefab = await _assetLoader.LoadAsync<GameObject>(key);
+                var gameObject = _objectResolver.Instantiate(prefab, _windowsContainer);
+                var window = gameObject.GetComponent<T>();
+
+                if (window == null)
+                {
+                    Object.Destroy(gameObject);
+                    _assetLoader.Release(key);
+                    throw new InvalidOperationException(
+                        $"Window prefab '{key}' does not contain component {windowType.Name}.");
+                }
+
+                if (_windows.Count > 0)
+                {
+                    _windows[^1].SetHidden(true);
+                }
+
+                var windowContract = (IWindow)window;
+                windowContract.Initialize(this);
+                windowContract.OnClosed += HandleWindowClosed;
+                _windows.Add(windowContract);
+                windowContract.Show();
+                OnWindowOpened.OnNext(windowContract);
+                return window;
+            }
+            finally
+            {
+                _pendingWindowTypes.Remove(windowType);
+                UpdateInputBlock();
             }
         }
-        
+
+        void IWindowSystem.Close(IWindow window)
+        {
+            Close(window);
+        }
+
         void IWindowSystem.Close<T>()
         {
-            foreach (var window in _windowList)
-            {
-                if (window is T)
-                {
-                    Close(window);
-                    return;
-                }
-            }
+            var window = _windows.LastOrDefault(window => window is T);
+            Close(window);
         }
-        
+
         void IWindowSystem.CloseAll()
         {
-            var windowsToClose = new List<IWindow>(_windowList);
-            foreach (var window in windowsToClose)
+            foreach (var window in _windows.ToArray())
             {
                 window.Close();
             }
-
-            _windowList.Clear();
         }
-        
+
         void IWindowSystem.CloseLast()
         {
-            if (_windowList.Count <= 0) return;
-            var lastWindow = _windowList.Last();
-            Close(lastWindow);
+            Close(_windows.LastOrDefault());
         }
 
         bool IWindowSystem.IsShowing<T>()
         {
-            foreach (var window in _windowList)
-            {
-                if (window is T)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return _pendingWindowTypes.Contains(typeof(T)) || _windows.Any(window => window is T);
         }
 
-        private void Close(IWindow window)
+        private async UniTask EnsureInitialized()
         {
-            window.Close();
-            
-            if (_windowList.Count > 0)
+            if (_windowsContainer != null)
             {
-                var lastWindow = _windowList.Last();
-                lastWindow.SetHidden(false);
+                return;
             }
+
+            await _guiSystem.EnsureInitialized();
+            _windowsContainer ??= _guiSystem.Canvas.CreateContainer("Windows");
         }
 
-        private void HandleOnWindowClosed(WindowBase window)
+        private static void Close(IWindow window)
         {
-            window.OnClosed -= HandleOnWindowClosed;
-            _windowList.Remove(window);
+            window?.Close();
+        }
+
+        private void HandleWindowClosed(WindowBase window)
+        {
+            window.OnClosed -= HandleWindowClosed;
+            _windows.Remove(window);
             OnWindowClosed.OnNext(window);
             _assetLoader.Release(window.GetType().Name);
             Object.Destroy(window.gameObject);
 
-            if (((IWindowSystem)this).WindowsCount == 0)
+            if (_windows.Count > 0)
             {
-                _inputSwitcher.EnableInput(InputBlockMask.Windows, false);
+                _windows[^1].SetHidden(false);
             }
+
+            UpdateInputBlock();
+        }
+
+        private void UpdateInputBlock()
+        {
+            var shouldBlockInput = _windows.Count > 0 || _pendingWindowTypes.Count > 0;
+            _inputSwitcher.EnableInput(InputBlockMask.Windows, shouldBlockInput);
         }
 
         void IDisposable.Dispose()
         {
+            ((IWindowSystem)this).CloseAll();
             _disposables.Dispose();
         }
     }

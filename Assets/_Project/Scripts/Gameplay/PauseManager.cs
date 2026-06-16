@@ -2,6 +2,7 @@ using System;
 using _Project.Application.GUI.WindowsSystem;
 using _Project.Application.Input;
 using _Project.Windows.Pause;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -31,7 +32,7 @@ namespace _Project.Gameplay
                 }
                 else
                 {
-                    _windowSystem.Show<PauseMenuWindow>();
+                    _windowSystem.Show<PauseMenuWindow>().Forget();
                 }
             }
         }

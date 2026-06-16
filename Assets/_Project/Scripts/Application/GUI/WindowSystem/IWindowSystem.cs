@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using R3;
 
 namespace _Project.Application.GUI.WindowsSystem
@@ -6,12 +7,11 @@ namespace _Project.Application.GUI.WindowsSystem
     {
         Subject<IWindow> OnWindowOpened { get; }
         Subject<IWindow> OnWindowClosed { get; }
-        
+
         int WindowsCount { get; }
-        
-        T Show<T>() where T : WindowBase;
+
+        UniTask<T> Show<T>() where T : WindowBase;
         void Close(IWindow window);
-        void SetHidden<T>(bool isHidden) where T : IWindow;
         void Close<T>() where T : IWindow;
         void CloseAll();
         void CloseLast();

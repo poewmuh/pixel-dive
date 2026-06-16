@@ -16,6 +16,12 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
 
         private IDraggable _currentDraggable;
         private Vector2 _dragOffset;
+        private int _interactableMask;
+
+        private void Awake()
+        {
+            _interactableMask = LayerMask.GetMask("Interactable");
+        }
 
         public bool BeginDrag(IDraggable draggable, PointerEventData eventData)
         {
@@ -69,7 +75,7 @@ namespace _Project.Gameplay.TruePuzzle.Inventory
             }
 
             var ray = _camera.ScreenPointToRay(eventData.position);
-            var hit = Physics2D.GetRayIntersection(ray, 100f, LayerMask.GetMask("Interactable"));
+            var hit = Physics2D.GetRayIntersection(ray, 100f, _interactableMask);
             if (hit.collider && hit.collider.TryGetComponent(out IDropTarget worldTarget))
             {
                 return worldTarget;

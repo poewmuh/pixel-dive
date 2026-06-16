@@ -1,5 +1,6 @@
 ﻿using _Project.Application.GUI.WindowsSystem;
 using _Project.Windows.MainMenu;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using VContainer;
@@ -14,7 +15,12 @@ namespace _Project.Gameplay.Initializations
         
         private void Awake()
         {
-            var window = _windowSystem.Show<MainMenuWindow>();
+            ShowMainMenu().Forget();
+        }
+
+        private async UniTaskVoid ShowMainMenu()
+        {
+            var window = await _windowSystem.Show<MainMenuWindow>();
             window.OnClosed += _ => _onPlayButtonPressed.Invoke();
         }
     }

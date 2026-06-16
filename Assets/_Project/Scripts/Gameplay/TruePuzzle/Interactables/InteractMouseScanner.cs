@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Project.Application.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -8,20 +9,35 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
     public sealed class InteractMouseScanner : MonoBehaviour
     {
         [Inject] private Camera _camera;
+        [Inject] private IInputSwitcher _inputSwitcher;
 
         private readonly List<RaycastResult> _raycastResults = new();
 
         private IInteractable _currentInteractable;
         private PointerEventData _pointerEventData;
+        private int _interactableMask;
 
         private void Start()
         {
             _pointerEventData = new PointerEventData(EventSystem.current);
+            _interactableMask = LayerMask.GetMask("Interactable");
         }
 
         private void Update()
         {
+            if (!CanScan())
+            {
+                SetCurrentInteractable(null);
+                return;
+            }
+
             SetCurrentInteractable(FindInteractable(Input.mousePosition));
+        }
+
+        private bool CanScan()
+        {
+            return _inputSwitcher.Blockers.Value is InputBlockMask.None &&
+                   _inputSwitcher.InputMap.Value is InputMapMode.Puzzle;
         }
 
         private IInteractable FindInteractable(Vector2 screenPosition)
@@ -34,7 +50,7 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
             }
 
             var ray = _camera.ScreenPointToRay(screenPosition);
-            var hit = Physics2D.GetRayIntersection(ray, 100f, LayerMask.GetMask("Interactable"));
+            var hit = Physics2D.GetRayIntersection(ray, 100f, _interactableMask);
             if (!hit.collider) return null;
 
             hit.collider.TryGetComponent(out IInteractable worldInteractable);

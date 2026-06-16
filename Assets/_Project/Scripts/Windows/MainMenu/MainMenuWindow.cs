@@ -1,5 +1,6 @@
 using _Project.Application.Scene;
 using _Project.Application.GUI.WindowsSystem;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,8 +30,7 @@ namespace _Project.Windows.MainMenu
 
         private void OnSettings(Unit _)
         {
-            WindowSystem.SetHidden<MainMenuWindow>(true);
-            WindowSystem.Show<SettingsWindow>();
+            WindowSystem.Show<SettingsWindow>().Forget();
         }
 
         private void OnExitGame(Unit _)

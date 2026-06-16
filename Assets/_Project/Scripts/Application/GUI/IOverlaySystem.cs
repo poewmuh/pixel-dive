@@ -1,7 +1,9 @@
-﻿namespace _Project.Application.GUI
+using Cysharp.Threading.Tasks;
+
+namespace _Project.Application.GUI
 {
     public interface IOverlaySystem
     {
-        void CreateOverlay(OverlayType type);
+        UniTask CreateOverlay(OverlayType type);
     }
 }

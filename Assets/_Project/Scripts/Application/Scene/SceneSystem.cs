@@ -32,7 +32,7 @@ namespace _Project.Application.Scene
             {
                 _sceneChangePub?.Publish(new SceneChangeEvent(scene));
                 var sceneKey = scene.ToString();
-                loadingWindow = _windowSystem.Show<LoadingWindow>();
+                loadingWindow = await _windowSystem.Show<LoadingWindow>();
 
                 await loadingWindow.StartShowAnimation(fadeColor);
                 await _assetLoader.LoadSceneAsync(sceneKey, sceneMode);

@@ -12,6 +12,8 @@ namespace _Project.Gameplay.TruePuzzle.Player
     [DeclareBoxGroup("Speed Settings")]
     public class DepthScalerComponent : MonoBehaviour, IComponent
     {
+        private const float PositionThreshold = 0.001f;
+
         [SerializeField] private SerializedDictionary<CurrentLevelType, DepthSettings> _levelDepthSettings;
         
         
@@ -19,18 +21,29 @@ namespace _Project.Gameplay.TruePuzzle.Player
 
         private IAstarAI _astarAI;
         private CurrentLevelType _currentLevelType;
+        private DepthSettings _depthSettings;
+        private float _lastY = float.NaN;
         
         void IComponent.Init()
         {
             TryGetComponent(out _astarAI);
+            SetLevel(_currentLevelType);
+            ApplyDepth();
         }
 
         private void Update()
         {
-            var depthSettings = _levelDepthSettings[_currentLevelType];
-            var t = Mathf.InverseLerp(depthSettings.NearY, depthSettings.FayY, transform.position.y);
-            var scale = Mathf.Lerp(depthSettings.NearScale, depthSettings.FarScale, t);
-            var speed = Mathf.Lerp(depthSettings.NearSpeed, depthSettings.FarSpeed, t);
+            if (_depthSettings == null) return;
+            if (Mathf.Abs(transform.position.y - _lastY) <= PositionThreshold) return;
+            ApplyDepth();
+        }
+
+        private void ApplyDepth()
+        {
+            _lastY = transform.position.y;
+            var t = Mathf.InverseLerp(_depthSettings.NearY, _depthSettings.FayY, _lastY);
+            var scale = Mathf.Lerp(_depthSettings.NearScale, _depthSettings.FarScale, t);
+            var speed = Mathf.Lerp(_depthSettings.NearSpeed, _depthSettings.FarSpeed, t);
         
             _view.localScale = Vector3.one * scale;
             _astarAI.maxSpeed = speed;
@@ -39,6 +52,12 @@ namespace _Project.Gameplay.TruePuzzle.Player
         public void SetLevel(CurrentLevelType levelType)
         {
             _currentLevelType = levelType;
+            if (!_levelDepthSettings.TryGetValue(_currentLevelType, out _depthSettings))
+            {
+                Debug.LogWarning($"[DepthScalerComponent] Missing depth settings for level {_currentLevelType}.");
+            }
+
+            _lastY = float.NaN;
         }
     }
 

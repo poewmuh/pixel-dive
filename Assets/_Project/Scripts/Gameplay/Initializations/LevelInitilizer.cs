@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.Application.GUI;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 
@@ -16,14 +17,14 @@ namespace _Project.Gameplay.Initializations
 
         protected virtual void Start()
         {
-            CreateOverlays();
+            CreateOverlays().Forget();
         }
 
-        private void CreateOverlays()
+        private async UniTaskVoid CreateOverlays()
         {
             foreach (var overlayType in _usingOverlays)
             {
-                _overlaySystem.CreateOverlay(overlayType);
+                await _overlaySystem.CreateOverlay(overlayType);
             }
         }
     }

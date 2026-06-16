@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using _Project.Application.Asset;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -7,28 +9,49 @@ using Object = UnityEngine.Object;
 
 namespace _Project.Application.GUI
 {
-    public class OverlaySystem : IInitializable, IOverlaySystem, IDisposable
+    public class OverlaySystem : IOverlaySystem, IDisposable
     {
         [Inject] private IGUISystem _guiSystem;
         [Inject] private IAssetLoader _assetLoader;
         [Inject] private IObjectResolver _objectResolver;
-        
+
+        private readonly List<string> _loadedOverlayKeys = new();
         private Transform _overlaysParent;
-        
-        void IInitializable.Initialize()
+
+        async UniTask IOverlaySystem.CreateOverlay(OverlayType type)
         {
-            _overlaysParent = _guiSystem.Canvas.CreateContainer("OverlaysGUI");
+            await EnsureInitialized();
+
+            var key = type.ToString();
+            var prefab = await _assetLoader.LoadAsync<GameObject>(key);
+            _objectResolver.Instantiate(prefab, _overlaysParent);
+            _loadedOverlayKeys.Add(key);
         }
-        
-        void IOverlaySystem.CreateOverlay(OverlayType type)
+
+        private async UniTask EnsureInitialized()
         {
-            var instance = _assetLoader.LoadImmediate<GameObject>(type.ToString());
-            _objectResolver.Instantiate(instance, _overlaysParent);
+            if (_overlaysParent != null)
+            {
+                return;
+            }
+
+            await _guiSystem.EnsureInitialized();
+            _overlaysParent ??= _guiSystem.Canvas.CreateContainer("OverlaysGUI");
         }
 
         void IDisposable.Dispose()
         {
-            Object.Destroy(_overlaysParent.gameObject);
+            foreach (var key in _loadedOverlayKeys)
+            {
+                _assetLoader.Release(key);
+            }
+
+            _loadedOverlayKeys.Clear();
+
+            if (_overlaysParent != null)
+            {
+                Object.Destroy(_overlaysParent.gameObject);
+            }
         }
     }
 

@@ -53,7 +53,6 @@ namespace _Project.Windows.MainMenu
         private void OnBackClicked()
         {
             WindowSystem.Close(this);
-            WindowSystem.SetHidden<MainMenuWindow>(false);
         }
     }
 }

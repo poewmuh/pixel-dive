@@ -1,4 +1,5 @@
 using _Project.Application.GUI.WindowsSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 
@@ -10,7 +11,7 @@ namespace _Project.Windows.MainMenu
 
         private void Start()
         {
-            _windowSystem.Show<MainMenuWindow>();
+            _windowSystem.Show<MainMenuWindow>().Forget();
         }
     }
 }

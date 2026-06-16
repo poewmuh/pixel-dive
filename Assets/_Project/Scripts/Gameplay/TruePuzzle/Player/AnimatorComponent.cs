@@ -8,6 +8,7 @@ namespace _Project.Gameplay.TruePuzzle.Player
     {
         [SerializeField] private Animator _animator;
         private IAstarAI _astarAI;
+        private bool _isMoving;
         
         void IComponent.Init()
         {
@@ -16,7 +17,11 @@ namespace _Project.Gameplay.TruePuzzle.Player
 
         private void Update()
         {
-            _animator.SetBool(AnimatorHelper.IsMoving, _astarAI.velocity.sqrMagnitude > .01f);
+            var isMoving = _astarAI.velocity.sqrMagnitude > .01f;
+            if (_isMoving == isMoving) return;
+
+            _isMoving = isMoving;
+            _animator.SetBool(AnimatorHelper.IsMoving, _isMoving);
         }
     }
 }
