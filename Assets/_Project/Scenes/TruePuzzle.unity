@@ -1928,6 +1928,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &175428660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2086,6 +2087,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &184664108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2289,6 +2291,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &197003407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2808,6 +2811,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
   _needPortalShowBlackboards:
   - {fileID: 175428660}
 --- !u!1 &219228518
@@ -2877,6 +2881,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &219228521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3359,7 +3364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &276727627
 Transform:
   m_ObjectHideFlags: 0
@@ -3992,6 +3997,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &362326776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4113,6 +4119,7 @@ GameObject:
   - component: {fileID: 364305179}
   - component: {fileID: 364305178}
   - component: {fileID: 364305181}
+  - component: {fileID: 364305182}
   m_Layer: 8
   m_Name: Pot
   m_TagString: Untagged
@@ -4151,7 +4158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.TruePuzzle.Pot.PotComponent
   _fsmOwner: {fileID: 364305180}
   _blackboard: {fileID: 364305179}
-  _potMassSprite: {fileID: 0}
+  _potVfx: {fileID: 364305182}
+  _dropCollider: {fileID: 364305181}
 --- !u!114 &364305179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4239,6 +4247,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 3.13
+--- !u!114 &364305182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364305176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1b7a2e9f0d4b7ca6d5e81f4c2a9b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Gameplay.TruePuzzle.Pot.PotVfxComponent
+  _light: {fileID: 875077676}
+  _maxLightScale: 1
+  _growDuration: 0.35
+  _pulseScale: 0.15
+  _pulseDuration: 0.2
+  _pulseCount: 2
+  _fadeOutDuration: 0.5
+  _potSprites:
+  - {fileID: 1421995630}
+  - {fileID: 1563859799}
+  - {fileID: 1133041803}
+  - {fileID: 570679934}
+  _flashColor: {r: 1, g: 0.96, b: 0.65, a: 1}
+  _flashDuration: 0.15
+  _flashCount: 3
 --- !u!1 &381413487
 GameObject:
   m_ObjectHideFlags: 0
@@ -4445,7 +4480,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 100
+  field of view: 90
   orthographic: 0
   orthographic size: 7
   m_Depth: 0
@@ -4472,7 +4507,7 @@ Transform:
   m_GameObject: {fileID: 390364464}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.07, y: -7.55, z: -10}
+  m_LocalPosition: {x: 1.50748, y: -3.31043, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4493,7 +4528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &390612293
 Transform:
   m_ObjectHideFlags: 0
@@ -5135,6 +5170,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &487711612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5748,6 +5784,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &539267259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6649,7 +6686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &640168397
 Transform:
   m_ObjectHideFlags: 0
@@ -6941,6 +6978,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &673360374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7306,6 +7344,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &718228843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7877,6 +7916,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &806003670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8082,6 +8122,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &848412959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8205,7 +8246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &856542925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8368,6 +8409,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &857246605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8955,6 +8997,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!1 &889396508
 GameObject:
   m_ObjectHideFlags: 0
@@ -14455,6 +14498,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &982047926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15306,6 +15350,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1062038921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15884,6 +15929,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
   _onPuzzleSolve:
     m_PersistentCalls:
       m_Calls:
@@ -16283,6 +16329,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1167788462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16505,6 +16552,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1178649650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17272,7 +17320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1242281035
 Transform:
   m_ObjectHideFlags: 0
@@ -17476,6 +17524,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6469747948578123753, guid: 5f1fa7f940b25cc4ea407f09f580563b, type: 3}
+      propertyPath: _pickupVfxPrefab
+      value: 
+      objectReference: {fileID: 4132705188031260003, guid: 2e7c4f915ba84d3a91d6c08b73f4a5e2, type: 3}
     - target: {fileID: 6469747948578123753, guid: 5f1fa7f940b25cc4ea407f09f580563b, type: 3}
       propertyPath: _onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -19315,6 +19367,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1419266753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19748,6 +19801,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1433904809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19949,7 +20003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1443331034
 Transform:
   m_ObjectHideFlags: 0
@@ -20329,7 +20383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1462048837
 Transform:
   m_ObjectHideFlags: 0
@@ -20625,6 +20679,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1504509434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20884,6 +20939,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1539474675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21244,6 +21300,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1558499264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21541,6 +21598,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1570006985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22186,6 +22244,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1623357480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22436,6 +22495,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1653894955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22608,6 +22668,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1662482459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23377,6 +23438,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6469747948578123753, guid: 5f1fa7f940b25cc4ea407f09f580563b, type: 3}
+      propertyPath: _pickupVfxPrefab
+      value: 
+      objectReference: {fileID: 4132705188031260003, guid: 2e7c4f915ba84d3a91d6c08b73f4a5e2, type: 3}
     - target: {fileID: 6469747948578123753, guid: 5f1fa7f940b25cc4ea407f09f580563b, type: 3}
       propertyPath: _onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -25100,6 +25165,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &1956809682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25463,6 +25529,7 @@ MonoBehaviour:
   _onCompleteInteraction:
     m_PersistentCalls:
       m_Calls: []
+  _pickupVfxPrefab: {fileID: 0}
 --- !u!114 &2004874832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25806,6 +25873,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6469747948578123753, guid: 5f1fa7f940b25cc4ea407f09f580563b, type: 3}
+      propertyPath: _pickupVfxPrefab
+      value: 
+      objectReference: {fileID: 4132705188031260003, guid: 2e7c4f915ba84d3a91d6c08b73f4a5e2, type: 3}
     - target: {fileID: 6469747948578123753, guid: 5f1fa7f940b25cc4ea407f09f580563b, type: 3}
       propertyPath: _onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -27108,6 +27179,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6469747948578123753, guid: 5f1fa7f940b25cc4ea407f09f580563b, type: 3}
+      propertyPath: _pickupVfxPrefab
+      value: 
+      objectReference: {fileID: 4132705188031260003, guid: 2e7c4f915ba84d3a91d6c08b73f4a5e2, type: 3}
     - target: {fileID: 6469747948578123753, guid: 5f1fa7f940b25cc4ea407f09f580563b, type: 3}
       propertyPath: _onInteract.m_PersistentCalls.m_Calls.Array.size
       value: 0

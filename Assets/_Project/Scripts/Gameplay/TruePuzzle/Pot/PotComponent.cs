@@ -17,39 +17,47 @@ namespace _Project.Gameplay.TruePuzzle.Pot
         private const int RequiredItemsCount = 2;
         private const string CombinedVariableName = "Combined";
         private const string PotGeneratedEventName = "PotGenerated";
-        
+        private const InteractableType FinalCombinedType = InteractableType.TubeKey;
+
         [SerializeField] private FSMOwner _fsmOwner;
         [SerializeField] private Blackboard _blackboard;
-        [SerializeField] private SpriteRenderer _potMassSprite;
+        [SerializeField] private PotVfxComponent _potVfx;
+        [SerializeField] private Collider2D _dropCollider;
 
         [Inject] private IPublisher<OnInteractionCompleteEvent> _onInteractionCompletePub;
 
         private GarbageFlags _accumulated = GarbageFlags.None;
         private int _potCapacity;
-        
+        private bool _isSpent;
+
         bool IDropTarget.TryDrop(IDraggable draggable)
         {
+            if (_isSpent) return false;
+
             if (draggable == null || !_toFlags.TryGetValue(draggable.InteractableType, out var droppedFlags))
             {
                 return false;
             }
 
-            if (_potMassSprite != null)
-            {
-                _potMassSprite.color = Color.darkGreen;
-            }
-            
             _accumulated |= droppedFlags;
             _potCapacity++;
             Destroy(draggable.Transform.gameObject);
 
-            if (_potCapacity < RequiredItemsCount) return true;
-            
-            if (_potMassSprite != null)
+            if (_potCapacity < RequiredItemsCount)
             {
-                _potMassSprite.color = Color.skyBlue;
+                if (_potVfx)
+                {
+                    _potVfx.PlayIngredientAdded(_potCapacity, RequiredItemsCount);
+                }
+
+                return true;
             }
-            
+
+            if (_potVfx)
+            {
+                _potVfx.PlayCombined();
+            }
+
             var combined = _toType[_accumulated];
             _blackboard?.SetVariableValue(CombinedVariableName, combined);
             _fsmOwner?.SendEvent(PotGeneratedEventName);
@@ -57,9 +65,26 @@ namespace _Project.Gameplay.TruePuzzle.Pot
             
             _accumulated = GarbageFlags.None;
             _potCapacity = 0;
+
+            if (combined == FinalCombinedType)
+            {
+                Disable();
+            }
+
             return true;
         }
-        
+
+        /// <summary>Shuts the pot down for good: the final key must not be cooked back into anything.</summary>
+        private void Disable()
+        {
+            _isSpent = true;
+
+            if (_dropCollider)
+            {
+                _dropCollider.enabled = false;
+            }
+        }
+
         [Flags]
         private enum GarbageFlags { None=0, Fish=1, Paket=2, Bottle=4, Cigarette=8 }
         

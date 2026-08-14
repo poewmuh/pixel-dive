@@ -1,3 +1,4 @@
+using _Project.Gameplay.TruePuzzle.Vfx;
 using MessagePipe;
 using NodeCanvas.Framework;
 using NodeCanvas.StateMachines;
@@ -14,6 +15,7 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
         
         [SerializeField] private UnityEvent _onInteract;
         [SerializeField] private UnityEvent _onCompleteInteraction;
+        [SerializeField] private PickupVfx _pickupVfxPrefab;
 
         [Inject] private ISubscriber<ReachedInteractableEvent> _reachedInteractableSubscriber;
         [Inject] private IPublisher<OnInteractionCompleteEvent> _interactionCompletePublisher;
@@ -53,8 +55,17 @@ namespace _Project.Gameplay.TruePuzzle.Interactable
 
         public void SendCompleteInteraction()
         {
+            PlayPickupVfx();
             _onCompleteInteraction?.Invoke();
             _interactionCompletePublisher.Publish(new OnInteractionCompleteEvent(_interactableType, transform));
+        }
+
+        private void PlayPickupVfx()
+        {
+            if (!_pickupVfxPrefab) return;
+
+            var vfx = Instantiate(_pickupVfxPrefab, transform.position, Quaternion.identity);
+            vfx.Play(GetComponentInChildren<SpriteRenderer>());
         }
     }
 
