@@ -34,10 +34,10 @@ RectTransform:
   - {fileID: 3040586420557813299}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 157}
+  m_SizeDelta: {x: 1920, y: 314}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6172659642023058535
 Canvas:
@@ -79,8 +79,8 @@ MonoBehaviour:
   _hideShowButtonImage: {fileID: 4696971537281066490}
   _showSprite: {fileID: 21300000, guid: 15615f033ec61514d82e4a21ff53be0c, type: 3}
   _hideSprite: {fileID: 21300000, guid: 331b4a96cbbb6e341b12eac7227e0114, type: 3}
-  _hiddenValue: -700
-  _showingValue: -550
+  _hideOffset: 150
+  _duration: 0.5
 --- !u!114 &5099981473503274395
 MonoBehaviour:
   m_ObjectHideFlags: 0
